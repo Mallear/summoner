@@ -1,0 +1,30 @@
+mysql:
+  restart: always
+  image: mysql:latest
+  environment:
+    - MYSQL_USER=mattermost
+    - MYSQL_PASSWORD=password
+    - MYSQL_DATABASE=mattermost
+    - MYSQL_ROOT_PASSWORD=password
+  volumes:
+    - /srv/docker/gitlab/mysql:/var/lib/mysql
+  container_name: mattermost-mysql
+
+mattermost:
+  restart: always
+  image: jasl8r/mattermost:3.1.0
+  links:
+    - mysql:mysql
+  ports:
+    - "8078:80"
+  environment:
+    - MATTERMOST_SECRET_KEY=d9wVPX3x7h9wWkVVcwwTJ4knhfLkr3Mzf4CNL3WgdTTpJvjqWK3VzTp7pHHhjcqs
+    - MATTERMOST_LINK_SALT=NPgCWVg4sK4c9dgTjrPtCWjkzMvHFtqzNLvXTJdKt4gWtzLXzzvjJ4Kjqs3fFkRv
+    - MATTERMOST_RESET_SALT=7frPRCsdxs3zKLhKKWFkt3ksprzWFTkw3vnhcHXMp3d4zjkKjkPVMXsFxWRzf3qn
+    - MATTERMOST_INVITE_SALT=7frPRCsdxs3zKLhKKWFkt3ksprzWFTkw3vnhcHXMp3d4zjkKjkPVMXsFxWRzf3qn
+    - VIRTUAL_HOST=mattermost.localhost
+    - LETSENCRYPT_HOST=mattermost.localhost
+    - LETSENCRYPT_EMAIL=mattermost.localhost
+  volumes:
+    - /srv/docker/mattermost:/opt/mattermost/data
+  container_name: mattermost

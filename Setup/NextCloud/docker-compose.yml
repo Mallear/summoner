@@ -1,0 +1,43 @@
+version: '2'
+
+nextcloud:
+  image: wonderfall/nextcloud
+  container_name: nextcloud
+  links:
+    - nextcloud-db:nextcloud-db
+  environment:
+    - UID=1000
+    - GID=1000
+    - UPLOAD_MAX_SIZE=10G
+    - APC_SHM_SIZE=128M
+    - OPCACHE_MEM_SIZE=128
+    - REDIS_MAX_MEMORY=64mb
+    - CRON_PERIOD=15m
+    - TZ=Europe/Berlin
+    - ADMIN_USER=admin
+    - ADMIN_PASSWORD=admin
+    - DB_TYPE=mysql
+    - DB_NAME=nextcloud
+    - DB_USER=nextcloud
+    - DB_PASSWORD=jaimelesfrites
+    - DB_HOST=nextcloud-db
+    - VIRTUAL_HOST=nextcloud.puzle.xyz
+    - LETSENCRYPT_HOST=nextcloud.puzle.xyz
+    - LETSENCRYPT_EMAIL=contact@puzle.xyz
+  volumes:
+    - /mnt/nextcloud/data:/data
+    - /mnt/nextcloud/config:/config
+    - /mnt/nextcloud/apps:/apps2
+  ports:
+    - "8888:8888"
+
+nextcloud-db:
+  image: mariadb:10
+  container_name: nextcloud-db
+  volumes:
+    - /mnt/nextcloud/db:/var/lib/mysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=jaimelesfrites
+    - MYSQL_DATABASE=nextcloud
+    - MYSQL_USER=nextcloud
+    - MYSQL_PASSWORD=jaimelesfrites

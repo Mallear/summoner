@@ -1,0 +1,13 @@
+version: '2'
+
+ghost:
+  image: ghost
+  container_name: BlogCedric
+  ports:
+    - "81:2368"
+  environment:
+    - VIRTUAL_HOST=cedric-cf.puzle.xyz
+    - LETSENCRYPT_HOST=cedric-cf.puzle.xyz
+    - LETSENCRYPT_EMAIL=cedric-cf@puzle.xyz
+  volumes:
+    - /cedric-cf/blog:/var/lib/ghost/content

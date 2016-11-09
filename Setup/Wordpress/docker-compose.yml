@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+
+  wordpress:
+    image: wordpress
+    container_name: wordpress
+    ports:
+      - 8002:80
+    environment:
+      - VIRTUAL_HOST=inauvergne.puzle.xyz
+      - LETSENCRYPT_HOST=inauvergne.puzle.xyz
+      - LETSENCRYPT_EMAIL=contact@inauvergne.xyz
+    environment:
+      - WORDPRESS_DB_PASSWORD=example
+
+  mysql:
+    image: mariadb
+    container_name: wordpress-mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=example
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=example
