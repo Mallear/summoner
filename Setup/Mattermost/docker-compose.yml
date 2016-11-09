@@ -22,9 +22,9 @@ mattermost:
     - MATTERMOST_LINK_SALT=NPgCWVg4sK4c9dgTjrPtCWjkzMvHFtqzNLvXTJdKt4gWtzLXzzvjJ4Kjqs3fFkRv
     - MATTERMOST_RESET_SALT=7frPRCsdxs3zKLhKKWFkt3ksprzWFTkw3vnhcHXMp3d4zjkKjkPVMXsFxWRzf3qn
     - MATTERMOST_INVITE_SALT=7frPRCsdxs3zKLhKKWFkt3ksprzWFTkw3vnhcHXMp3d4zjkKjkPVMXsFxWRzf3qn
-    - VIRTUAL_HOST=mattermost.localhost
-    - LETSENCRYPT_HOST=mattermost.localhost
-    - LETSENCRYPT_EMAIL=mattermost.localhost
+    - VIRTUAL_HOST=mattermost.puzle.xyz
+    - LETSENCRYPT_HOST=mattermost.puzle.xyz
+    - LETSENCRYPT_EMAIL=mattermost.puzle.xyz
   volumes:
     - /srv/docker/mattermost:/opt/mattermost/data
   container_name: mattermost
