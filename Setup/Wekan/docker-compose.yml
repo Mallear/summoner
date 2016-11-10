@@ -9,7 +9,7 @@ wekan:
   image: mquandalle/wekan:0.11.0-rc2
   container_name: wekan
   links:
-    - mongo
+    - mongo:db
   environment:
     - VIRTUAL_HOST=wekan.puzle.xyz
     - LETSENCRYPT_HOST=wekan.puzle.xyz
