@@ -1,20 +1,20 @@
 mongo:
   restart: always
   image: mongo:3.4-rc
-  container_name: wekan-mongodb
+  container_name: mongodb-${WEKAN_SUBDOMAIN}-${DOMAIN}
   volumes:
     - /srv/wekan/mongodb:/data/db
 
 wekan:
-  image: mquandalle/wekan:0.11.0-rc2
-  container_name: wekan
+  image: mquandalle/wekan:${WEKAN_VERSION}
+  container_name: ${WEKAN_SUBDOMAIN}-${DOMAIN}
   links:
     - mongo:db
   environment:
-    - VIRTUAL_HOST=wekan.puzle.xyz
-    - LETSENCRYPT_HOST=wekan.puzle.xyz
-    - LETSENCRYPT_EMAIL=wekan@puzle.xyz
+    - VIRTUAL_HOST=${WEKAN_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_HOST=${WEKAN_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_EMAIL=${WEKAN_SUBDOMAIN}}@${DOMAIN}
     - "MONGO_URL=mongodb://db"
     - "ROOT_URL=http://puzle.xyz"
   ports:
-    - 8001:80
+    - ${WEKAN_WEB_PORT}:80

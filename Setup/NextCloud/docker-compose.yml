@@ -1,8 +1,17 @@
-version: '2'
+nextcloud-db:
+  image: mariadb:10
+  container_name: mariadb-${NEXTCLOUD_SUBDOMAIN}-${DOMAIN}
+  volumes:
+    - /mnt/nextcloud/db:/var/lib/mysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=jaimelesfrites
+    - MYSQL_DATABASE=nextcloud
+    - MYSQL_USER=nextcloud
+    - MYSQL_PASSWORD=jaimelesfrites
 
 nextcloud:
-  image: wonderfall/nextcloud
-  container_name: nextcloud
+  image: wonderfall/nextcloud:${NEXTCLOUD_VERSION}
+  container_name: ${NEXTCLOUD_SUBDOMAIN}-${DOMAIN}
   links:
     - nextcloud-db:nextcloud-db
   environment:
@@ -21,23 +30,12 @@ nextcloud:
     - DB_USER=nextcloud
     - DB_PASSWORD=jaimelesfrites
     - DB_HOST=nextcloud-db
-    - VIRTUAL_HOST=nextcloud.puzle.xyz
-    - LETSENCRYPT_HOST=nextcloud.puzle.xyz
-    - LETSENCRYPT_EMAIL=contact@puzle.xyz
+    - VIRTUAL_HOST=${NEXTCLOUD_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_HOST=${NEXTCLOUD_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_EMAIL=contact@${NEXTCLOUD_SUBDOMAIN}.${DOMAIN}
   volumes:
     - /mnt/nextcloud/data:/data
     - /mnt/nextcloud/config:/config
     - /mnt/nextcloud/apps:/apps2
   ports:
-    - "8888:8888"
-
-nextcloud-db:
-  image: mariadb:10
-  container_name: nextcloud-db
-  volumes:
-    - /mnt/nextcloud/db:/var/lib/mysql
-  environment:
-    - MYSQL_ROOT_PASSWORD=jaimelesfrites
-    - MYSQL_DATABASE=nextcloud
-    - MYSQL_USER=nextcloud
-    - MYSQL_PASSWORD=jaimelesfrites
+    - "${NEXTCLOUD_WEB_PORT}:8888"

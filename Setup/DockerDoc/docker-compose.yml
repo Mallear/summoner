@@ -1,11 +1,9 @@
-version: '2'
-
 dockerdoc:
-  image: docs/archive:v1.11
-  container_name: DockerDoc
+  image: docs/archive:${DOCKER_DOC_VERSION}
+  container_name: DockerDoc-${DOCKER_DOC_SUBDOMAIN}-${DOMAIN}
   environment:
-    - VIRTUAL_HOST=doc.puzle.xyz
-    - LETSENCRYPT_HOST=doc.puzle.xyz
-    - LETSENCRYPT_EMAIL=contact@puzle.xyz
+    - VIRTUAL_HOST=${DOCKER_DOC_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_HOST=${DOCKER_DOC_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_EMAIL=${DOCKER_DOC_SUBDOMAIN}@${DOMAIN}
   ports:
-    - 4000:4000
+    - ${DOCKER_DOC_WEB_PORT}:4000

@@ -1,24 +1,21 @@
-version: '2'
-
 services:
-
   wordpress:
-    image: wordpress
-    container_name: wordpress
+    image: wordpress:${WP_VERSION}
+    container_name: wordpress-${WP_SUBDOMAIN}-${DOMAIN}
     ports:
-      - 8002:80
+      - ${WP_WEB_PORT}:80
     environment:
-      - VIRTUAL_HOST=inauvergne.puzle.xyz
-      - LETSENCRYPT_HOST=inauvergne.puzle.xyz
-      - LETSENCRYPT_EMAIL=contact@inauvergne.xyz
+      - VIRTUAL_HOST=${WP_SUBDOMAIN}.${DOMAIN}
+      - LETSENCRYPT_HOST=${WP_SUBDOMAIN}.${DOMAIN}
+      - LETSENCRYPT_EMAIL=contact@${DOMAIN}
     environment:
       - WORDPRESS_DB_PASSWORD=example
 
   mysql:
     image: mariadb
-    container_name: wordpress-mariadb
+    container_name: mariadb-${WP_SUBDOMAIN}-${DOMAIN}
     environment:
       - MYSQL_ROOT_PASSWORD=example
-      - MYSQL_DATABASE=wordpress
-      - MYSQL_USER=wordpress
+      - MYSQL_DATABASE=wordpress_${WP_SUBDOMAIN}_${DOMAIN}
+      - MYSQL_USER=wordpress_${WP_SUBDOMAIN}_${DOMAIN}
       - MYSQL_PASSWORD=example
