@@ -1,6 +1,8 @@
 Nginx & letsencrypt container documentation
 ---
 [Tutorial d'installation](https://tech.acseo.co/sites-https-docker-nginx-lets-encrypt/)
+
+
 [Fichier compose](../blob/master/Setup/Nginx/docker-compose.yml)
 
 # Nginx
@@ -12,7 +14,7 @@ Pour cela, nous pouvions les gérer via l'interface de notre hébergeur et de no
 
 Nous avons donc décidés d'utiliser un premier conteneur Docker afin de l'utiliser comme _reverse proxy_ pour rediriger les appels sur les sous-domaines vers l'outil correspondant. Pour cela, Nginx semblait être le plus utilisé et le plus documenté.
 
-## Déploiement de l'image Docker
+## Déploiement de l'image Docker
 L'image docker Nginx utilisée n'est pas l'officielle mais une image open sourcée buildée à partir de l'originale. Elle expose les ports 80 à but d'accès web (c'est par là que passeront chacune des requêtes HTTP effectuées sur le serveur (domaine et sous domaines)); et le port 443 pour le protocole HTTPS(§ suivant).
 
 ```yml
@@ -46,7 +48,9 @@ On peut ainsi accéder au container bar via l'adresse `sousdomaine.domaine`. C'e
 
 
 ## SSL, certificats et LetsEncrypt
-#### SSL & certificats
+
+#### SSL & certificats
+
 Malgré la configuration du reverse proxy Nginx, nous nous sommes confrontés à un problème de taille : nos sous-domaines n'étaient pas atteignables via https. Or certains nécessite absoluement ce protocole (Gitlab, Mattermost ...). Pour cela, il fallait trouver une solution d'authentification des sites web. L'auto certification n'était pas assez sûre et la plus part des certifications étaient payantes, ainsi la solution étaient d'utiliser un deuxième container Docker : LetsEncrypt.
 
 #### LetsEncrypt

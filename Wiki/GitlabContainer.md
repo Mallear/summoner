@@ -1,6 +1,7 @@
 # Gitlab container & Gitlab CI documentation
 
 _Documentation du fichier [`docker-compose.yml`](Gitlab docker compose) de la solution Gitlab & GitlabCI_
+---
 
 La création d'un système d'intégration continue grâce à la solution _Gitlab_ nécessite l'existance de deux instances différentes :
 * Une instance d'administration _Gitlab_ permettant la gestion des utilisateurs, la création et gestion de dépôts, donnant l'accès aux paramètres du serveur _Git_ à proprement parler.
@@ -54,7 +55,11 @@ redis:
 ```
 
 **Image utilisée :** [sameersbn/redis](https://hub.docker.com/r/sameersbn/redis/)
-**Environnement :** Ce conteneur ne nécessite pas de variable d'environnement puisqu'on utilise le processus de `link` de docker pour le lié à notre instance Gitlab.
+
+**Environnement :**
+
+Ce conteneur ne nécessite pas de variable d'environnement puisqu'on utilise le processus de `link` de docker pour le lié à notre instance Gitlab.
+
 **Volumes :** Cette image nécessite un volume de stockage lié à son dossier `/var/lib/redis`.
 
 ### Serveur Gitlab
@@ -92,7 +97,8 @@ L'instance Gitlab peut être fortement paramètrable de part sa longue liste de 
 * `GITLAB_PORT` : numéro du port lié au port 80 de l'instance
 * `GITLAB_SSH_PORT` : numéro du port lié au port 22 de l'instance
 
-**Volumes :** Cette image nécessite un volume de stockage lié à son dossier `/home/git/data`.
+**Volumes :**  
+Cette image nécessite un volume de stockage lié à son dossier `/home/git/data`.
 
 ### Serveur de CI
 ```yml
@@ -109,7 +115,7 @@ gitlab-runner:
 **Volumes :**
 Afin de pouvoir utiliser des images Docker en tant que runner, cette image doit posséder un lien entre la socket Docker de l'hébergeur et celle du conteneur. Ensuite, la config de l'instance est chargée dans le répertoire `/etc/gitlab-runner`.
 
-# Création d'un projet Gitlab
+# Création d'un projet Gitlab
 La création d'un projet se fait simplement via l'interface web de l'instance _Gitlab_. Si le projet contient des tests unitaires, fonctionnels ou tout simplement s'il on veut tester la compilation du projet, il est possible d'ajouter un _runner_ à ce projet. Pour cela, il faut se rendre dans l'onglet de paramètre et sélectionner "_CI/CD pipelines_". A partir de cette interface, il est possible d'associer un runner au projet.
 
 ## Création d'un runner

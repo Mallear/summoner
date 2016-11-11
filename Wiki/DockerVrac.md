@@ -1,4 +1,4 @@
-Docker documentation
+Docker Command list
 ---
 
 # Back to basics
@@ -156,7 +156,7 @@ _TODO : list best practices_
  Tool for defining and running multi-container applications.
  - 3 Steps process :
   - Define the app's environment with a Dockerfile
-  - Defin the services that make up your app in a docker-compose.yml file. This allow them to run together in an isolated environment
+  - Define the services that make up your app in a docker-compose.yml file. This allow them to run together in an isolated environment
   - Run `docker-compose up`
 
 **Project name**  
