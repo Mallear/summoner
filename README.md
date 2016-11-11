@@ -24,6 +24,6 @@ La documentation de chacun de ces outils est détaillée dans le dossier `Wiki`.
 
 La configuration du projet est effectué via le fichier .env à la racine du `Setup`. Pour ce faire, copier le fichier `.env_default` et remplissez le comme souhaité.
 
-## FAQ
+## FAQ
 
 Un document FAQ est accessible [ici](../blob/master/Wiki/FAQ.md). Il ressence tout les problèmes rencontrés relatifs à Docker ou certains containers et les solutions trouvées.
