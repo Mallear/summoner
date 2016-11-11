@@ -97,6 +97,8 @@ L'instance Gitlab peut être fortement paramètrable de part sa longue liste de 
 * `GITLAB_PORT` : numéro du port lié au port 80 de l'instance
 * `GITLAB_SSH_PORT` : numéro du port lié au port 22 de l'instance
 
+*Les variables d'environnement `VIRTUAL_HOST`, `LETSENCRYPT_HOST` et `LETSENCRYPT_EMAIL` sont nécessaires à la définition d'un sous domaine. Pour plus d'information, voir la [documentation sur Nginx](../blob/master/Wiki/NginxContainer.md)*
+
 **Volumes :**  
 Cette image nécessite un volume de stockage lié à son dossier `/home/git/data`.
 
