@@ -29,7 +29,7 @@ nginx-proxy:
         - /var/run/docker.sock:/tmp/docker.sock:ro
 ```
 Cette image nécessite différents volumes :
-* `ǹginx/html` le répertoire web de l'application
+* `ǹginx/html` : le répertoire web de l'application
 * `/var/run/docker.sock` : la socket docker permettant l'utilisation d'un docker dans le container.
 * `/docker/vhost.d` : la liste des hosts dans le network docker
 * `/nginx/certs` : la liste des certificats de validation de l'hôte
@@ -44,9 +44,8 @@ On peut ainsi accéder au container bar via l'adresse `sousdomaine.domaine`. C'e
 
 
 ## SSL, certificats et LetsEncrypt
-Malgré la configuration du reverse proxy Nginx, nous nous sommes confrontés à un problème de taille : nos sous-domaines n'étaient pas atteignables via https. Or certains nécessite absoluement ce protocole (Gitlab, Mattermost ...).
-
-Pour cela, il fallait trouver une solution d'authentification des sites web. L'auto certification n'était pas assez sûre, ainsi un deuxième container Docker nous a été proposé : LetsEncrypt.
+#### SSL & certificats
+Malgré la configuration du reverse proxy Nginx, nous nous sommes confrontés à un problème de taille : nos sous-domaines n'étaient pas atteignables via https. Or certains nécessite absoluement ce protocole (Gitlab, Mattermost ...). Pour cela, il fallait trouver une solution d'authentification des sites web. L'auto certification n'était pas assez sûre et la plus part des certifications étaient payantes, ainsi la solution étaient d'utiliser un deuxième container Docker : LetsEncrypt.
 
 #### LetsEncrypt
 _Let’s Encrypt is a free, automated, and open Certificate Authority_ - [LetsEncrypt official website](https://letsencrypt.org/)
@@ -73,7 +72,7 @@ Le container LetsEncrypt est intimement lié à Nginx : il nécessite l'accès a
 docker run --name foo -e LETSENCRYPT_HOST=sousdomaine.domaine -e LETSENCRYPT_EMAIL=domaine@contact.fr bar
 ```
 
-## Fonctionnement global
+## Fonctionnement final
 Ainsi, à chaque déclaration d'un nouveau container docker nécessitant une interface web, un sous-domaine est défini via les trois variables d'environnement définies dans le docker-compose de l'outil. La configuration Nginx est alors rechargée à l'intérieur du docker (`nginx -s reload`), un certificat est généré par LetsEncrypt et le container est accessible via son interface web.
 
 **Exemple :**
