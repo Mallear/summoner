@@ -1,105 +1,115 @@
-Gitlab container & Gitlab CI documentation
----
+# Gitlab container & Gitlab CI documentation
 
-
-# Gitlab & Gitlab runners
+_Documentation du fichier [`docker-compose.yml`](Gitlab docker compose) de la solution Gitlab & GitlabCI_
 
 La création d'un système d'intégration continue grâce à la solution _Gitlab_ nécessite l'existance de deux instances différentes :
 * Une instance d'administration _Gitlab_ permettant la gestion des utilisateurs, la création et gestion de dépôts, donnant l'accès aux paramètres du serveur _Git_ à proprement parler.
 * Une instance d'administration des ressources d'intégration continue : _Gitlab CI_. Cette instance ne possède pas d'interface utilisateur. Elle sert principalement à définir et créer des _runners_, des conteneurs pré-configurés prêt à exécuter les tâches d'intégration.
 Les runners peuvent être de plusieurs types mais nous utiliserons un conteneur _Docker_.
 
-#### Définition des conteneurs
-**Gitlab**  
-Le service Gitlab nécessite un serveur _Rédis_ et un base de donnée _MySQL_ ou _PostgreSQL_. J'ai choisis une base _PostgreSQL_ qui permet la gestion d'un plus gros pool de données.  
-Ainsi, la définition du Docker associé à la solution Gitlab contient une instance Redis, une instance PostgreSQL et une instance Gitlab liée aux deux précédentes.
-**Docker-compose non fonctionnel Pour cause de variable d'environnement non détectée**
-```shell
-docker run --name gitlab-postgresql -d \
-    --env 'DB_NAME=gitlabhq_production' \
-    --env 'DB_USER=gitlab' --env 'DB_PASS=password' \
-    --env 'DB_EXTENSION=pg_trgm' \
-    --volume /srv/docker/gitlab/postgresql:/var/lib/postgresql \
-    sameersbn/postgresql:9.5-1
-&&
-docker run --name gitlab-redis -d \
-        --volume /srv/docker/gitlab/redis:/var/lib/redis \
-        sameersbn/redis:latest
-&&
-docker run --name gitlab -d \
-            --link gitlab-postgresql:postgresql --link gitlab-redis:redisio \
-            --publish 10022:22 --publish 10080:80 --publish 10443:443 \
-            --env 'GITLAB_HOST=puzle.xyz' \
-            --env 'GITLAB_PORT=10080' --env 'GITLAB_SSH_PORT=10022' \
-            --env 'GITLAB_SECRETS_DB_KEY_BASE=d9wVPX3x7h9wWkVVcwwTJ4knhfLkr3Mzf4CNL3WgdTTpJvjqWK3VzTp7pHHhjcqs' \
-            --env 'GITLAB_SECRETS_SECRET_KEY_BASE=NPgCWVg4sK4c9dgTjrPtCWjkzMvHFtqzNLvXTJdKt4gWtzLXzzvjJ4Kjqs3fFkRv' \
-            --env 'GITLAB_SECRETS_OTP_KEY_BASE=7frPRCsdxs3zKLhKKWFkt3ksprzWFTkw3vnhcHXMp3d4zjkKjkPVMXsFxWRzf3qn' \
-            --volume /srv/docker/gitlab/gitlab:/home/git/data \
-            --env VIRTUAL_HOST=gitlab.localhost \
-            --env LETSENCRYPT_HOST=gitlab.localhost \
-            --env LETSENCRYPT_EMAIL=contact@localhost \
-            sameersbn/gitlab:latest
-```
 
-**Docker-compose**
+## Définition des conteneurs
+**Gitlab**  
+Le service Gitlab nécessite un serveur _Redis_ et un base de donnée _MySQL_ ou _PostgreSQL_.
+
+**Gitlab CI**  
+Plus précisément `gitlab-runner` est l'image officielle utilisée dans notre architecture. Elle n'a pas besoin d'être interfacée à un quelconque container et n'expose aucun port. Sa définition ne nécessite qu'un volume.  
+La nouveauté est la nécessité de lié la socket de Docker au système afin d'utiliser des dockers comme runner. **à approfondir**
+
+### Base de données
 ```yml
 postgresql:
   restart: always
-  image: sameersbn/postgresql:9.5-1
-  container_name: gitlab-postgresql
+  image: sameersbn/postgresql:${GITLAB_POSTGRE_VERSION}
+  container_name: postgresql-${GITLAB_SUBDOMAIN}-${DOMAIN}
   environment:
     - DB_NAME=gitlabhq_production
     - DB_USER=gitlab
     - DB_PASS=password
     - DB_EXTENSION=pg_trgm
-  volume:
+  volumes:
     - /srv/docker/gitlab/postgresql:/var/lib/postgresql
+```
 
+**Image utilisée :** [sameersbn/postgresql](https://hub.docker.com/r/sameersbn/postgresql/)
+
+**Environnement :**  
+
+La base PostgreSQL nécessite la définition des paramètres suivants :
+* `DB_NAME` : nom de la base de donnée utilisée
+* `DB_USER` : l'utilisateur utilisé par Gitlab
+* `DB_PASS` : le mot de passe de l'utilisateur
+* `DB_EXTENSION` : liste des extensions PostgreSQL à activer sur la base ([Postgre packages](https://www.postgresql.org/docs/9.4/static/contrib.html))
+
+**Volumes :** Cette image nécessite un volume de stockage lié à son dossier `/var/lib/postgresql`.
+
+### Serveur Redis
+```yml
 redis:
   restart: always
-  image: sameersbn/redis:latest
-  container_name: gitlab-redis
-  volume:
-    - /srv/docker/gitlab/redis:/var/lib/redis
-
-gitlab:
-  image: sameersbn/gitlab:8.12.4
-  container_name: gitlab
-  links:
-    - gitlab-postgresql:postgresql
-    - gitlab-redis:redisio
-  ports:
-    - 10022:22
-    - 10080:80
-    - 10443:443
-  environment:
-    - GITLAB_PORT=10080
-    - GITLAB_SSH_PORT=10022
-    - GITLAB_SECRETS_DB_KEY_BASE=JPrx3ngpbwmLknsLqRKdMWvwwb9MLvLfkCcCfWpxVbwfJMJcvkHRKgTt9HpfmdgX
-    - GITLAB_SECRETS_SECRET_KEY_BASE=cdJXTPqnwcmtrqcHqhz7xqHmCkFngMgRgq7wVTspVXMgq7qKvVrn47HnmxTtX4zK
-    - GITLAB_SECRETS_OTP_KEY_BASE=9hbKtnNLmxCKdxMwTLKdnd4wWzRCTjzMs7dnhpNHLCxdrhwHhj3fPVtJ7KfdFLtf
-  environment:
-    - VIRTUAL_HOST=gitlab.localhost
-    - LETSENCRYPT_HOST=gitlab.localhost
-    - LETSENCRYPT_EMAIL=contact@localhost
+  image: sameersbn/redis:${GITLAB_REDIS_VERSION}
+  container_name: redis-${GITLAB_SUBDOMAIN}-${DOMAIN}
   volumes:
-    -/srv/docker/gitlab/gitlab:/home/git/data
+    - /srv/docker/gitlab/redis:/var/lib/redis
 ```
 
+**Image utilisée :** [sameersbn/redis](https://hub.docker.com/r/sameersbn/redis/)
+**Environnement :** Ce conteneur ne nécessite pas de variable d'environnement puisqu'on utilise le processus de `link` de docker pour le lié à notre instance Gitlab.
+**Volumes :** Cette image nécessite un volume de stockage lié à son dossier `/var/lib/redis`.
 
-**Gitlab CI**  
-Plus précisément `gitlab-runner` est l'image officielle utilisée dans notre architecture. Elle n'a pas besoin d'être interfacée à un quelconque container et n'expose aucun port. Sa définition ne nécessite qu'un volume.  
-La nouveauté est la nécessité de lié la socket de Docker au système afin d'utiliser des dockers comme runner. **à approfondir - Docker compose to build**
-
-```shell
-docker run -d --name gitlab-runner --restart always \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v /srv/gitlab-runner/config:/etc/gitlab-runner \
-  gitlab/gitlab-runner:latest
+### Serveur Gitlab
+```yml
+gitlab:
+  image: sameersbn/gitlab:${GITLAB_VERSION}
+  container_name: ${GITLAB_SUBDOMAIN}-${DOMAIN}
+  links:
+    - postgresql:postgresql
+    - redis:redisio
+  ports:
+    - "${GITLAB_SSH_PORT}:22"
+    - "${GITLAB_WEB_PORT}:80"
+    - "${GITLAB_HTTPS_PORT}:443"
+  environment:
+    - GITLAB_PORT=${GITLAB_WEB_PORT}
+    - GITLAB_SSH_PORT=${GITLAB_SSH_PORT}
+    - GITLAB_SECRETS_SECRET_KEY_BASE=cdJXTPqnwcmtrqcHqhz7xqHmCkFngMgRgq7wVTspVXMgq7qKvVrn47HnmxTtX4zK
+    - GITLAB_SECRETS_DB_KEY_BASE=JPrx3ngpbwmLknsLqRKdMWvwwb9MLvLfkCcCfWpxVbwfJMJcvkHRKgTt9HpfmdgX
+    - GITLAB_SECRETS_OTP_KEY_BASE=9hbKtnNLmxCKdxMwTLKdnd4wWzRCTjzMs7dnhpNHLCxdrhwHhj3fPVtJ7KfdFLtf
+    - VIRTUAL_HOST=${GITLAB_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_HOST=${GITLAB_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_EMAIL=contact@${DOMAIN}
+  volumes:
+    - /srv/docker/gitlab/gitlab:/home/git/data
 ```
 
+**Image utilisée :** [sameersbn/gitlab](https://hub.docker.com/r/sameersbn/gitlab/)
 
-## Création d'un projet Gitlab
+**Environnement :**  
+L'instance Gitlab peut être fortement paramètrable de part sa longue liste de variable d'environnement ([voir la liste](https://github.com/sameersbn/docker-gitlab#available-configuration-parameters)). Voici ceux utilisés ici :
+* `GITLAB_SECRETS_SECRET_KEY_BASE` : chaîne de 64 caractères minimum utilisée pour le cryptage des sessions  
+* `GITLAB_SECRETS_OTP_KEY_BASE` : chaîne de 64 charactères minimum utilisée pour les opérations liées au processus d'OPT (_One time password_).
+* `GITLAB_SECRETS_DB_KEY_BASE` : chaîne de 32 charactères minimum utilisée pour le cryptage lié à la base de données.
+* `GITLAB_PORT` : numéro du port lié au port 80 de l'instance
+* `GITLAB_SSH_PORT` : numéro du port lié au port 22 de l'instance
+
+**Volumes :** Cette image nécessite un volume de stockage lié à son dossier `/home/git/data`.
+
+### Serveur de CI
+```yml
+gitlab-runner:
+  image: gitlab/gitlab-runner:${GITLAB_CI_VERSION}
+  container_name: CI-${GITLAB_SUBDOMAIN}-${DOMAIN}
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /srv/gitlab-runner/config:/etc/gitlab-runner
+```
+
+**Image utilisée :** [gitlab/gitlab-runner](https://hub.docker.com/r/gitlab/gitlab-runner/)
+
+**Volumes :**
+Afin de pouvoir utiliser des images Docker en tant que runner, cette image doit posséder un lien entre la socket Docker de l'hébergeur et celle du conteneur. Ensuite, la config de l'instance est chargée dans le répertoire `/etc/gitlab-runner`.
+
+# Création d'un projet Gitlab
 La création d'un projet se fait simplement via l'interface web de l'instance _Gitlab_. Si le projet contient des tests unitaires, fonctionnels ou tout simplement s'il on veut tester la compilation du projet, il est possible d'ajouter un _runner_ à ce projet. Pour cela, il faut se rendre dans l'onglet de paramètre et sélectionner "_CI/CD pipelines_". A partir de cette interface, il est possible d'associer un runner au projet.
 
 ## Création d'un runner
@@ -153,3 +163,6 @@ job1:
     - docker
 ```
 **TODO: Réussir à faire un .yml fonctionnel et l'expliciter**
+
+
+[gitlab docker compose]:../blob/master/Setup/Gitlab&CI/docker-compose.yml

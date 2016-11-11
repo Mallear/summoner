@@ -1,6 +1,7 @@
 Nginx & letsencrypt container documentation
 ---
 [Tutorial d'installation](https://tech.acseo.co/sites-https-docker-nginx-lets-encrypt/)
+[Fichier compose](../blob/master/Setup/Nginx/docker-compose.yml)
 
 # Nginx
 _NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its high performance, stability, rich feature set, simple configuration, and low resource consumption._ - [Official Nginx wiki site](https://www.nginx.com/resources/wiki/)
@@ -12,7 +13,7 @@ Pour cela, nous pouvions les gérer via l'interface de notre hébergeur et de no
 Nous avons donc décidés d'utiliser un premier conteneur Docker afin de l'utiliser comme _reverse proxy_ pour rediriger les appels sur les sous-domaines vers l'outil correspondant. Pour cela, Nginx semblait être le plus utilisé et le plus documenté.
 
 ## Déploiement de l'image Docker
-L'image docker Nginx utilisée n'est pas l'officielle mais une image open sourcée buildée à partir de l'originale. Elle expose les ports 80 à but d'accès web (c'est par là que passeront chacune des requêtes HTTP effectuées sur le serveur (domaine et sous domaines)); et le port 443 pour le protocole HTTPS et par extension le SSL (§ suivant).
+L'image docker Nginx utilisée n'est pas l'officielle mais une image open sourcée buildée à partir de l'originale. Elle expose les ports 80 à but d'accès web (c'est par là que passeront chacune des requêtes HTTP effectuées sur le serveur (domaine et sous domaines)); et le port 443 pour le protocole HTTPS(§ suivant).
 
 ```yml
 nginx-proxy:
@@ -21,18 +22,19 @@ nginx-proxy:
     ports:
         - "80:80"
         - "443:443"
-    container_name: nginx-proxy
+    container_name: nginx-proxy-${DOMAIN}
     volumes:
         - /srv/docker/nginx/certs:/etc/nginx/certs:ro
         - /docker/vhost.d:/etc/nginx/vhost.d
         - /usr/share/nginx/html
         - /var/run/docker.sock:/tmp/docker.sock:ro
 ```
+
 Cette image nécessite différents volumes :
-* `ǹginx/html` : le répertoire web de l'application
-* `/var/run/docker.sock` : la socket docker permettant l'utilisation d'un docker dans le container.
+* `/usr/share/nginx/html` : le répertoire web de l'application
+* `/var/run/docker.sock` : la socket docker permettant la détection de la création d'un conteneur et la génération du sous domaine.
 * `/docker/vhost.d` : la liste des hosts dans le network docker
-* `/nginx/certs` : la liste des certificats de validation de l'hôte
+* `/srv/docker/nginx/certs` : la liste des certificats de validation de l'hôte
 
 Une fois ce container en place, il suffit alors de rajouter la variable d'environnement `VIRTUAL_HOST` dans chacun des containers qui devront être accessibles par via un sous-domaine.
 
@@ -62,6 +64,10 @@ nginx-proxy-companion:
     volumes_from:
         - nginx-proxy
 ```
+
+Cette image nécessite différents volumes :
+* `/srv/docker/nginx/certs` : le même que pour Nginx, afin de permettre la communication des certificats
+* `/var/run/docker.sock` : pour utiliser la socket Docker et automatiser la génération des certificats
 
 Le container LetsEncrypt est intimement lié à Nginx : il nécessite l'accès aux mêmes volumes (pour y déposer les certificats, entre autre). Pour générer un certificat pour un certain sous-domaine, il suffit de définir les variables d'environnement suivantes :
 * `LETSENCRYPT_HOST`
