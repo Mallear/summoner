@@ -45,4 +45,4 @@ gitlab-runner:
   container_name: CI-${GITLAB_SUBDOMAIN}-${DOMAIN}
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
-    - ${VOLUME_STORAGE_ROOT}/gitlab-runner/config:/etc/gitlab-runner
+    - ${VOLUME_STORAGE_ROOT}/docker/gitlab-runner/config:/etc/gitlab-runner
