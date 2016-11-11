@@ -7,7 +7,7 @@ mysql:
     - MYSQL_DATABASE=mattermost
     - MYSQL_ROOT_PASSWORD=password
   volumes:
-    - /srv/docker/gitlab/mysql:/var/lib/mysql
+    - ${VOLUME_STORAGE_ROOT}/docker/gitlab/mysql:/var/lib/mysql
   container_name: mysql-${MATTERMOST_SUBDOMAIN}-${DOMAIN}
 
 mattermost:
@@ -26,5 +26,5 @@ mattermost:
     - LETSENCRYPT_HOST=${MATTERMOST_SUBDOMAIN}.${DOMAIN}
     - LETSENCRYPT_EMAIL=${MATTERMOST_SUBDOMAIN}.${DOMAIN}
   volumes:
-    - /srv/docker/mattermost:/opt/mattermost/data
+    - ${VOLUME_STORAGE_ROOT}/docker/mattermost:/opt/mattermost/data
   container_name: ${MATTERMOST_SUBDOMAIN}-${DOMAIN}

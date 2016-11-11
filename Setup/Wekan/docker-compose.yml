@@ -3,7 +3,7 @@ mongo:
   image: mongo:3.4-rc
   container_name: mongodb-${WEKAN_SUBDOMAIN}-${DOMAIN}
   volumes:
-    - /srv/wekan/mongodb:/data/db
+    - ${VOLUME_STORAGE_ROOT}/docker/wekan/mongodb:/data/db
 
 wekan:
   image: mquandalle/wekan:${WEKAN_VERSION}
