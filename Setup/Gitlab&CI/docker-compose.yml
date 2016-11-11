@@ -8,14 +8,14 @@ postgresql:
     - DB_PASS=password
     - DB_EXTENSION=pg_trgm
   volumes:
-    - /srv/docker/gitlab/postgresql:/var/lib/postgresql
+    - ${VOLUME_STORAGE_ROOT}/docker/gitlab/postgresql:/var/lib/postgresql
 
 redis:
   restart: always
   image: sameersbn/redis:${GITLAB_REDIS_VERSION}
   container_name: redis-${GITLAB_SUBDOMAIN}-${DOMAIN}
   volumes:
-    - /srv/docker/gitlab/redis:/var/lib/redis
+    - ${VOLUME_STORAGE_ROOT}/docker/gitlab/redis:/var/lib/redis
 
 gitlab:
   image: sameersbn/gitlab:${GITLAB_VERSION}
@@ -33,15 +33,16 @@ gitlab:
     - GITLAB_SECRETS_SECRET_KEY_BASE=cdJXTPqnwcmtrqcHqhz7xqHmCkFngMgRgq7wVTspVXMgq7qKvVrn47HnmxTtX4zK
     - GITLAB_SECRETS_DB_KEY_BASE=JPrx3ngpbwmLknsLqRKdMWvwwb9MLvLfkCcCfWpxVbwfJMJcvkHRKgTt9HpfmdgX
     - GITLAB_SECRETS_OTP_KEY_BASE=9hbKtnNLmxCKdxMwTLKdnd4wWzRCTjzMs7dnhpNHLCxdrhwHhj3fPVtJ7KfdFLtf
+    - GITLAB_HOST=${GITLAB_SUBDOMAIN}.${DOMAIN}
     - VIRTUAL_HOST=${GITLAB_SUBDOMAIN}.${DOMAIN}
     - LETSENCRYPT_HOST=${GITLAB_SUBDOMAIN}.${DOMAIN}
     - LETSENCRYPT_EMAIL=contact@${DOMAIN}
   volumes:
-    - /srv/docker/gitlab/gitlab:/home/git/data
+    - ${VOLUME_STORAGE_ROOT}/docker/gitlab/gitlab:/home/git/data
 
 gitlab-runner:
   image: gitlab/gitlab-runner:${GITLAB_CI_VERSION}
   container_name: CI-${GITLAB_SUBDOMAIN}-${DOMAIN}
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
-    - /srv/gitlab-runner/config:/etc/gitlab-runner
+    - ${VOLUME_STORAGE_ROOT}/gitlab-runner/config:/etc/gitlab-runner
