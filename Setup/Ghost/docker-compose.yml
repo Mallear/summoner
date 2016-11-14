@@ -8,4 +8,4 @@ ghost:
     - LETSENCRYPT_HOST=${GHOST_SUBDOMAIN}.${DOMAIN}
     - LETSENCRYPT_EMAIL=${GHOST_SUBDOMAIN}@${DOMAIN}
   volumes:
-    - ${VOLUME_STORAGE_ROOT}/docker/cedric-cf/blog:/var/lib/ghost/content
+    - ${VOLUME_STORAGE_ROOT}/docker/cedric-cf/blog:/var/lib/ghost/
