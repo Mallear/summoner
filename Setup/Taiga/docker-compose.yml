@@ -1,0 +1,30 @@
+taiga-postgres:
+  restart: always
+  image: postgres:${TAIGA_POSTGRES_VERSION}
+  container_name: postgresql-${TAIGA_SUBDOMAIN}-${DOMAIN}
+  environment:
+    - POSTGRES_USER=taiga
+    - POSTGRES_PASSWORD=password
+    - POSTGRES_DB=taiga
+  volumes:
+    - ${VOLUME_STORAGE_ROOT}/docker/taiga/postgresql:/var/lib/postgresql
+
+taiga:
+  restart: always
+  image: benhutchins/taiga:${TAIGA_VERSION}
+  container_name: taiga-${TAIGA_SUBDOMAIN}-${DOMAIN}
+  links:
+    - taiga-postgres:postgres
+  ports:
+    - ${TAIGA_WEB_PORT}:80
+  environment:
+    - TAIGA_HOSTNAME=${TAIGA_SUBDOMAIN}.${DOMAIN}
+    - TAIGA_DB_HOST=postgres
+    - TAIGA_DB_NAME=taiga
+    - TAIGA_DB_USER=taiga
+    - TAIGA_DB_PASSWORD=password
+    - VIRTUAL_HOST=${TAIGA_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_HOST=${TAIGA_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_EMAIL=contact@${TAIGA_SUBDOMAIN}.${DOMAIN}
+  volumes:
+    - ${VOLUME_STORAGE_ROOT}/docker/taiga/media:/usr/src/taiga-back/media
