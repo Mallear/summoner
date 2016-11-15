@@ -1,6 +1,6 @@
 postgresql:
   restart: always
-  image: sameersbn/postgresql:${GITLAB_POSTGRE_VERSION}
+  image: sameersbn/postgresql:${GITLAB_POSTGRESQL_VERSION}
   container_name: postgresql-${GITLAB_SUBDOMAIN}-${DOMAIN}
   environment:
     - DB_NAME=gitlabhq_production
