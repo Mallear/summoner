@@ -6,8 +6,8 @@ nginx-proxy:
         - "443:443"
     container_name: nginx-proxy-${DOMAIN}
     volumes:
-        - ${VOLUME_STORAGE}/docker/nginx/certs:/etc/nginx/certs:ro
-        - ${VOLUME_STORAGE}/docker/vhost.d:/etc/nginx/vhost.d
+        - ${VOLUME_STORAGE_ROOT}/docker/nginx/certs:/etc/nginx/certs:ro
+        - ${VOLUME_STORAGE_ROOT}/docker/vhost.d:/etc/nginx/vhost.d
         - /usr/share/nginx/html
         - /var/run/docker.sock:/tmp/docker.sock:ro
 
@@ -15,7 +15,7 @@ nginx-proxy-companion:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: letsencrypt-${DOMAIN}
     volumes:
-        - ${VOLUME_STORAGE}/docker/nginx/certs:/etc/nginx/certs:rw
+        - ${VOLUME_STORAGE_ROOT}/docker/nginx/certs:/etc/nginx/certs:rw
         - /var/run/docker.sock:/var/run/docker.sock
     volumes_from:
         - nginx-proxy
