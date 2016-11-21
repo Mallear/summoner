@@ -2,7 +2,7 @@
 
 _Documentation du fichier [`docker-compose.yml`](../blob/master/Setup/Ghost/docker-compose.yml) d'un conteneur pour site Ghost_
 
-Ghost est une plate-forme open source de blogging simple de prise en main. Elle comprend un éditeur markdown pour faciliter la rédaction d'article, l'intégration d'images aux artciles ...
+Ghost est une plate-forme open source de blogging simple de prise en main. Elle comprend un éditeur markdown pour faciliter la rédaction d'article, l'intégration d'images aux articles ...
 
 ## Définition du conteneur
 
