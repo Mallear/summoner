@@ -1,1 +1,0 @@
-docker run -itd --link taiga-postgres:postgres -p 80:80 -e TAIGA_HOSTNAME=taiga.localhost -v /mnt/taiga/media:/usr/src/taiga-back/media benhutchins/taiga

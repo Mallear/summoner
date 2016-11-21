@@ -1,22 +1,24 @@
-  mysql:
-    image: mariadb
-    container_name: mariadb-${WP_SUBDOMAIN}-${DOMAIN}
-    environment:
-      - MYSQL_ROOT_PASSWORD=example
-      - MYSQL_DATABASE=wordpress_${WP_SUBDOMAIN}_${DOMAIN}
-      - MYSQL_USER=wordpress_${WP_SUBDOMAIN}_${DOMAIN}
-      - MYSQL_PASSWORD=example
-    volumes:
-      - ${VOLUME_STORAGE_ROOT}/docker/${WP_SUBDOMAIN}/mysql:/var/lib/mysql
+mysql:
+  restart: always
+  image: mysql:latest
+  environment:
+    - MYSQL_USER=root
+    - MYSQL_PASSWORD=wordpress
+    - MYSQL_DATABASE=wordpress
+    - MYSQL_ROOT_PASSWORD=wordpress
+  volumes:
+    - ${VOLUME_STORAGE_ROOT}/docker/${WP_SUBDOMAIN}/mysql:/var/lib/mysql
+  container_name: mysql-${WP_SUBDOMAIN}-${DOMAIN}
 
-  wordpress:
-    image: wordpress:${WP_VERSION}
-    container_name: wordpress-${WP_SUBDOMAIN}-${DOMAIN}
-    ports:
-      - ${WP_WEB_PORT}:80
-    environment:
-      - VIRTUAL_HOST=${WP_SUBDOMAIN}.${DOMAIN}
-      - LETSENCRYPT_HOST=${WP_SUBDOMAIN}.${DOMAIN}
-      - LETSENCRYPT_EMAIL=contact@${DOMAIN}
-    environment:
-      - WORDPRESS_DB_PASSWORD=example
+wordpress:
+  image: wordpress:${WP_VERSION}
+  container_name: wordpress-${WP_SUBDOMAIN}-${DOMAIN}
+  links:
+    - mysql:mysql
+  ports:
+    - ${WP_WEB_PORT}:80
+  environment:
+    - VIRTUAL_HOST=${WP_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_HOST=${WP_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_EMAIL=contact@${DOMAIN}
+    - WORDPRESS_DB_USER=wordpress
