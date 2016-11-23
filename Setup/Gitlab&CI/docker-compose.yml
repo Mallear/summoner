@@ -37,8 +37,11 @@ gitlab:
     - VIRTUAL_HOST=${GITLAB_SUBDOMAIN}.${DOMAIN}
     - LETSENCRYPT_HOST=${GITLAB_SUBDOMAIN}.${DOMAIN}
     - LETSENCRYPT_EMAIL=contact@${DOMAIN}
+    - GITLAB_REGISTRY_ENABLED=true
+    
   volumes:
-    - ${VOLUME_STORAGE_ROOT}/docker/gitlab/gitlab:/home/git/data
+    - ${VOLUME_STORAGE_ROOT}/docker/gitlab:/home/git/data
+    - ${VOLUME_STORAGE_ROOT}${CERT_DIR}:/certs
 
 gitlab-runner:
   image: gitlab/gitlab-runner:${GITLAB_CI_VERSION}
