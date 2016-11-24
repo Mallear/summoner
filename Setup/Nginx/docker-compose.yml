@@ -8,7 +8,7 @@ nginx-proxy:
     volumes:
         - ${VOLUME_STORAGE_ROOT}/docker/nginx/certs:/etc/nginx/certs:ro
         - ${VOLUME_STORAGE_ROOT}/docker/vhost.d:/etc/nginx/vhost.d
-        - /usr/share/nginx/html
+        - ${VOLUME_STORAGE_ROOT}/docker/nginx/html:/usr/share/nginx/html
         - /var/run/docker.sock:/tmp/docker.sock:ro
 
 nginx-proxy-companion:
