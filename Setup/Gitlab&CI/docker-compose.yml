@@ -3,7 +3,7 @@ redis:
   image: sameersbn/redis:${GITLAB_REDIS_VERSION}
   container_name: redis-${GITLAB_SUBDOMAIN}-${DOMAIN}
   volumes:
-  - ${VOLUME_STORAGE_ROOT}/docker/gitlab/redis:/var/lib/redis:Z
+  - ${VOLUME_STORAGE_ROOT}/docker/gitlab/redis:/var/lib/redis
 
 postgresql:
   restart: always
@@ -45,8 +45,8 @@ gitlab:
   image: sameersbn/gitlab:${GITLAB_VERSION}
   container_name: ${GITLAB_SUBDOMAIN}-${DOMAIN}
   links:
-    - postgresql:postgresql
-    - redis:redisio
+    - postgresql
+    - redis
   ports:
     - "${GITLAB_SSH_PORT}:22"
     - "5000:5000"
@@ -115,7 +115,7 @@ gitlab:
   - IMAP_STARTTLS=false
 
   - VIRTUAL_HOST=${GITLAB_SUBDOMAIN}.${DOMAIN}
-  - VIRTUAL_PORT=443
+  - VIRTUAL_PORT=${GITLAB_HTTPS_PORT}
   - VIRTUAL_PROTO=https
   - LETSENCRYPT_HOST=${GITLAB_SUBDOMAIN}.${DOMAIN}
   - LETSENCRYPT_EMAIL=puzle.project@gmail.com
@@ -123,7 +123,7 @@ gitlab:
   - GITLAB_REGISTRY_ENABLED=true
   - GITLAB_REGISTRY_HOST=registry.${GITLAB_SUBDOMAIN}.${DOMAIN}
   - GITLAB_REGISTRY_PORT=5500
-  - GITLAB_REGISTRY_API_URL=https://registry.${GITLAB_SUBDOMAIN}.${DOMAIN}:5000
+  - GITLAB_REGISTRY_API_URL=https://registry.${GITLAB_SUBDOMAIN}.${DOMAIN}:5000/
   - GITLAB_REGISTRY_ISSUER=gitlab-issuer
   - GITLAB_REGISTRY_KEY_PATH=/certs/registry.${GITLAB_SUBDOMAIN}.${DOMAIN}.key
   - SSL_REGISTRY_KEY_PATH=/certs/registry.${GITLAB_SUBDOMAIN}.${DOMAIN}.key
