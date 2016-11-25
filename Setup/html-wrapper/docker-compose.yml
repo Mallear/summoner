@@ -1,5 +1,5 @@
 globalmenu:
-  image: puzle/html-wrapper
+  image: mallear/html-wrapper:latest
   ports:
     - "${GLOBALMENU_PORT}:80"
   restart: always
