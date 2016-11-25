@@ -3,7 +3,7 @@ globalmenu:
   ports:
     - "${GLOBALMENU_PORT}:80"
   restart: always
-  container_name: testwrapper
+  container_name: wrapper-${GLOBALMENU_SUBDOMAIN}-${DOMAIN}
   environment:
     - VIRTUAL_HOST=${GLOBALMENU_SUBDOMAIN}.${DOMAIN}
     - LETSENCRYPT_HOST=${GLOBALMENU_SUBDOMAIN}.${DOMAIN}
