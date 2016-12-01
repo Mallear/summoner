@@ -1,9 +1,9 @@
 mongo:
   restart: always
-  image: mongo:3.4-rc
+  image: mongo:${WEKAN_MONGO_VERSION}
   container_name: mongodb-${WEKAN_SUBDOMAIN}-${DOMAIN}
   volumes:
-    - ${VOLUME_STORAGE_ROOT}/docker/wekan/mongodb:/data/db
+    - ${VOLUME_STORAGE_ROOT}/${WEKAN_DB_DATA_DIR}:/data/db
 
 wekan:
   image: mquandalle/wekan:${WEKAN_VERSION}
