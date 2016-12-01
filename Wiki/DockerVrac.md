@@ -115,7 +115,6 @@ docker run -p <machine port>:<container port>
 
 **`Docker logs` - Flags**
 * `-f` : act like `tail -f`
-*
 
 ### Docker network
 * List all of the network
@@ -150,8 +149,6 @@ docker commit -m "comment" -a "Author" <id of the previous image> <target for th
 _TODO : list best practices_
 
 
-
-
 # Docker Compose
  Tool for defining and running multi-container applications.
  - 3 Steps process :
@@ -168,3 +165,8 @@ _Only GitHub & BitBukket complient_
 
 # Docker & Docker Compose Update
 **TODO**
+
+# Device mapper
+**Définition d'une nouvelle pool**
+
+[Docker doc](https://docs.docker.com/engine/userguide/storagedriver/device-mapper-driver/)
