@@ -20,7 +20,7 @@ Chacun des outils suivants sont actuellement disponibles dans le dossier `Setup`
 ## Projet ***
 
 `***` est le nom du script de sauvegarde des bases de données utilisées par les outils mis en place par `Summoner`. Concernant ce projet, deux documentations existes :
-* La [première](https://gitlab.com/puzle-project/Summoner/blob/master/Wiki/Databases) concerne les bases de données à proprement parler et aborde les méthodes de dump et backup des données.
+* La [première](https://gitlab.com/puzle-project/Summoner/blob/master/Wiki/Databases.md) concerne les bases de données à proprement parler et aborde les méthodes de dump et backup des données.
 * La [seconde](https://gitlab.com/puzle-project/Summoner/blob/master/Wiki/SaveProject.md) documente directement les scripts de sauvegarde utilisés.
 
 ## Configuration
