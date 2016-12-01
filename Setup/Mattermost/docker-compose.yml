@@ -1,13 +1,13 @@
 mysql:
   restart: always
-  image: mysql:latest
+  image: mysql:${MATTERMOST_MYSQL_VERSION}
   environment:
     - MYSQL_USER=mattermost
     - MYSQL_PASSWORD=password
     - MYSQL_DATABASE=mattermost
     - MYSQL_ROOT_PASSWORD=password
   volumes:
-    - ${VOLUME_STORAGE_ROOT}/docker/gitlab/mysql:/var/lib/mysql
+    - ${VOLUME_STORAGE_ROOT}/${MATTERMOST_DB_DATA_DIR}:/var/lib/mysql
   container_name: mysql-${MATTERMOST_SUBDOMAIN}-${DOMAIN}
 
 mattermost:
@@ -26,5 +26,5 @@ mattermost:
     - LETSENCRYPT_HOST=${MATTERMOST_SUBDOMAIN}.${DOMAIN}
     - LETSENCRYPT_EMAIL=${MATTERMOST_SUBDOMAIN}.${DOMAIN}
   volumes:
-    - ${VOLUME_STORAGE_ROOT}/docker/mattermost:/opt/mattermost/data
+    - ${VOLUME_STORAGE_ROOT}/${MATTERMOST_DATA_DIR}:/opt/mattermost/data
   container_name: ${MATTERMOST_SUBDOMAIN}-${DOMAIN}

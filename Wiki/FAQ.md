@@ -18,6 +18,7 @@ Pour régler cela, il y a plusieurs solutions :
 * Supprimer les images non utilisées
 * Augmenter la limite disponible de ce filesystem.
 
+
 ## Problème de transfert de fichier sur Nextcloud
 **Problème :**
 

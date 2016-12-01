@@ -1,8 +1,8 @@
 nextcloud-db:
-  image: mariadb:10
+  image: mariadb:${NEXTCLOUD_MARIADB_VERSION}
   container_name: mariadb-${NEXTCLOUD_SUBDOMAIN}-${DOMAIN}
   volumes:
-    - ${VOLUME_STORAGE_ROOT}/docker/nextcloud/db:/var/lib/mysql
+    - ${VOLUME_STORAGE_ROOT}/${NEXTCLOUD_DB_DATA_DIR}:/var/lib/mysql
   environment:
     - MYSQL_ROOT_PASSWORD=jaimelesfrites
     - MYSQL_DATABASE=nextcloud
@@ -34,8 +34,8 @@ nextcloud:
     - LETSENCRYPT_HOST=${NEXTCLOUD_SUBDOMAIN}.${DOMAIN}
     - LETSENCRYPT_EMAIL=contact@${NEXTCLOUD_SUBDOMAIN}.${DOMAIN}
   volumes:
-    - ${VOLUME_STORAGE_ROOT}/docker/nextcloud/data:/data
-    - ${VOLUME_STORAGE_ROOT}/docker/nextcloud/config:/config
-    - ${VOLUME_STORAGE_ROOT}/docker/nextcloud/apps:/apps2
+    - ${VOLUME_STORAGE_ROOT}/${NEXCLOUD_DATA_DIR}:/data
+    - ${VOLUME_STORAGE_ROOT}/${NEXTCLOUD_CONFIG_DIR}:/config
+    - ${VOLUME_STORAGE_ROOT}/${NEXTCLOUD_APPS_DIR}:/apps2
   ports:
     - "${NEXTCLOUD_WEB_PORT}:8888"
