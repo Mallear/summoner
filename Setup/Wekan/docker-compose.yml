@@ -1,6 +1,6 @@
 mongo:
   restart: always
-  image: mongo:${WEKAN_MONGO_VERSION}
+  image: mongo:${WEKAN_MONGODB_VERSION}
   container_name: mongodb-${WEKAN_SUBDOMAIN}-${DOMAIN}
   volumes:
     - ${VOLUME_STORAGE_ROOT}/${WEKAN_DB_DATA_DIR}:/data/db

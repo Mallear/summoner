@@ -1,6 +1,6 @@
 dockerdoc:
   image: docs/archive:${DOCKER_DOC_VERSION}
-  container_name: DockerDoc-${DOCKER_DOC_SUBDOMAIN}-${DOMAIN}
+  container_name: ${DOCKER_DOC_SUBDOMAIN}-${DOMAIN}
   environment:
     - VIRTUAL_HOST=${DOCKER_DOC_SUBDOMAIN}.${DOMAIN}
     - LETSENCRYPT_HOST=${DOCKER_DOC_SUBDOMAIN}.${DOMAIN}
