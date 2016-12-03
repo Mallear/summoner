@@ -1,12 +1,11 @@
-
-# Base de données MySQL
+# Base de données MySQL
 
 _Liens :_
 * [MySQLdump utilitaire](http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html)
 * [MySQL backup methods](http://dev.mysql.com/doc/refman/5.7/en/backup-methods.html)
 * [MySQL backup strategy](http://dev.mysql.com/doc/refman/5.7/en/backup-strategy-example.html)
 
-### L'utilitaire `mysqldump`
+### L'utilitaire `mysqldump`
 
 L'utilitaire `mysqldump` permet d'effectuer des backup logiques d'une base de données. Il permet la création d'un fichier contenant les requêtes permettant de recreer une base de donnée et la repeupler.
 

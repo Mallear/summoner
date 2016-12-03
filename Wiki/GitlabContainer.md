@@ -120,7 +120,7 @@ Afin de pouvoir utiliser des images Docker en tant que runner, cette image doit 
 # Création d'un projet Gitlab
 La création d'un projet se fait simplement via l'interface web de l'instance _Gitlab_. Si le projet contient des tests unitaires, fonctionnels ou tout simplement s'il on veut tester la compilation du projet, il est possible d'ajouter un _runner_ à ce projet. Pour cela, il faut se rendre dans l'onglet de paramètre et sélectionner "_CI/CD pipelines_". A partir de cette interface, il est possible d'associer un runner au projet.
 
-## Utilisation d'un _registry_
+## Utilisation d'un _registry_
 
 **To document**
 

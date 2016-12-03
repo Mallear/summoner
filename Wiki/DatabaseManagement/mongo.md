@@ -1,4 +1,4 @@
-# Base de donnée mongodb
+# Base de donnée mongodb
 _Liens :_
 * [Backup & restore tools for mongoDB](https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/)
 * [MongoDC backups](https://docs.mongodb.com/v3.2/core/backups/)
@@ -19,7 +19,7 @@ Pour lancer un dump dans le container, il suffit de lancer :
 Néanmoins, pour récupérer le résultat, il est bon de compresser le dossier et de le mettre dans le volume partagé :  
 `docker exec some_mogodb bash -c 'mongodump | tar -cvf /path/to/shared/volume/file.tar'`
 
-### Le snapshot du filesystem
+### Le snapshot du filesystem
 _Liens :_
 * [Snapshot de filesytems](https://docs.mongodb.com/v3.2/tutorial/backup-with-filesystem-snapshots/)
 

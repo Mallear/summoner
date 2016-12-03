@@ -1,4 +1,4 @@
-# Postgres
+# Postgres
 
 _Liens :_
 * [Doc postgres backup SQL](http://docs.postgresql.fr/8.1/backup.html)
@@ -32,7 +32,7 @@ Pour la sauvegarde de la base postgresql utilisée avec la plate forme Gitlab :
 Dans le cas d'utilisation de la base dans un conteneur Docker (**/!\ chose à ne jamais faire dans un environnement de prod**), la commande peut être exécutée de l'extérieur du conteneur de cette manière :  
 `docker exec some_postgres bash -c 'pg_dump --username=gitlab -Ft gitlabhq_production' > backup.tar`
 
-### Restauration SQL
+### Restauration SQL
 Plusieurs solutions sont possibles selon le backup effectué :
 
 * [1] : `psql -d dbname -f backupfile.out`
@@ -53,7 +53,7 @@ Cependant, il y a deux restrictions à cette méthode :
 
 Si la base de donnée tourne dans un container Docker ayant un volume lié sur l'host, il suffit de stopper le container, d'archiver les fichiers du volume et de rallumer le container.
 
-### Restauration d'un backup à froid
+### Restauration d'un backup à froid
 
 **Docker**
 
