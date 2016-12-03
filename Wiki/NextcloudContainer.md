@@ -4,9 +4,9 @@ _Documentation du fichier [`docker-compose.yml`](../blob/master/Setup/Nextcloud/
 
 Nextcloud est une solution de stockage en _Cloud_ opensource possédant une interface web, un client bureau et une application mobile gratuite.
 
-## Définiion du conteneur
+## Définition du conteneur
 
-### Base de données
+### Base de données
 
 ```yml
 nextcloud-db:

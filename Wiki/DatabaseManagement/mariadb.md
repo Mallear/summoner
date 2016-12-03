@@ -1,9 +1,9 @@
-# MariaDB
+# MariaDB
 _Liens :_
 * [Doc `mysqldump`](https://mariadb.com/kb/en/mariadb/mysqldump/)
 * [Doc backup et restauration](https://mariadb.com/kb/en/mariadb/backup-and-restore-overview/)
 
-### Effectuer un dump sur une base MariaDB
+### Effectuer un dump sur une base MariaDB
 
 L'utilitaire `mysqldump` utilisé pour faire des sauvegardes d'une base de donnée MariaDB. Il permet de d'exporter les paramètres d'une base dans un fichier de sauvegarde d'extension SQL, XML ou même CSV.
 
