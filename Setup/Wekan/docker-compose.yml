@@ -1,6 +1,6 @@
 mongo:
   restart: always
-  image: mongo:${WEKAN_MONGO_VERSION}
+  image: mongo:${WEKAN_MONGODB_VERSION}
   container_name: mongodb-${WEKAN_SUBDOMAIN}-${DOMAIN}
   volumes:
     - ${VOLUME_STORAGE_ROOT}/${WEKAN_DB_DATA_DIR}:/data/db
@@ -13,7 +13,7 @@ wekan:
   environment:
     - VIRTUAL_HOST=${WEKAN_SUBDOMAIN}.${DOMAIN}
     - LETSENCRYPT_HOST=${WEKAN_SUBDOMAIN}.${DOMAIN}
-    - LETSENCRYPT_EMAIL=${WEKAN_SUBDOMAIN}}@${DOMAIN}
+    - LETSENCRYPT_EMAIL=${WEKAN_SUBDOMAIN}@${DOMAIN}
     - "MONGO_URL=mongodb://db"
     - "ROOT_URL=http://${WEKAN_SUBDOMAIN}.${DOMAIN}"
     - MAIL_URL=puzle.project@gmail.com
