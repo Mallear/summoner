@@ -1,10 +1,15 @@
 #!/bin/bash
 
+
 DATABASE_TYPE=("mongodb" "mysql" "postgresql" "mariadb")
 DATE=`date +%F_%H:%M:%S`
 
+SUMMONER_HOME=~/.summoner
+
+MINIONS_DIR=$SUMMONER_HOME/Minions
+
 # Get all the .env file for all the applications
-ENV_FILES=`find .. -name .env`
+ENV_FILES=`find $MINIONS_DIR -name .env`
 
 for FILE in $ENV_FILES
 do
