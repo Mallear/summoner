@@ -58,7 +58,7 @@ Chacun des outils suivants ainsi que sa documentation peut être trouvé dans le
 * [Nginx & letsencrypt](https://gitlab.com/puzle-project/Summoner-nginx)
 * Docker documentation
 * [Ghost](https://gitlab.com/puzle-project/Summoner-ghost)
-* Wordpress
+* [Wordpress](https://gitlab.com/puzle-project/Summoner-wordpress)
 * [Wekan](https://gitlab.com/puzle-project/Summoner-wekan)
 * [Mattermost](https://gitlab.com/puzle-project/Summoner-mattermost)
 * [Nextcloud](https://gitlab.com/puzle-project/Summoner-nextcloud)
