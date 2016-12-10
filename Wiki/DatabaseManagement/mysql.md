@@ -15,8 +15,11 @@ L'utilitaire `mysqldump` permet d'effectuer des backup logiques d'une base de do
 * `mysql db_name < dump.sql` permet de restaurer la base de donnée.
 
 Dans notre cas, nous utilisons la commande suivante :  
-`mysqldump --user root --password=000 --all-databases --single-transaction > dump.sql` permettant la sauvegarde de toutes les bases (`--all-databases`) et permettant une sauvegarde consistante de bases contenant des tables InnoDB (`--single-transaction`).
+`mysqldump --user root --password=$MYSQL_ROOT_PASSWORD --all-databases --single-transaction > dump.sql` permettant la sauvegarde de toutes les bases (`--all-databases`) et permettant une sauvegarde consistante de bases contenant des tables InnoDB (`--single-transaction`).
 <!--- `--master-data` permet la sauvegarde des logs incrémentaux dans la sortie standard de `mysqldump` et ainsi de sauvegarder les logs. --->
+
+Lors de la restauration du dump, la commande à exécuter est la suivante :
+`mysql --user root --password=$MYSQL_ROOT_PASSWORD < dump.sql`
 
 **Docker**  
 Si la base MySQL est utilisée dans un docker :  

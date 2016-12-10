@@ -5,6 +5,10 @@ Projet Summoner - Puzle tool list
 
 Summoner est un projet de déploiement d'une stack générique d'outils. Il a pour but de permettre le déploiement d'un environnement de travail aussi simplement qu'en pressant un bouton.
 
+## Installation de Summoner
+
+Un script d'installation, `summoner-setup`, est en cours de réalisation.
+
 ## Configuration
 ### Règles de nommage <a id="regle-nommage"></a>
 Afin de facilité l'automatisation de l'entretien du système, des règles de nommage doivent être respectées.
@@ -42,23 +46,23 @@ Prenons pour example un conteneur Gitlab accessible sur le nom de domaine `examp
 
 
 ### Configuration des containers
-La configuration du projet est effectué via un fichier `.env` situé à la racine du `Setup`. Ce fichier contient les variables d'environnement prenant part à la configuration des fichier `docker-compose`.  
+La configuration du projet est effectué via un fichier `.env` situé à la racine du `Setup`. Ce fichier contient les variables prenant part à la configuration des fichier `docker-compose`.  
 Pour définir ce fichier, il suffit de copier le fichier `.env_default` et le remplir en conséquence.
 
-Ces variables d'environnement permettent de simplifier la création d'une configuration d'un serveur à l'autre.
+Ces variables permettent de simplifier la création d'une configuration d'un serveur à l'autre.
 
 
-## Les outils
+## Les minions
 
-Chacun des outils suivants sont actuellement disponibles dans le dossier `Setup` et documenté dans le dossier `Wiki` :
-* [Nginx & letsencrypt](https://gitlab.com/puzle-project/Summoner/blob/master/Wiki/NginxContainer.md)
+Chacun des outils suivants ainsi que sa documentation peut être trouvé dans le répo le concernant :
+* [Nginx & letsencrypt](https://gitlab.com/puzle-project/Summoner-nginx)
 * Docker documentation
-* [Ghost](https://gitlab.com/puzle-project/Summoner/blob/master/Wiki/GhostContainer.md)
+* [Ghost](https://gitlab.com/puzle-project/Summoner-ghost)
 * Wordpress
-* Wekan
-* Mattermost
-* [Nextcloud](https://gitlab.com/puzle-project/Summoner/blob/master/Wiki/NextcloudContainer.md)
-* [Gitlab & Gitlab CI](https://gitlab.com/puzle-project/Summoner/blob/master/Wiki/GitlabContainer.md)
+* [Wekan](https://gitlab.com/puzle-project/Summoner-wekan)
+* [Mattermost](https://gitlab.com/puzle-project/Summoner-mattermost)
+* [Nextcloud](https://gitlab.com/puzle-project/Summoner-nextcloud)
+* [Gitlab & Gitlab CI](https://gitlab.com/puzle-project/Summoner-gitlab)
 
 ## Dump des bases de données
 

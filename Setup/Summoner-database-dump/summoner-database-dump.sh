@@ -1,17 +1,20 @@
 #!/bin/bash
 
+
 DATABASE_TYPE=("mongodb" "mysql" "postgresql" "mariadb")
-DATE=`date +%F_%H:%M:%S`
+DATE=`date +%F_%H_%M_%S`
+
+source ~/.summoner
 
 # Get all the .env file for all the applications
-ENV_FILES=`find .. -name .env`
+ENV_FILES=`find $MINIONS_DIR -name .env`
 
 for FILE in $ENV_FILES
 do
   source $FILE
 done
 
-DROPBOX_DUMP_DIR=/backup
+DROPBOX_DIR=/Summoner/Minions/
 DUMP_DIR=$VOLUME_STORAGE_ROOT/backup
 
 
@@ -49,7 +52,7 @@ else # There is at least one container to save
 
     # Setting all dump directories and files
     APPLICATION_DUMP_DIR=$DUMP_DIR/$APPLICATION/dump
-    DROPBOX_APPLICATION_DUMP_DIR=$DROPBOX_DUMP_DIR/$APPLICATION/dump/
+    DROPBOX_APPLICATION_DUMP_DIR=$DROPBOX_DIR/$APPLICATION/dump/
 
     # Create the dump directory
     mkdir -p $APPLICATION_DUMP_DIR

@@ -170,3 +170,13 @@ _Only GitHub & BitBukket complient_
 **Définition d'une nouvelle pool**
 
 [Docker doc](https://docs.docker.com/engine/userguide/storagedriver/device-mapper-driver/)
+
+# Docker environment variables
+
+Il est possible d'ajouter des variables d'environnement au sein de votre docker compose. Pour cela, trois solutions :
+* l'option `-f FILE` de la commande `docker-compose`. Il faut alors utiliser un chemin relatif.
+* le tableau `env_file:` à l'intérieur du docker compose. Encore une fois, veillez à utiliser des chemins relatifs.
+
+# Docker variables substitution
+
+Il est possible d'écrire des compose en définissant des variables. Par exemple : `ports: ${WEB_PORT}:80`. Pour cela, il faut définir un fichier `.env` dans le même dossier que le docker-compose.yml. Docker s'occupe de remplacer les variables par leur valeur. Vous pouvez vérifier votre configuration via `docker-compose config`.
