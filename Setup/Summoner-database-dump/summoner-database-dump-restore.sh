@@ -15,6 +15,13 @@ function usage
 
 source ~/.summoner
 
+ENV_FILES=`find $MINIONS_DIR -name .env`
+
+# Sourcing all the environment variables
+for FILE in $ENV_FILES
+do
+  source $FILE
+done
 
 
 
@@ -31,8 +38,9 @@ APPLICATION_NAME=`echo $APPLICATION_NAME | tr '[A-Z]' '[a-z]'`
 # Checking if the (DB) container is running
 for TYPE in ${DATABASE_TYPE[@]}
 do
-  CONTAINER=`docker ps -f "name=$TYPE" --format "{{.Names}}" | grep -i $APPLICATION_NAME`
+  CONTAINER+=`docker ps -f "name=$TYPE" --format "{{.Names}}" | grep -i $APPLICATION_NAME`
 done
+echo $CONTAINER
 if [ ${#CONTAINER} -eq 0 ]; then
   echo -e "$APPLICATION_NAME containers are not running. Please start the containers and try again..."
   exit 1
@@ -53,26 +61,43 @@ if [ "${DROPBOX_FILES[@]: -1}" = "FAILED" ] || [ "${DROPBOX_FILES[@]: -1}" = "DO
   exit 1
 fi
 
-LAST_DUMP_FILE=$LOCAL_DUMP_DIR/${DROPBOX_FILES[@]: -1}
+LAST_DUMP_FILE=${DROPBOX_FILES[@]: -1}
 
-if [ -f $LOCAL_DUMP_DIR/$LAST_DUMP_FILE ]; then
-  rm $LOCAL_DUMP_DIR/$LAST_DUMP_FILE
-fi
+APPLICATION_DB_DATA_DIR=$APPLICATION_NAME"_DB_DATA_DIR"
+APPLICATION_DB_DATA_DIR=`echo $APPLICATION_DB_DATA_DIR | tr '[a-z]' '[A-Z]'`
+eval APPLICATION_DB_DATA_DIR=$VOLUME_STORAGE_ROOT/\$$APPLICATION_DB_DATA_DIR
 
-./dropbox_uploader.sh download $DROPBOX_DUMP_DIR/$LAST_DUMP_FILE $LOCAL_DUMP_DIR
+
+./dropbox_uploader.sh download $DROPBOX_DUMP_DIR/$LAST_DUMP_FILE $APPLICATION_DB_DATA_DIR/$LAST_DUMP_FILE
 
 case "$TYPE" in
   "mysql")
-  # Restore the dump
-  
-  ;;
+    # Restore the dump
+    docker exec $CONTAINER bash -c 'mysql --user root --password=$MYSQL_ROOT_PASSWORD < /var/lib/mysql/*dump.sql'
+    # Delete the dump file
+    docker exec $CONTAINER bash -c 'rm /var/lib/mysql/*dump.sql'
+    ;;
   "mongodb")
-
+    # Untar the dump directory
+    docker exec $CONTAINER bash -c 'tar xvf /data/db/*dump.tar'
+    # Restore the dump
+    docker exec $CONTAINER bash -c 'mongorestore dump'
+    # Delete dump file & directory
+    docker exec $CONTAINEr bash -c 'rm /data/db/*dump.tar; rm -r dump'
   ;;
   "postgresql")
-  ;;
+    # Restore the dump
+    docker exec $CONTAINER bash -c 'pg_restore -c -d $DB_NAME --username=$DB_USER /var/lib/postgresql/*dump.tar'
+    # Delete the dump file
+    docker exec $CONTAINER bash -c 'rm /var/lib/postgresql/*dump.tar'
+    ;;
   "mariadb")
-  ;;
+    # Restore the dump
+    docker exec $CONTAINER bash -c 'mysql --user root --password=$MYSQL_ROOT_PASSWORD < /var/lib/mysql/*dump.sql'
+    # Delete the dump file
+    docker exec $CONTAINER bash -c 'rm /var/lib/mysql/*dump.sql'
+    ;;
   *)
     echo "Database type not handled. Please contact us."
   ;;
+esac
