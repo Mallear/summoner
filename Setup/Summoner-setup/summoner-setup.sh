@@ -71,7 +71,7 @@ ghost_conf(){
   echo "GHOST_WEB_PORT=$conf_ghost_port" >> $env_file
 }
 
-mattermost_config(){
+mattermost_conf(){
   ## Configure Ghost environment
   env_file=$MINIONS_DIR/mattermost/.env
   echo "DOMAIN=$conf_domain" > $env_file
