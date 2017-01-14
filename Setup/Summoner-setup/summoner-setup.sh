@@ -71,6 +71,21 @@ ghost_conf(){
   echo "GHOST_WEB_PORT=$conf_ghost_port" >> $env_file
 }
 
+mattermost_config(){
+  ## Configure Ghost environment
+  env_file=$MINIONS_DIR/mattermost/.env
+  echo "DOMAIN=$conf_domain" > $env_file
+  echo "VOLUME_STORAGE_ROOT=$conf_vsroot" >> $env_file
+  echo "MATTERMOST_VERSION=$conf_mattermost_version" >> $env_file
+  echo "MATTERMOST_SUBDOMAIN=$conf_mattermost_subdomain" >> $env_file
+  echo "MATTERMOST_WEB_PORT=$conf_mattermost_port" >> $env_file
+  echo "MATTERMOST_DB_DATA_DIR=$conf_mattermost_db_directory" >> $env_file
+  echo "MATTERMOST_DATA_DIRE=$conf_mattermost_data" >> $env_file
+  echo "MYSQL_PASSWORD=$conf_mattermost_db_password" >> $env_file
+  echo "MYSQL_USER=$conf_mattermost_db_user" >> $env_file
+  echo "MYSQL_DATABASE=$conf_mattermost_db_name" >> $env_file
+  echo "MYSQL_ROOT_PASSWORD=$conf_mattermost_db_root_password" >> $env_file
+}
 
 SUMMONER_CONFIG_FILE=$HOME/.summoner
 
@@ -224,23 +239,22 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
     SUMMONER_TOOLS+=" ghost"
     SUMMONER_TOOLS_URLS+=" git@gitlab.com:puzle-project/Summoner-ghost.git"
   fi
+  if [ ! -z "$conf_apps_mattermost" ]; then
+    SUMMONER_TOOLS+=" mattermost"
+    SUMMONER_TOOLS_URLS+=" git@gitlab.com:puzle-project/Summoner-mattermost.git"
+  fi
 
   IFS=' ' read -r -a SUMMONER_TOOLS <<< "$SUMMONER_TOOLS"
   IFS=' ' read -r -a SUMMONER_TOOLS_URLS <<< "$SUMMONER_TOOLS_URLS"
 
   echo -e "Getting all sources from Git"
-  ## Git clone sources
+  ## Git clone sources & configure their environment
   for (( t=0; t<${#SUMMONER_TOOLS_URLS[@]}; t++ )) do
     echo -e "Getting tool : ${SUMMONER_TOOLS[$t]} - $(($t+1))/${#SUMMONER_TOOLS_URLS[@]}"
     git clone ${SUMMONER_TOOLS_URLS[$t]} $MINIONS_DIR/${SUMMONER_TOOLS[$t]}
-    SUMMONER_TOOLS_DEPLOY+=" ${SUMMONER_TOOLS[$t]}"
+    conf_cmd=${SUMMONER_TOOLS[$t]}_conf
+    eval $conf_cmd
   done
-
-  # Configuration of apps
-  nginx_conf
-  wekan_conf
-  nextcloud_conf
-  ghost_conf
 
     ## Deploying Apps : nginx first
     echo -e "Deploying apps ..."
