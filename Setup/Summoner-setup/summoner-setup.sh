@@ -102,6 +102,9 @@ if [ $KERNEL_MAJOR -lt 3 ]; then
   fi
 fi
 
+## Install ldb_release command
+apt-get update && apt-get install lsb-release
+
 # Check if Docker is already installed
 if [ `dpkg -s docker-engine | grep -i status | wc -l ` -eq 1 ]; then
   echo -e "Docker already installed, jump to compose installation."
@@ -185,7 +188,7 @@ else
   echo -e "Docker compose not yet installed."
   echo -e "Docker compose installation begins ..."
 
-  if [ ! `dpkg -s curl | grep -i status | wc -l` -eq 1]; then
+  if [ ! `dpkg -s curl | grep -i status | wc -l` -eq 1 ]; then
     apt-get install -y curl
   fi
 
