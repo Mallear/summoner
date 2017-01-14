@@ -1,0 +1,37 @@
+domain: virtualdonkey.fr
+vsroot: ~/Summoner/data
+apps:
+  nginx: y
+  wekan: y
+  nextcloud: y
+  ghost: y
+nginx:
+  version: latest
+  letsencrypt_version: latest
+  cert_directory: nginx/certs
+  vhost_dir: vhost.d
+wekan:
+  version: 0.11.0-rc2
+  subdomain: wekan
+  port: 8001
+  db_version: 3.4-rc
+  db_directory: wekan/mongodb
+ghost:
+  version: latest
+  subdomain: ghost
+  port: 8005
+nextcloud:
+  version: 10.0
+  subdomain: nextcloud
+  port: 8002
+  db_version: 10
+  db_directory: nextcloud/mariadb
+  data: nextcloud/data
+  config: nextcloud/config
+  apps: nextcloud/apps
+  admin_user: admin
+  admin_password: admin
+  db_password: jaimelesfrites
+  db_root_password: jaimelesfrites
+  db_name: nextcloud
+  db_user: nextcloud

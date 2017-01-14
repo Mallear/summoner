@@ -20,7 +20,7 @@ CMD <cmd runned by the image>
 
 - Build de l'image
 ```shell
-$ docker build -t <user>/<repository name>:<tag>
+$ docker build -t <user>/<repository name>:<tag> .
 ```
 
 - Push de l'image sur Docker Hub
