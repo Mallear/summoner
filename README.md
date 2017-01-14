@@ -5,7 +5,7 @@ Projet Summoner - Puzle tool list
 
 Summoner est un projet de déploiement d'une stack générique d'outils. Il a pour but de permettre le déploiement d'un environnement de travail aussi simplement qu'en pressant un bouton.
 
-## Installation de Summoner
+## Installation de Summoner
 
 Un script d'installation, `summoner-setup`, est en cours de réalisation.
 
@@ -28,11 +28,11 @@ Un conteneur d'application doit être nommé comme suit :
 Un conteneur contenant une base de données doit être nommé comme suit :  
   > `<database_type>-<application>-<domain>`
 
-Database_type :
+`Database_type :
 * mongodb
 * mysql
 * mariadb
-* postgresql
+* postgresql`
 
 **Service supplémentaire**  
 Chaque service complémentaire à une application, si aucun service centralisé n'est utilisé, devra être contenu dans un docker nommé avec le même schéma que pour les bases de données :  

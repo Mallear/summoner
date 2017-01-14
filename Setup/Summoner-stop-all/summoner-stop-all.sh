@@ -2,7 +2,7 @@
 
 source ~/.summoner
 
-cd $MINION_DIR
+cd $MINIONS_DIR
 
 MINIONS=`ls`
 

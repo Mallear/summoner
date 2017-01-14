@@ -1,5 +1,77 @@
 #!/bin/bash
 
+
+parse_yaml() {
+   local prefix=$2
+   local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
+   sed -ne "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
+        -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p"  $1 |
+   awk -F$fs '{
+      indent = length($1)/2;
+      vname[indent] = $2;
+      for (i in vname) {if (i > indent) {delete vname[i]}}
+      if (length($3) > 0) {
+         vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
+         printf("%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, $3);
+      }
+   }'
+}
+
+
+nginx_conf() {
+    ## Configure Nginx reverse proxy
+    echo "DOMAIN=$conf_domain" > $MINIONS_DIR/nginx/.env
+    echo "VOLUME_STORAGE_ROOT=$conf_vsroot" >> $MINIONS_DIR/nginx/.env
+    echo "NGINX_VERSION=$conf_nginx_version" >> $MINIONS_DIR/nginx/.env
+    echo "LETSENCRYPT_VERSION=$conf_nginx_letsencrypt_version" >> $MINIONS_DIR/nginx/.env
+    echo "CERT_DIR=$conf_nginx_cert_directory" >> $MINIONS_DIR/nginx/.env
+    echo "VHOST_DIR=$conf_nginx_vhost_dir" >> $MINIONS_DIR/nginx/.env
+}
+
+wekan_conf(){
+    ## Configure Wekan environment
+    env_file=$MINIONS_DIR/wekan/.env
+    echo "DOMAIN=$conf_domain" > $env_file
+    echo "VOLUME_STORAGE_ROOT=$conf_vsroot" >> $env_file
+    echo "WEKAN_VERSION=$conf_wekan_version" >> $env_file
+    echo "WEKAN_SUBDOMAIN=$conf_wekan_subdomain" >> $env_file
+    echo "WEKAN_WEB_PORT=$conf_wekan_port" >> $env_file
+    echo "WEKAN_MONGODB_VERSION=$conf_wekan_db_version" >> $env_file
+    echo "WEKAN_DB_DATA_DIR=$conf_wekan_db_directory" >> $env_file
+}
+
+nextcloud_conf(){
+  # Configure Nextcloud environment
+  env_file=$MINIONS_DIR/nextcloud/.env
+  echo "DOMAIN=$conf_domain" > $env_file
+  echo "VOLUME_STORAGE_ROOT=$conf_vsroot" >> $env_file
+  echo "NEXTCLOUD_VERSION=$conf_nextcloud_version" >> $env_file
+  echo "NEXTCLOUD_SUBDOMAIN=$conf_nextcloud_subdomain" >> $env_file
+  echo "NEXTCLOUD_WEB_PORT=$conf_nextcloud_port" >> $env_file
+  echo "NEXTCLOUD_MARIADB_VERSION=$conf_nextcloud_db_version" >> $env_file
+  echo "NEXTCLOUD_DB_DATA_DIR=$conf_nextcloud_db_directory" >> $env_file
+  echo "NEXTCLOUD_DATA_DIR=$conf_data" >> $env_file
+  echo "NEXTCLOUD_CONFIG_DIR=$conf_config" >> $env_file
+  echo "NEXTCLOUD_APPS_DIR=$conf_nextcloud_apps" >> $env_file
+  echo "NEXTCLOUD_ADMIN_USER=$conf_nextcloud_admin_user" >> $env_file
+  echo "NEXTCLOUD_ADMIN_PASSWORD=$conf_nextcloud_admin_password" >> $env_file
+  echo "MYSQL_PASSWORD=$conf_nextcloud_db_password" >> $env_file
+  echo "MYSQL_ROOT_PASSWORD=$conf_nextcloud_db_root_password" >> $env_file
+  echo "MYSQL_DB_NAME=$conf_nextcloud_db_name" >> $env_file
+  echo "MYSQL_USER=$conf_nextcloud_db_user" >> $env_file
+}
+
+ghost_conf(){
+  ## Configure Ghost environment
+  env_file=$MINIONS_DIR/ghost/.env
+  echo "DOMAIN=$conf_domain" > $env_file
+  echo "VOLUME_STORAGE_ROOT=$conf_vsroot" >> $env_file
+  echo "GHOST_VERSION=$conf_ghost_version" >> $env_file
+  echo "GHOST_SUBDOMAIN=$conf_ghost_subdomain" >> $env_file
+  echo "GHOST_WEB_PORT=$conf_ghost_port" >> $env_file
+}
+
+
 SUMMONER_CONFIG_FILE=$HOME/.summoner
 
 # Check kernel version
@@ -17,7 +89,7 @@ fi
 
 # Check if Docker is already installed
 if [ `dpkg -s docker-engine | grep -i status | wc -l ` -eq 1 ]; then
-  echo -e "Docker already installed, jump to Summoner installation."
+  echo -e "Docker already installed, jump to compose installation."
 else
   echo -e "Docker-engine not yet installed."
   echo -e "Installation begins ..."
@@ -116,11 +188,11 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
   fi
 
   echo "SUMMONER_HOME=~/Summoner" >> $SUMMONER_CONFIG_FILE
-  echo "MINIONS_DIR=~Summoner/Minions" >> $SUMMONER_CONFIG_FILE
+  echo "MINIONS_DIR=~/Summoner/Minions" >> $SUMMONER_CONFIG_FILE
   source $SUMMONER_CONFIG_FILE
 
   ## Add sourcing of Summoner config file at each log in
-  echo "# Source Summoner config file"
+  echo "Source Summoner config file"
   echo "if [ -f $SUMMONER_CONFIG_FILE ]; then" >> ~/.bashrc
   echo "  . $SUMMONER_CONFIG_FILE" >> ~/.bashrc
   echo "fi" >> ~/.bashrc
@@ -128,6 +200,56 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
   ## Building files architecture
   mkdir -p $SUMMONER_HOME
   mkdir -p $MINIONS_DIR
+
+  ## Get all the git repository for the apps to install
+  eval $(parse_yaml conf.yml "conf_")
+
+  ## Nginx have to be the first of all apps deployed
+  if [[ ! -z "$conf_apps_nginx" ]]; then
+    SUMMONER_TOOLS+=" nginx"
+    SUMMONER_TOOLS_URLS+=" git@gitlab.com:puzle-project/Summoner-nginx.git"
+  fi
+
+  if [[ ! -z "$conf_apps_wekan" ]]; then
+    SUMMONER_TOOLS+=" wekan"
+    SUMMONER_TOOLS_URLS+=" git@gitlab.com:puzle-project/Summoner-wekan.git"
+  fi
+
+  if [ ! -z "$conf_apps_nextcloud" ]; then
+    SUMMONER_TOOLS+=" nextcloud"
+    SUMMONER_TOOLS_URLS+=" git@gitlab.com:puzle-project/Summoner-nextcloud.git"
+  fi
+
+  if [ ! -z "$conf_apps_ghost" ]; then
+    SUMMONER_TOOLS+=" ghost"
+    SUMMONER_TOOLS_URLS+=" git@gitlab.com:puzle-project/Summoner-ghost.git"
+  fi
+
+  IFS=' ' read -r -a SUMMONER_TOOLS <<< "$SUMMONER_TOOLS"
+  IFS=' ' read -r -a SUMMONER_TOOLS_URLS <<< "$SUMMONER_TOOLS_URLS"
+
+  echo -e "Getting all sources from Git"
+  ## Git clone sources
+  for (( t=0; t<${#SUMMONER_TOOLS_URLS[@]}; t++ )) do
+    echo -e "Getting tool : ${SUMMONER_TOOLS[$t]} - $(($t+1))/${#SUMMONER_TOOLS_URLS[@]}"
+    git clone ${SUMMONER_TOOLS_URLS[$t]} $MINIONS_DIR/${SUMMONER_TOOLS[$t]}
+    SUMMONER_TOOLS_DEPLOY+=" ${SUMMONER_TOOLS[$t]}"
+  done
+
+  # Configuration of apps
+  nginx_conf
+  wekan_conf
+  nextcloud_conf
+  ghost_conf
+
+    ## Deploying Apps : nginx first
+    echo -e "Deploying apps ..."
+  for (( t=0; t<${#SUMMONER_TOOLS[@]}; t++ )) do
+    echo -e "Starting : ${SUMMONER_TOOLS[$t]}"
+    cd $MINIONS_DIR/${SUMMONER_TOOLS[$t]}
+    docker-compose up -d
+    cd - >> /dev/null
+  done
 
 else
   echo "Summoner already set up"
