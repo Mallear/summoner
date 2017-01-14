@@ -5,6 +5,7 @@ apps:
   wekan: y
   nextcloud: y
   ghost: y
+  mattermost: y
 nginx:
   version: latest
   letsencrypt_version: latest
@@ -35,3 +36,14 @@ nextcloud:
   db_root_password: jaimelesfrites
   db_name: nextcloud
   db_user: nextcloud
+mattermost:
+  version: 3.1.0
+  subdomain: mattermost
+  port: 8003
+  db_version: 5.7
+  db_user: mattermost
+  db_password: admin
+  db_name: mattermost
+  db_root_password: admin
+  db_directory: mattermost/mysql
+  data: mattermost/data
