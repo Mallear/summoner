@@ -1,8 +1,9 @@
 #!/bin/bash
 
-
 DATABASE_TYPE=("mongodb" "mysql" "postgresql" "mariadb")
 DATE=`date +%F_%H_%M_%S`
+
+echo -e "[`date +%F_%H_%M_%S`] Starting database dump."
 
 source ~/.summoner
 
@@ -18,7 +19,7 @@ DROPBOX_DIR=/Summoner/Minions/
 DUMP_DIR=$VOLUME_STORAGE_ROOT/backup
 
 
-echo -e "\033[33m Analyse des conteneurs en ligne ... \033[0m"
+echo -e "\033[33m[`date +%F_%H_%M_%S`] Online container analyse ... \033[0m"
 echo ""
 
 for TYPE in ${DATABASE_TYPE[@]}
@@ -26,7 +27,7 @@ do
   DOCKER_LIST+=" `docker ps -f "name=$TYPE" --format "{{.Names}}"`"
 done
 
-echo -e "\033[33m Conteneurs trouvés : \033[0m"
+echo -e "\033[33m[`date +%F_%H_%M_%S`] Containers found : \033[0m"
 
 for CONTAINER in $DOCKER_LIST
 do
@@ -38,12 +39,10 @@ echo ""
 
 # WARNING : if no docker container online
 if [ ${#DOCKER_LIST} -eq 0 ]; then
-  echo -e "\033[31m Aucun container trouvé ... \033[0m"
+  echo -e "\033[31m[`date +%F_%H_%M_%S`] No container found ... \033[0m"
 else # There is at least one container to save
   for CONTAINER in $DOCKER_LIST
   do
-    echo -e "\033[33m Traitement du container : $CONTAINER \033[0m"
-
     # Getting all parameters of the application
     IFS='-' read -r -a PARAMETERS <<< "$CONTAINER"
     TYPE=${PARAMETERS[0]}
@@ -57,7 +56,7 @@ else # There is at least one container to save
     # Create the dump directory
     mkdir -p $APPLICATION_DUMP_DIR
 
-    echo -e "\033[33m Start dump of $CONTAINER container \033[0m"
+    echo -e "\033[33m[`date +%F_%H_%M_%S`] Start dump of $CONTAINER container \033[0m"
 
     case "$TYPE" in
       "mongodb")  # Managing MongoDB database
@@ -72,7 +71,7 @@ else # There is at least one container to save
         # Naming the dumpfile
         mv $APPLICATION_DB_DATA_DIR/dump.tar $APPLICATION_DUMP_FILE
 
-        echo -e "\033[32m $CONTAINER dump finished. \033[0m"
+        echo -e "\033[32m[`date +%F_%H_%M_%S`] $CONTAINER dump finished. \033[0m"
 
         ;;
 
@@ -82,7 +81,7 @@ else # There is at least one container to save
         # Dumping the database
         docker exec $CONTAINER bash -c 'mysqldump --user root --password=$MYSQL_ROOT_PASSWORD --all-databases --single-transaction' > $APPLICATION_DUMP_FILE
 
-        echo -e "\033[32m $CONTAINER dump finished. \033[0m"
+        echo -e "\033[32m[`date +%F_%H_%M_%S`] $CONTAINER dump finished. \033[0m"
 
         ;;
       "postgresql") # Managing PostreSQL database
@@ -91,7 +90,7 @@ else # There is at least one container to save
         # Dump
         docker exec $CONTAINER bash -c 'pg_dump --username=$DB_USER -Ft $DB_NAME' > $APPLICATION_DUMP_FILE
 
-        echo -e "\033[32m $CONTAINER dump finished. \033[0m"
+        echo -e "\033[32m[`date +%F_%H_%M_%S`] $CONTAINER dump finished. \033[0m"
         ;;
       "mariadb") # Managing MariaDB database
         APPLICATION_DUMP_FILE=$APPLICATION_DUMP_DIR/$APPLICATION-$DATE-dump.sql
@@ -99,10 +98,10 @@ else # There is at least one container to save
         # Dump the database
         docker exec $CONTAINER sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_PASSWORD"' > $APPLICATION_DUMP_FILE
 
-        echo -e "\033[32m $CONTAINER dump finished. \033[0m"
+        echo -e "\033[32m[`date +%F_%H_%M_%S`] $CONTAINER dump finished. \033[0m"
         ;;
       *)
-        echo "wrong case"
+        echo -e "\033[32m[`date +%F_%H_%M_%S`] Wrong case - Jump to next container"
         ;;
     esac
     # Sent it to dropbox

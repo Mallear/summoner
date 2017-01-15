@@ -3,6 +3,8 @@
 DATABASE_TYPE=("mongodb" "mysql" "postgresql" "mariadb")
 DATE=`date +%F_%H_%M_%S`
 
+echo -e "[`date +%F_%H_%M_%S`] Starting database backup."
+
 source ~/.summoner
 
 ENV_FILES=`find $MINIONS_DIR -name .env`
@@ -16,7 +18,7 @@ done
 DROPBOX_DIR=/Summoner/Minions/
 BACKUP_DIR=$VOLUME_STORAGE_ROOT/backup
 
-echo -e "Analyse des conteneurs en ligne ..."
+echo -e "[`date +%F_%H_%M_%S`] Analyse online containers ..."
 echo ""
 
 # Getting back all the DB containers
@@ -25,7 +27,7 @@ do
   DOCKER_LIST+=" `docker ps -f "name=$TYPE" --format "{{.Names}}"`"
 done
 
-echo -e "\033[33m DB trouvées : \033[0m"
+echo -e "\033[33m [`date +%F_%H_%M_%S`] Found databases : \033[0m"
 
 for CONTAINER in $DOCKER_LIST
 do
@@ -34,11 +36,11 @@ done
 echo ""
 
 if [ ${#DOCKER_LIST} -eq 0 ]; then
-  echo -e "\033[31m Aucun container trouvé ... \033[0m"
+  echo -e "\033[31m[`date +%F_%H_%M_%S`] No containers fond ... \033[0m"
 else # There is at least one container to save
   for CONTAINER in $DOCKER_LIST
   do
-    echo -e "\033[33m Traitement du container : $CONTAINER \033[0m"
+    echo -e "\033[33m[`date +%F_%H_%M_%S`] Dumping : $CONTAINER \033[0m"
 
     # Getting all parameters of the application
     IFS='-' read -r -a PARAMETERS <<< "$CONTAINER"
@@ -69,5 +71,8 @@ else # There is at least one container to save
     cd -
 
     ./dropbox_uploader.sh upload $APPLICATION_BACKUP_FILE $DROPBOX_APPLICATION_BACKUP_DIR
+    echo -e "\033[32m[`date +%F_%H_%M_%S`] $CONTAINER backup finished. \033[0m"
   done
 fi
+
+echo -e "\033[33m[`date +%F_%H_%M_%S`] Backup ended."

@@ -1,11 +1,6 @@
 domain: virtualdonkey.fr
 vsroot: ~/Summoner/data
-apps:
-  nginx: y
-  wekan: y
-  nextcloud: y
-  ghost: y
-  mattermost: y
+applications: nginx wekan nextcloud ghost mattermost
 nginx:
   version: latest
   letsencrypt_version: latest
