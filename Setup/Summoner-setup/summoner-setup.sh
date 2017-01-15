@@ -90,15 +90,17 @@ mattermost_conf(){
 
 SUMMONER_CONFIG_FILE=$HOME/.summoner
 
+echo -e "\033[33m[[`date +%F_%H_%M_%S`] Start Summoner installation"
+
 # Check kernel version
 KERNEL_MAJOR=`uname -r | tr '-' ' ' | tr '.' ' ' | cut -d ' ' -f 1`
 KERNEL_MINOR=`uname -r | tr '-' ' ' | tr '.' ' ' | cut -d ' ' -f 2`
 
 if [ $KERNEL_MAJOR -lt 3 ]; then
   if [ $KERNEL_MINOR -lt 10 ]; then
-    echo -e "Your kernel version is lower than 3.10. Docker can't be installed."
-    echo -e "Please update your kernel version and try again."
-    echo -e "For more information : https://gitlab.com/puzle-project/Summoner"
+    echo -e "\033[31m[[`date +%F_%H_%M_%S`] Your kernel version is lower than 3.10. Docker can't be installed."
+    echo -e "\033[31m[[`date +%F_%H_%M_%S`] Please update your kernel version and try again."
+    echo -e "\033[31m[[`date +%F_%H_%M_%S`] For more information : https://gitlab.com/puzle-project/Summoner"
     exit 1
   fi
 fi
@@ -107,10 +109,10 @@ fi
 
 # Check if Docker is already installed
 if [ `dpkg -s docker-engine | grep -i status | wc -l ` -eq 1 ]; then
-  echo -e "Docker already installed, jump to compose installation."
+  echo -e "\033[32m[[`date +%F_%H_%M_%S`] Docker already installed, jump to compose installation."
 else
-  echo -e "Docker-engine not yet installed."
-  echo -e "Installation begins ..."
+  echo -e "\033[33m[[`date +%F_%H_%M_%S`] Docker-engine not yet installed."
+  echo -e "\033[33m[[`date +%F_%H_%M_%S`] Installation begins ..."
 
   ## Install ldb_release command
   apt-get update && apt-get install -y lsb-release
@@ -175,21 +177,21 @@ else
   CHECK_INSTALL=`docker run hello-world | grep -i "hello from docker" | wc -l`
 
   if [ $CHECK_INSTALL -eq 1 ]; then
-    echo -e "Docker engine install - OK !"
+    echo -e "\033[32m[[`date +%F_%H_%M_%S`]Docker engine install - OK !"
   else
-    echo -e "Docker engine install - KO !"
-    echo -e "Summoner installation - KO !"
-    echo -e "Please see logs for further informations"
+    echo -e "\033[31m[[`date +%F_%H_%M_%S`] Docker engine install - KO !"
+    echo -e "\033[31m[[`date +%F_%H_%M_%S`] Summoner installation - KO !"
+    echo -e "\033[31m[[`date +%F_%H_%M_%S`] Please see logs for further informations"
     exit 1
   fi
 fi
 
 # Checking docker-compose installation
 if [ `dpkg -s docker-compose | grep -i status | wc -l` -eq 1 ]; then
-  echo -e "Docker compose already installed. Jump to Summoner installation."
+  echo -e "\033[32m[[`date +%F_%H_%M_%S`] Docker compose already installed. Jump to Summoner installation."
 else
-  echo -e "Docker compose not yet installed."
-  echo -e "Docker compose installation begins ..."
+  echo -e "\033[33m[[`date +%F_%H_%M_%S`] Docker compose not yet installed."
+  echo -e "\033[33m[[`date +%F_%H_%M_%S`] Docker compose installation begins ..."
 
   if [ ! `dpkg -s curl | grep -i status | wc -l` -eq 1 ]; then
     apt-get install -y curl
@@ -197,7 +199,7 @@ else
 
   curl -L "https://github.com/docker/compose/releases/download/1.9.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   chmod +x /usr/local/bin/docker-compose
-  echo -e "docker-compose installation - OK !"
+  echo -e "\033[32m[[`date +%F_%H_%M_%S`] docker-compose installation - OK !"
   docker-compose --version
 fi
 
@@ -213,7 +215,7 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
   source $SUMMONER_CONFIG_FILE
 
   ## Add sourcing of Summoner config file at each log in
-  echo "Source Summoner config file"
+  echo "\033[33m[[`date +%F_%H_%M_%S`] Source Summoner config file"
   echo "if [ -f $SUMMONER_CONFIG_FILE ]; then" >> ~/.bashrc
   echo "  . $SUMMONER_CONFIG_FILE" >> ~/.bashrc
   echo "fi" >> ~/.bashrc
@@ -233,20 +235,20 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
 
   IFS=' ' read -r -a SUMMONER_TOOLS_URLS <<< "$SUMMONER_TOOLS_URLS"
 
-  echo -e "Getting all sources from Git"
+  echo -e "\033[33m[[`date +%F_%H_%M_%S`] Getting all sources from Git \033[0m"
   ## Git clone sources & configure their environment
   for (( t=0; t<${#SUMMONER_TOOLS_URLS[@]}; t++ )) do
-    echo -e "Getting tool : ${SUMMONER_TOOLS[$t]} - $(($t+1))/${#SUMMONER_TOOLS_URLS[@]}"
-    echo "git clone ${SUMMONER_TOOLS_URLS[$t]} $MINIONS_DIR/${SUMMONER_TOOLS[$t]}"
+    echo -e "\033[33m[[`date +%F_%H_%M_%S`] Getting tool : ${SUMMONER_TOOLS[$t]} - $(($t+1))/${#SUMMONER_TOOLS_URLS[@]}"
+    git clone ${SUMMONER_TOOLS_URLS[$t]} $MINIONS_DIR/${SUMMONER_TOOLS[$t]}
     # Write the .env file to right directory
     conf_cmd=${SUMMONER_TOOLS[$t]}_conf
     eval $conf_cmd
   done
 
     ## Deploying Apps : nginx first
-    echo -e "Deploying apps ..."
+    echo -e "\033[33m[[`date +%F_%H_%M_%S`] Deploying apps ..."
   for (( t=0; t<${#SUMMONER_TOOLS[@]}; t++ )) do
-    echo -e "Starting : ${SUMMONER_TOOLS[$t]}"
+    echo -e "\033[33m[[`date +%F_%H_%M_%S`] Starting : ${SUMMONER_TOOLS[$t]}\033[0m"
     cd $MINIONS_DIR/${SUMMONER_TOOLS[$t]}
     docker-compose up -d
     cd - >> /dev/null
@@ -256,20 +258,19 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
   # backup one time each month
   cd /var/spool/cron/crontabs
   SCRIPT=$SUMMONER_HOME/Setup/Summoner-database-backup/summoner-database-backup.sh
-  echo -e "Set $SCRIPT in the crontab"
+  echo -e "\033[33m[[`date +%F_%H_%M_%S`] Set $SCRIPT in the crontab"
   if [ `grep $SCRIPT * | wc -l` -eq 1 ]; then
-    (crontab -l 2>/dev/null; echo "* 2 1 * * $SCRIPT") | crontab -
+    (crontab -l 2>/dev/null; echo "* 2 1 * * $SCRIPT >> ~/Summoner/logs/database-backup.log") | crontab -
   fi
   # dump one time each week
   SCRIPT=$SUMMONER_HOME/Setup/Summoner-database-dump/summoner-database-dump.sh
-  echo -e "Set $SCRIPT in the crontab"
+  echo -e "\033[33m[[`date +%F_%H_%M_%S`] Set $SCRIPT in the crontab"
   if [ `grep $SCRIPT * | wc -l` -eq 1 ]; then
-    (crontab -l 2>/dev/null; echo "* 2 * * 7 $SCRIPT") | crontab -
+    (crontab -l 2>/dev/null; echo "* 2 * * 7 $SCRIPT >> ~/Summoner/logs/database-dump.log") | crontab -
   fi
 
   cd - >> /dev/null
-
+  echo -e "\032[31m[[`date +%F_%H_%M_%S`] Summoner installation OK \033[0m"
 else
-  ls -R ../
-  echo "Summoner already set up"
+  echo -e "\031[33m[[`date +%F_%H_%M_%S`] Summoner already set up"
 fi

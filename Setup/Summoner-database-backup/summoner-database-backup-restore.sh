@@ -15,6 +15,8 @@ function usage
 
 DATE=`date +%F_%H_%M_%S`
 
+echo -e "[`date +%F_%H_%M_%S`] Start restoring backup database."
+
 source ~/.summoner
 
 ENV_FILES=`find $MINIONS_DIR -name .env`
@@ -44,7 +46,7 @@ case "$1" in
     done
     echo $CONTAINER
     if [ ${#CONTAINER} -eq 0 ]; then
-      echo -e "$APPLICATION_NAME containers are not running. Please start the containers and try again..."
+      echo -e "[`date +%F_%H_%M_%S`] $APPLICATION_NAME containers are not running. Please start the containers and try again..."
       exit 1
     fi
 
@@ -58,8 +60,8 @@ case "$1" in
 
     IFS=' ' read -r -a DROPBOX_FILES <<< `./dropbox_uploader.sh list $DROPBOX_BACKUP_DIR`
     if [ "${DROPBOX_FILES[@]: -1}" = "FAILED" ] || [ "${DROPBOX_FILES[@]: -1}" = "DONE" ]; then
-      echo -e "There is no backup archive available for $APPLICATION_NAME"
-      echo -e "Please create a backup by running summoner-database-backup.sh before trying to restore a backup."
+      echo -e "[`date +%F_%H_%M_%S`] There is no backup archive available for $APPLICATION_NAME"
+      echo -e "[`date +%F_%H_%M_%S`] Please create a backup by running summoner-database-backup.sh before trying to restore a backup."
       exit 1
     fi
 
