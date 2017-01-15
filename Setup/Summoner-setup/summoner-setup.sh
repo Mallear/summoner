@@ -77,10 +77,11 @@ mattermost_conf(){
   echo "DOMAIN=$conf_domain" > $env_file
   echo "VOLUME_STORAGE_ROOT=$conf_vsroot" >> $env_file
   echo "MATTERMOST_VERSION=$conf_mattermost_version" >> $env_file
+  echo "MATTERMOST_MYSQL_VERSION=$conf_mattermost_db_version" >> $env_file
   echo "MATTERMOST_SUBDOMAIN=$conf_mattermost_subdomain" >> $env_file
   echo "MATTERMOST_WEB_PORT=$conf_mattermost_port" >> $env_file
   echo "MATTERMOST_DB_DATA_DIR=$conf_mattermost_db_directory" >> $env_file
-  echo "MATTERMOST_DATA_DIRE=$conf_mattermost_data" >> $env_file
+  echo "MATTERMOST_DATA_DIR=$conf_mattermost_data" >> $env_file
   echo "MYSQL_PASSWORD=$conf_mattermost_db_password" >> $env_file
   echo "MYSQL_USER=$conf_mattermost_db_user" >> $env_file
   echo "MYSQL_DATABASE=$conf_mattermost_db_name" >> $env_file
@@ -102,8 +103,7 @@ if [ $KERNEL_MAJOR -lt 3 ]; then
   fi
 fi
 
-## Install ldb_release command
-apt-get update && apt-get install lsb-release
+
 
 # Check if Docker is already installed
 if [ `dpkg -s docker-engine | grep -i status | wc -l ` -eq 1 ]; then
@@ -111,6 +111,9 @@ if [ `dpkg -s docker-engine | grep -i status | wc -l ` -eq 1 ]; then
 else
   echo -e "Docker-engine not yet installed."
   echo -e "Installation begins ..."
+
+  ## Install ldb_release command
+  apt-get update && apt-get install -y lsb-release
 
   ## Check distribution
   CHECK_UBUNTU=`lsb_release -a | grep -i ubuntu | wc -l`
@@ -221,40 +224,21 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
 
   ## Get all the git repository for the apps to install
   eval $(parse_yaml conf.yml "conf_")
+  ### Get all application to deploy in an array
+  IFS=' ' read -r -a SUMMONER_TOOLS <<< "$conf_applications"
+  for (( t=0; t<${#SUMMONER_TOOLS[@]}; t++ )) do
+    # Make git repot URL
+    SUMMONER_TOOLS_URLS+=" git@gitlab.com:puzle-project/Summoner-${SUMMONER_TOOLS[$t]}.git"
+  done
 
-  ## Nginx have to be the first of all apps deployed
-  if [[ ! -z "$conf_apps_nginx" ]]; then
-    SUMMONER_TOOLS+=" nginx"
-    SUMMONER_TOOLS_URLS+=" git@gitlab.com:puzle-project/Summoner-nginx.git"
-  fi
-
-  if [[ ! -z "$conf_apps_wekan" ]]; then
-    SUMMONER_TOOLS+=" wekan"
-    SUMMONER_TOOLS_URLS+=" git@gitlab.com:puzle-project/Summoner-wekan.git"
-  fi
-
-  if [ ! -z "$conf_apps_nextcloud" ]; then
-    SUMMONER_TOOLS+=" nextcloud"
-    SUMMONER_TOOLS_URLS+=" git@gitlab.com:puzle-project/Summoner-nextcloud.git"
-  fi
-
-  if [ ! -z "$conf_apps_ghost" ]; then
-    SUMMONER_TOOLS+=" ghost"
-    SUMMONER_TOOLS_URLS+=" git@gitlab.com:puzle-project/Summoner-ghost.git"
-  fi
-  if [ ! -z "$conf_apps_mattermost" ]; then
-    SUMMONER_TOOLS+=" mattermost"
-    SUMMONER_TOOLS_URLS+=" git@gitlab.com:puzle-project/Summoner-mattermost.git"
-  fi
-
-  IFS=' ' read -r -a SUMMONER_TOOLS <<< "$SUMMONER_TOOLS"
   IFS=' ' read -r -a SUMMONER_TOOLS_URLS <<< "$SUMMONER_TOOLS_URLS"
 
   echo -e "Getting all sources from Git"
   ## Git clone sources & configure their environment
   for (( t=0; t<${#SUMMONER_TOOLS_URLS[@]}; t++ )) do
     echo -e "Getting tool : ${SUMMONER_TOOLS[$t]} - $(($t+1))/${#SUMMONER_TOOLS_URLS[@]}"
-    git clone ${SUMMONER_TOOLS_URLS[$t]} $MINIONS_DIR/${SUMMONER_TOOLS[$t]}
+    echo "git clone ${SUMMONER_TOOLS_URLS[$t]} $MINIONS_DIR/${SUMMONER_TOOLS[$t]}"
+    # Write the .env file to right directory
     conf_cmd=${SUMMONER_TOOLS[$t]}_conf
     eval $conf_cmd
   done
@@ -268,6 +252,24 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
     cd - >> /dev/null
   done
 
+  # Adding backupp & dump to cron
+  # backup one time each month
+  cd /var/spool/cron/crontabs
+  SCRIPT=$SUMMONER_HOME/Setup/Summoner-database-backup/summoner-database-backup.sh
+  echo -e "Set $SCRIPT in the crontab"
+  if [ `grep $SCRIPT * | wc -l` -eq 1 ]; then
+    (crontab -l 2>/dev/null; echo "* 2 1 * * $SCRIPT") | crontab -
+  fi
+  # dump one time each week
+  SCRIPT=$SUMMONER_HOME/Setup/Summoner-database-dump/summoner-database-dump.sh
+  echo -e "Set $SCRIPT in the crontab"
+  if [ `grep $SCRIPT * | wc -l` -eq 1 ]; then
+    (crontab -l 2>/dev/null; echo "* 2 * * 7 $SCRIPT") | crontab -
+  fi
+
+  cd - >> /dev/null
+
 else
+  ls -R ../
   echo "Summoner already set up"
 fi
