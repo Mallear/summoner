@@ -206,10 +206,20 @@ fi
 # Summoner installation
 if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
 
-  if [ ! -e "~/.dropbox_uploader" ]; then
-    echo "OAUTH_ACCESS_TOKEN=NzqGcqMR5HAAAAAAAAAAYejJ-G8hpryFVIXqB0uF4mflHzyiEHpCfwbgN_d7GW75" > ~/.dropbox_uploader
+  # Check if the config file is here
+  if [ -e "$SUMMONER_HOME/config.yml" ]; then
+    echo -e "\031[31m[[`date +%F_%H_%M_%S`] Summoner config file is not set. Aborting."
+    exit 1
   fi
 
+  eval $(parse_yaml $SUMMONER_HOME/config.yml "conf_")
+
+  if [ ! -e "~/.dropbox_uploader" ]; then
+    echo "OAUTH_ACCESS_TOKEN=$conf_dropbox_token" > ~/.dropbox_uploader
+  fi
+
+
+  # Set .summoner file
   echo "SUMMONER_HOME=~/Summoner" >> $SUMMONER_CONFIG_FILE
   echo "MINIONS_DIR=~/Summoner/Minions" >> $SUMMONER_CONFIG_FILE
   source $SUMMONER_CONFIG_FILE
@@ -225,7 +235,7 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
   mkdir -p $MINIONS_DIR
 
   ## Get all the git repository for the apps to install
-  eval $(parse_yaml conf.yml "conf_")
+
   ### Get all application to deploy in an array
   IFS=' ' read -r -a SUMMONER_TOOLS <<< "$conf_applications"
   for (( t=0; t<${#SUMMONER_TOOLS[@]}; t++ )) do
@@ -246,7 +256,7 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
   done
 
     ## Deploying Apps : nginx first
-    echo -e "\033[33m[[`date +%F_%H_%M_%S`] Deploying apps ..."
+  echo -e "\033[33m[[`date +%F_%H_%M_%S`] Deploying apps ..."
   for (( t=0; t<${#SUMMONER_TOOLS[@]}; t++ )) do
     echo -e "\033[33m[[`date +%F_%H_%M_%S`] Starting : ${SUMMONER_TOOLS[$t]}\033[0m"
     cd $MINIONS_DIR/${SUMMONER_TOOLS[$t]}
@@ -268,9 +278,9 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
   if [ `grep $SCRIPT * | wc -l` -eq 1 ]; then
     (crontab -l 2>/dev/null; echo "* 2 * * 7 $SCRIPT >> ~/Summoner/logs/database-dump.log") | crontab -
   fi
-
   cd - >> /dev/null
-  echo -e "\032[31m[[`date +%F_%H_%M_%S`] Summoner installation OK \033[0m"
+
+  echo -e "\032[32m[[`date +%F_%H_%M_%S`] Summoner installation OK \033[0m"
 else
-  echo -e "\031[33m[[`date +%F_%H_%M_%S`] Summoner already set up"
+  echo -e "\031[32m[[`date +%F_%H_%M_%S`] Summoner already set up"
 fi

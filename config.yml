@@ -1,0 +1,45 @@
+domain: virtualdonkey.fr
+vsroot: ~/Summoner/data
+applications: nginx wekan nextcloud ghost mattermost
+dropbox_token: NzqGcqMR5HAAAAAAAAAAYejJ-G8hpryFVIXqB0uF4mflHzyiEHpCfwbgN_d7GW75
+nginx:
+  version: latest
+  letsencrypt_version: latest
+  cert_directory: nginx/certs
+  vhost_dir: vhost.d
+wekan:
+  version: 0.11.0-rc2
+  subdomain: wekan
+  port: 8001
+  db_version: 3.4-rc
+  db_directory: wekan/mongodb
+ghost:
+  version: latest
+  subdomain: ghost
+  port: 8005
+nextcloud:
+  version: 10.0
+  subdomain: nextcloud
+  port: 8002
+  db_version: 10
+  db_directory: nextcloud/mariadb
+  data: nextcloud/data
+  config: nextcloud/config
+  apps: nextcloud/apps
+  admin_user: admin
+  admin_password: admin
+  db_password: jaimelesfrites
+  db_root_password: jaimelesfrites
+  db_name: nextcloud
+  db_user: nextcloud
+mattermost:
+  version: 3.1.0
+  subdomain: mattermost
+  port: 8003
+  db_version: 5.7
+  db_user: mattermost
+  db_password: admin
+  db_name: mattermost
+  db_root_password: admin
+  db_directory: mattermost/mysql
+  data: mattermost/data
