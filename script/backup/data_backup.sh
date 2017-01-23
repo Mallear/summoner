@@ -53,7 +53,7 @@ for APP in $APPLICATIONS; do
   mkdir -p $APP_BACKUP_DIR
   tar cvf $BACKUP_ARCHIVE $APP_DATA_DIR
 
-  echo -e "\033[33m[`date +%F_%H_%M_%S`] Backup ended.\033[0m"
+  echo -e "\033[32m[`date +%F_%H_%M_%S`] Backup ended.\033[0m"
 
   echo -e "\033[33m[`date +%F_%H_%M_%S`] Restart containers.\033[0m"
   docker-compose start

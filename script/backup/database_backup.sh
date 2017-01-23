@@ -34,7 +34,7 @@ echo ""
 
 # Dumping containers
 if [ ${#DOCKER_LIST} -eq 0 ]; then
-  echo -e "\033[31m[`date +%F_%H_%M_%S`] No containers fond ... \033[0m"
+  echo -e "\033[31m[`date +%F_%H_%M_%S`] No containers found ... \033[0m"
   exit 1
 else # There is at least one container to save
   DROPBOX_DIR=/Summoner/Minions/
@@ -77,4 +77,4 @@ else # There is at least one container to save
   done
 fi
 
-echo -e "\033[33m[`date +%F_%H_%M_%S`] Backup ended."
+echo -e "\033[32m[`date +%F_%H_%M_%S`] Backup ended."
