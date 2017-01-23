@@ -13,8 +13,6 @@ function usage
   exit 1
 }
 
-DATE=`date +%F_%H_%M_%S`
-
 echo -e "[`date +%F_%H_%M_%S`] Start restoring backup database."
 
 source ~/.summoner

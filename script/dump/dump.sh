@@ -15,13 +15,10 @@ do
   source $FILE
 done
 
-DROPBOX_DIR=/Summoner/Minions/
-DUMP_DIR=$VOLUME_STORAGE_ROOT/backup
-
-
 echo -e "\033[33m[`date +%F_%H_%M_%S`] Online container analyse ... \033[0m"
 echo ""
 
+# Get all running DB containers
 for TYPE in ${DATABASE_TYPE[@]}
 do
   DOCKER_LIST+=" `docker ps -f "name=$TYPE" --format "{{.Names}}"`"
@@ -41,6 +38,10 @@ echo ""
 if [ ${#DOCKER_LIST} -eq 0 ]; then
   echo -e "\033[31m[`date +%F_%H_%M_%S`] No container found ... \033[0m"
 else # There is at least one container to save
+
+  DROPBOX_DIR=/Summoner/Minions
+  DUMP_DIR=$VOLUME_STORAGE_ROOT/backup
+
   for CONTAINER in $DOCKER_LIST
   do
     # Getting all parameters of the application
@@ -60,8 +61,7 @@ else # There is at least one container to save
 
     case "$TYPE" in
       "mongodb")  # Managing MongoDB database
-        APPLICATION_DB_DATA_DIR=$VOLUME_STORAGE_ROOT/$APPLICATION/$TYPE
-        APPLICATION_DUMP_DIR=$DUMP_DIR/$APPLICATION/dump
+        APPLICATION_DB_DATA_DIR=$DATABASE_STORAGE_ROOT/$APPLICATION
         APPLICATION_DUMP_FILE=$APPLICATION_DUMP_DIR/$APPLICATION-$DATE-dump.tar
 
         # Beware of the data directory inside the container !
