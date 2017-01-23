@@ -18,12 +18,7 @@ parse_yaml() {
    }'
 }
 
-### Variable definitions
 
-config_file=`pwd`/config.yml # configuration file of summoner
-dbbackup_script_relativ=script/backup/database-backup.sh
-dbdump_script_relativ=script/dump/dump.sh
-data_backup_script_relativ=script/backup/data-backup.sh
 
 SUMMONER_CONFIG_FILE=$HOME/.summoner
 
@@ -140,6 +135,12 @@ fi
 
 # Summoner installation
 if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
+
+  ### Variable definitions
+  config_file=~/Summoner/config.yml # configuration file of summoner
+  dbbackup_script_relativ=script/backup/database-backup.sh
+  dbdump_script_relativ=script/dump/dump.sh
+  data_backup_script_relativ=script/backup/data-backup.sh
 
   # Check if the config file is here
   if [ ! -e "$config_file" ]; then

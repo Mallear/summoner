@@ -47,7 +47,7 @@ for APP in $APPLICATIONS; do
 
   echo -e "\033[33m[`date +%F_%H_%M_%S`] Stop containers.\033[0m"
   cd $APP_DIR
-  #docker-compose stop
+  docker-compose stop
 
   echo -e "\033[33m[`date +%F_%H_%M_%S`] Backup started ...\033[0m"
   mkdir -p $APP_BACKUP_DIR
@@ -56,7 +56,7 @@ for APP in $APPLICATIONS; do
   echo -e "\033[33m[`date +%F_%H_%M_%S`] Backup ended.\033[0m"
 
   echo -e "\033[33m[`date +%F_%H_%M_%S`] Restart containers.\033[0m"
-  #docker-compose start
+  docker-compose start
 
   echo -e "\033[33m[`date +%F_%H_%M_%S`] Sending backup archive to dropbox.\033[0m"
   ./dropbox_uploader.sh upload $BACKUP_ARCHIVE $DROPBOX_APPLICATION_BACKUP_DIR
