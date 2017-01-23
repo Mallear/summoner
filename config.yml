@@ -1,6 +1,6 @@
 domain: virtualdonkey.fr
 vsroot: ~/Summoner/data
-applications: nginx 
+applications: nginx ghost nextcloud wekan
 dropbox_token: NzqGcqMR5HAAAAAAAAAAYejJ-G8hpryFVIXqB0uF4mflHzyiEHpCfwbgN_d7GW75
 nginx:
   version: latest

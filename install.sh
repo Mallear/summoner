@@ -176,7 +176,8 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
 
   # Set .summoner file
   echo "SUMMONER_HOME=~/Summoner" >> $SUMMONER_CONFIG_FILE
-  echo "MINIONS_DIR=~/Summoner/Minions" >> $SUMMONER_CONFIG_FILE
+  echo "MINIONS_DIR=~/Summoner/minions" >> $SUMMONER_CONFIG_FILE
+  echo "VOLUME_STORAGE_ROOT=$conf_vsroot" >> $SUMMONER_CONFIG_FILE
   source $SUMMONER_CONFIG_FILE
 
   ## Add sourcing of Summoner config file at each log in
