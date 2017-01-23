@@ -23,8 +23,6 @@ do
   source $FILE
 done
 
-
-
 # Check for numbers of parameters
 if [ "$#" -lt "1" ]; then
   usage
