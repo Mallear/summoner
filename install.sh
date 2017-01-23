@@ -25,25 +25,6 @@ dbbackup_script_relativ=script/backup/database-backup.sh
 dbdump_script_relativ=script/dump/dump.sh
 data_backup_script_relativ=script/backup/data-backup.sh
 
-
-
-mattermost_conf(){
-  ## Configure Ghost environment
-  env_file=$MINIONS_DIR/mattermost/.env
-  echo "DOMAIN=$conf_domain" > $env_file
-  echo "VOLUME_STORAGE_ROOT=$conf_vsroot" >> $env_file
-  echo "MATTERMOST_VERSION=$conf_mattermost_version" >> $env_file
-  echo "MATTERMOST_MYSQL_VERSION=$conf_mattermost_db_version" >> $env_file
-  echo "MATTERMOST_SUBDOMAIN=$conf_mattermost_subdomain" >> $env_file
-  echo "MATTERMOST_WEB_PORT=$conf_mattermost_port" >> $env_file
-  echo "MATTERMOST_DB_DATA_DIR=$conf_mattermost_db_directory" >> $env_file
-  echo "MATTERMOST_DATA_DIR=$conf_mattermost_data" >> $env_file
-  echo "MYSQL_PASSWORD=$conf_mattermost_db_password" >> $env_file
-  echo "MYSQL_USER=$conf_mattermost_db_user" >> $env_file
-  echo "MYSQL_DATABASE=$conf_mattermost_db_name" >> $env_file
-  echo "MYSQL_ROOT_PASSWORD=$conf_mattermost_db_root_password" >> $env_file
-}
-
 SUMMONER_CONFIG_FILE=$HOME/.summoner
 
 echo -e "\033[33m[`date +%F_%H_%M_%S`] Start Summoner installation"
@@ -178,6 +159,7 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
   echo "SUMMONER_HOME=~/Summoner" >> $SUMMONER_CONFIG_FILE
   echo "MINIONS_DIR=~/Summoner/minions" >> $SUMMONER_CONFIG_FILE
   echo "VOLUME_STORAGE_ROOT=$conf_vsroot" >> $SUMMONER_CONFIG_FILE
+  echo "DATABASE_STORAGE_ROOT=$conf_dbsroot" >> $SUMMONER_CONFIG_FILE
   source $SUMMONER_CONFIG_FILE
 
   ## Add sourcing of Summoner config file at each log in
