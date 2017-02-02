@@ -200,7 +200,7 @@ if [ ! -e "$SUMMONER_CONTEXT_FILE" ]; then
 
   ## Install first apps
   ### Get all application to deploy in an array
-  IFS=' ' read -r -a SUMMONER_TOOLS <<< "$conf_applications"
+  IFS=' ' read -r -a SUMMONER_TOOLS <<< "$conf_summoner_applications"
   for (( t=0; t<${#SUMMONER_TOOLS[@]}; t++ )) do
     # Using minions install script
     script/tools/summon.sh ${SUMMONER_TOOLS[$t]}
