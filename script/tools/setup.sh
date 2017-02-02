@@ -160,7 +160,7 @@ if [ ! -e "$SUMMONER_CONTEXT_FILE" ]; then
   echo "MINIONS_DIR=~/Summoner/minions" >> $SUMMONER_CONTEXT_FILE
   echo "VOLUME_STORAGE_ROOT=$conf_summoner_vsroot" >> $SUMMONER_CONTEXT_FILE
   echo "DATABASE_STORAGE_ROOT=$conf_summoner_dbsroot" >> $SUMMONER_CONTEXT_FILE
-  echo "SUMONNER_CONFIG_FILE=$config_file" >> $SUMMONER_CONTEXT_FILE
+  echo "SUMMONER_CONFIG_FILE=$config_file" >> $SUMMONER_CONTEXT_FILE
   source $SUMMONER_CONTEXT_FILE
 
   ## Add sourcing of Summoner config file at each log in
