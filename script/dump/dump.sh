@@ -72,7 +72,6 @@ else # There is at least one container to save
         mv $APPLICATION_DB_DATA_DIR/dump.tar $APPLICATION_DUMP_FILE
 
         echo -e "\033[32m[`date +%F_%H_%M_%S`] $CONTAINER dump finished. \033[0m"
-
         ;;
 
       "mysql") # Managin MySQL database
