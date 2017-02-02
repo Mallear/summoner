@@ -1,0 +1,6 @@
+summoner:
+  domain: example.com
+  vsroot: ~/Summoner/data
+  dbsroot: ~/Summoner/data/database
+  dropbox_token: NzqGcqMR5HAAAAAAAAAAYejJ-G8hpryFVIXqB0uF4mflHzyiEHpCfwbgN_d7GW75
+  applications: nginx ghost nextcloud wekan
