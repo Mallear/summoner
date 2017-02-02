@@ -203,7 +203,7 @@ if [ ! -e "$SUMMONER_CONTEXT_FILE" ]; then
   IFS=' ' read -r -a SUMMONER_TOOLS <<< "$conf_applications"
   for (( t=0; t<${#SUMMONER_TOOLS[@]}; t++ )) do
     # Using minions install script
-    script/tools/install.sh $t
+    echo script/tools/summon.sh $t
   done
 
 
