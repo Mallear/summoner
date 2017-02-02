@@ -22,7 +22,7 @@ case "$1" in
     script/tools/setup.sh
   ;;
   "summon")
-    if [ -f ~/.summoner ]; then
+    if [ ! -f ~/.summoner ]; then
       echo -e "Summoner not installed. Please install before summoning a minion."
       exit 1
     fi
