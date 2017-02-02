@@ -32,7 +32,7 @@ add_application() {
 
 source ~/.summoner
 
-if [ ! -f "$1" ]; then
+if [ ! -f "$1" ]; then
   exit 1
 fi
 
