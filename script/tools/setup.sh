@@ -20,7 +20,7 @@ parse_yaml() {
 
 
 
-SUMMONER_CONFIG_FILE=$HOME/.summoner
+SUMMONER_CONTEXT_FILE=$HOME/.summoner
 
 echo -e "\033[33m[`date +%F_%H_%M_%S`] Start Summoner installation"
 
@@ -134,7 +134,7 @@ else
 fi
 
 # Summoner installation
-if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
+if [ ! -e "$SUMMONER_CONTEXT_FILE" ]; then
 
   ### Variable definitions
   config_file=~/Summoner/config.yml # configuration file of summoner
@@ -152,47 +152,26 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
   eval $(parse_yaml $config_file "conf_")
 
   if [ ! -e "~/.dropbox_uploader" ]; then
-    echo "OAUTH_ACCESS_TOKEN=$conf_dropbox_token" > ~/.dropbox_uploader
+    echo "OAUTH_ACCESS_TOKEN=$conf_summoner_dropbox_token" > ~/.dropbox_uploader
   fi
 
-
   # Set .summoner file
-  echo "SUMMONER_HOME=~/Summoner" >> $SUMMONER_CONFIG_FILE
-  echo "MINIONS_DIR=~/Summoner/minions" >> $SUMMONER_CONFIG_FILE
-  echo "VOLUME_STORAGE_ROOT=$conf_vsroot" >> $SUMMONER_CONFIG_FILE
-  echo "DATABASE_STORAGE_ROOT=$conf_dbsroot" >> $SUMMONER_CONFIG_FILE
-  source $SUMMONER_CONFIG_FILE
+  echo "SUMMONER_HOME=~/Summoner" >> $SUMMONER_CONTEXT_FILE
+  echo "MINIONS_DIR=~/Summoner/minions" >> $SUMMONER_CONTEXT_FILE
+  echo "VOLUME_STORAGE_ROOT=$conf_summoner_vsroot" >> $SUMMONER_CONTEXT_FILE
+  echo "DATABASE_STORAGE_ROOT=$conf_summoner_dbsroot" >> $SUMMONER_CONTEXT_FILE
+  echo "SUMONNER_CONFIG_FILE=$config_file" >> $SUMMONER_CONTEXT_FILE
+  source $SUMMONER_CONTEXT_FILE
 
   ## Add sourcing of Summoner config file at each log in
   echo -e "\033[33m[`date +%F_%H_%M_%S`] Source Summoner config file"
-  echo "if [ -f $SUMMONER_CONFIG_FILE ]; then" >> ~/.bashrc
-  echo "  . $SUMMONER_CONFIG_FILE" >> ~/.bashrc
+  echo "if [ -f $SUMMONER_CONTEXT_FILE ]; then" >> ~/.bashrc
+  echo "  . $SUMMONER_CONTEXT_FILE" >> ~/.bashrc
   echo "fi" >> ~/.bashrc
 
   ## Building files architecture
   mkdir -p $SUMMONER_HOME
   mkdir -p $MINIONS_DIR
-
-  ## Get all the git repository for the apps to install
-  ### Get all application to deploy in an array
-  IFS=' ' read -r -a SUMMONER_TOOLS <<< "$conf_applications"
-  for (( t=0; t<${#SUMMONER_TOOLS[@]}; t++ )) do
-    # Make git repot URL
-    SUMMONER_TOOLS_URLS+=" git@gitlab.com:puzle-project/Summoner-${SUMMONER_TOOLS[$t]}.git"
-  done
-
-  IFS=' ' read -r -a SUMMONER_TOOLS_URLS <<< "$SUMMONER_TOOLS_URLS"
-
-  ## Git clone sources & configure their environment
-  echo -e "\033[33m[`date +%F_%H_%M_%S`] Getting all sources from Git \033[0m"
-  for (( t=0; t<${#SUMMONER_TOOLS_URLS[@]}; t++ )) do
-    echo -e "\033[33m[`date +%F_%H_%M_%S`] Getting tool : ${SUMMONER_TOOLS[$t]} - $(($t+1))/${#SUMMONER_TOOLS_URLS[@]} \033[0m"
-    git clone ${SUMMONER_TOOLS_URLS[$t]} $MINIONS_DIR/${SUMMONER_TOOLS[$t]}
-    # Install the app
-    echo -e "\033[33m[`date +%F_%H_%M_%S`] Deploying ${SUMMONER_TOOLS[$t]} ... \033[0m"
-    $MINIONS_DIR/${SUMMONER_TOOLS[$t]}/install.sh $config_file
-  done
-
 
   # Adding backup & dump to cron
   ## Creating log directory
@@ -217,6 +196,16 @@ if [ ! -e "$SUMMONER_CONFIG_FILE" ]; then
     (crontab -l 2>/dev/null; echo "0 2 1 * * $SCRIPT >> ~/Summoner/logs/data-backup.log") | crontab -
   fi
   cd - >> /dev/null
+
+
+  ## Install first apps
+  ### Get all application to deploy in an array
+  IFS=' ' read -r -a SUMMONER_TOOLS <<< "$conf_applications"
+  for (( t=0; t<${#SUMMONER_TOOLS[@]}; t++ )) do
+    # Using minions install script
+    script/tools/install.sh $t
+  done
+
 
   echo -e "\033[32m[`date +%F_%H_%M_%S`] Summoner installation OK \033[0m"
 else

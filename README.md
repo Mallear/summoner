@@ -70,6 +70,11 @@ Chacun des outils suivants ainsi que sa documentation peut être trouvé dans le
 * La [première](https://gitlab.com/puzle-project/Summoner/blob/master/Wiki/Databases.md) concerne les bases de données à proprement parler et aborde les méthodes de dump et backup des données.
 * La [seconde](https://gitlab.com/puzle-project/Summoner/blob/master/Wiki/summoner-database-dump.md) documente directement les scripts de sauvegarde utilisés.
 
+## Backup des bases de données
+_Stay tuned_
+
+## Backup des données
+_Stay tuned_
 
 
 ## FAQ
