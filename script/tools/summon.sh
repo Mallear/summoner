@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function add_application{
+add_application() {
   # tested with bash 4
   if [ $# -ne 4 ];then
       echo "Fail adding application to config.yml"
@@ -32,7 +32,7 @@ function add_application{
 
 source ~/.summoner
 
-if [ -z $1 ]; then
+if [ ! -f "$1" ]; then
   exit 1
 fi
 
@@ -41,6 +41,6 @@ echo -e "\033[33m[`date +%F_%H_%M_%S`] Getting all sources from Git \033[0m"
 echo -e "\033[33m[`date +%F_%H_%M_%S`] Cloning $1 sources \033[0m"
 git clone git@gitlab.com:puzle-project/Summoner-$1.git $MINIONS_DIR/$1
 echo -e "\033[33m[`date +%F_%H_%M_%S`] Deploying $1 ... \033[0m"
-$MINIONS_DIR/$1/install.sh
-echo -e "\033[33m[`date +%F_%H_%M_%S`] Add to the summoner context file \033[0m"
-add_application summoner applications $1 $SUMMONER_CONFIG_FILE
+$MINIONS_DIR/$1/install.sh $SUMMONER_CONFIG_FILE
+#echo -e "\033[33m[`date +%F_%H_%M_%S`] Add to the summoner context file \033[0m"
+#add_application summoner applications $1 $SUMMONER_CONFIG_FILE
