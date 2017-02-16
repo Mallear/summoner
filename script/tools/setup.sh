@@ -180,19 +180,19 @@ if [ ! -e "$SUMMONER_CONTEXT_FILE" ]; then
   cd /var/spool/cron/crontabs
   SCRIPT=$SUMMONER_HOME/$dbbackup_script_relativ
   echo -e "\033[33m[`date +%F_%H_%M_%S`] Set $SCRIPT in the crontab"
-  if [ `grep $SCRIPT * | wc -l` -eq 1 ]; then
+  if [ `grep $SCRIPT * | wc -l` -eq 0 ]; then
     (crontab -l 2>/dev/null; echo "* 2 1 * * $SCRIPT >> ~/Summoner/logs/database-backup.log") | crontab -
   fi
   ## dump one time each week
   SCRIPT=$SUMMONER_HOME/$dbdump_script_relativ
   echo -e "\033[33m[`date +%F_%H_%M_%S`] Set $SCRIPT in the crontab"
-  if [ `grep $SCRIPT * | wc -l` -eq 1 ]; then
+  if [ `grep $SCRIPT * | wc -l` -eq 0 ]; then
     (crontab -l 2>/dev/null; echo "0 2 * * 7 $SCRIPT >> ~/Summoner/logs/database-dump.log") | crontab -
   fi
   ## data backup one time each month
   SCRIPT=$SUMMONER_HOME/$data_backup_script_relativ
   echo -e "\033[33m[`date +%F_%H_%M_%S`] Set $SCRIPT in the crontab"
-  if [ `grep $SCRIPT * | wc -l` -eq 1 ]; then
+  if [ `grep $SCRIPT * | wc -l` -eq 0 ]; then
     (crontab -l 2>/dev/null; echo "0 2 1 * * $SCRIPT >> ~/Summoner/logs/data-backup.log") | crontab -
   fi
   cd - >> /dev/null
