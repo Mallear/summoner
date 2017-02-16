@@ -16,7 +16,7 @@ function usage
 
 case "$1" in
   "install")
-    if [ !-d script/tools ]; then
+    if [ ! -d "script/tools" ]; then
       git clone git@gitlab.com:puzle-project/Summoner.git
     fi
     script/tools/setup.sh
@@ -26,7 +26,7 @@ case "$1" in
       echo -e "Summoner not installed. Please install before summoning a minion."
       exit 1
     fi
-    if [ $# -neq 2 ]; then
+    if [ $# -neq 2 ]; then
       usage
     fi
     script/tools/summon.sh $2

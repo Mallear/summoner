@@ -32,14 +32,15 @@ add_application() {
 
 source ~/.summoner
 
-if [ ! -f "$1" ]; then
-  exit 1
+if [ ! -d "$MINIONS_DIR/$1" ]; then
+  ## Git clone sources & configure their environment
+  echo -e "\033[33m[`date +%F_%H_%M_%S`] Getting all sources from Git \033[0m"
+  echo -e "\033[33m[`date +%F_%H_%M_%S`] Cloning $1 sources \033[0m"
+  git clone git@gitlab.com:puzle-project/Summoner-$1.git $MINIONS_DIR/$1
+else
+  echo -e "\033[33m[`date +%F_%H_%M_%S`] Sources already cloned "
 fi
 
-## Git clone sources & configure their environment
-echo -e "\033[33m[`date +%F_%H_%M_%S`] Getting all sources from Git \033[0m"
-echo -e "\033[33m[`date +%F_%H_%M_%S`] Cloning $1 sources \033[0m"
-git clone git@gitlab.com:puzle-project/Summoner-$1.git $MINIONS_DIR/$1
 echo -e "\033[33m[`date +%F_%H_%M_%S`] Deploying $1 ... \033[0m"
 $MINIONS_DIR/$1/install.sh $SUMMONER_CONFIG_FILE
 #echo -e "\033[33m[`date +%F_%H_%M_%S`] Add to the summoner context file \033[0m"
