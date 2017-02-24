@@ -1,4 +1,5 @@
 summoner:
+  version: 0.2.0
   domain: virtualdonkey.fr
   vsroot: ~/Summoner/data
   dbsroot: ~/Summoner/data/database
