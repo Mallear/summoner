@@ -2,3 +2,17 @@ config.yml
 ovh
 data/
 .vscode/
+minions/DockerDoc
+minions/GlobalMenu
+minions/ldap
+minions/ldapadmin
+minions/monitoring
+minions/Rocketchat
+minions/Sinopia
+minions/statik
+minions/Taiga
+minions/Verdaccio
+minions/webserver
+minions/openldap
+minions/etherpad
+Patch/
