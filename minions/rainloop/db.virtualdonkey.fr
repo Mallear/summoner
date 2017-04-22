@@ -1,0 +1,24 @@
+$TTL 3600
+@	IN SOA dns106.ovh.net. tech.ovh.net. (2017032908 86400 3600 3600000 300)
+                          IN NS     ns106.ovh.net.
+                          IN NS     dns106.ovh.net.
+                          IN MX 1   redirect.ovh.net.
+                          IN A      198.100.146.123
+                          IN TXT    "1|www.virtualdonkey.fr"
+                      600 IN TXT    "v=spf1 ip4:198.100.146.123 include:mx.ovh.com ~all"
+*                         IN A      198.100.146.123
+_autodiscover._tcp        IN SRV    0 0 443 virtualdonkey.fr.
+_imaps._tcp               IN SRV    0 0 993 virtualdonkey.fr.
+_submission._tcp          IN SRV    0 0 465 virtualdonkey.fr.
+autoconfig                IN CNAME  mailconfig.ovh.net.
+autodiscover              IN CNAME  mailconfig.ovh.net.
+ftp                       IN CNAME  virtualdonkey.fr.
+imap                      IN CNAME  virtualdonkey.fr.
+mail                      IN CNAME  virtualdonkey.fr.
+ownercheck                IN TXT    "2b790125"
+pop3                      IN CNAME  virtualdonkey.fr.
+smtp                      IN CNAME  virtualdonkey.fr.
+www                       IN MX 1   redirect.ovh.net.
+www                       IN A      198.100.146.123
+www                       IN TXT    "3|welcome"
+www                       IN TXT    "l|fr"

@@ -1,0 +1,26 @@
+version: "2"
+services:
+  emysql:
+    image:
+      mysql
+    environment:
+      - MYSQL_USER=etherpad
+      - MYSQL_PASSWORD=etherpad
+      - MYSQL_DATABASE=etherpad
+      - MYSQL_ROOT_PASSWORD=password
+    container_name: mysql-ether
+
+  etherpad:
+    image: tvelocity/etherpad-lite
+    depends_on:
+        - "emysql"
+    links:
+      - emysql:mysql
+    ports:
+      - 9001:9001
+    environment:
+      - ETHERPAD_DB_HOST=mysql-ether
+      - ETHERPAD_DB_USER=etherpad
+      - ETHERPAD_DB_PASSWORD=etherpad
+      - ETHERPAD_ADMIN_USER=admin
+      - ETHERPAD_ADMIN_PASSWORD=admin

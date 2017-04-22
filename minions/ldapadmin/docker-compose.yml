@@ -1,0 +1,12 @@
+ldapAdmin:
+  image: osixia/phpldapadmin:${LDAP_ADMIN_VERSION}
+  container_name: ${LDAP_ADMIN_SUBDOMAIN}-${DOMAIN}
+  depends_on:
+  - ldap
+  environment: 
+  - VIRTUAL_HOST=${LDAP_ADMIN_SUBDOMAIN}.${DOMAIN}
+  - LETSENCRYPT_HOST=${LDAP_ADMIN_SUBDOMAIN}.${DOMAIN}
+  - LETSENCRYPT_EMAIL=${LDAP_ADMIN_SUBDOMAIN}@${DOMAIN}
+  volumes: 
+  - ${LDAP_ADMIN_STARTUP_FILE}:/container/environment/01-custom:ro
+  -${VOLUME_STORAGE_ROOT}/${CERTS_DIR}:/container/service/phpldapadmin/assets/apache2/certs

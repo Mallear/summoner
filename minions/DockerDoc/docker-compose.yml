@@ -1,0 +1,9 @@
+dockerdoc:
+  image: docs/archive:${DOCKER_DOC_VERSION}
+  container_name: ${DOCKER_DOC_SUBDOMAIN}-${DOMAIN}
+  environment:
+    - VIRTUAL_HOST=${DOCKER_DOC_SUBDOMAIN}.${DOMAIN}, localhost
+    - LETSENCRYPT_HOST=${DOCKER_DOC_SUBDOMAIN}.${DOMAIN}, localhost
+    - LETSENCRYPT_EMAIL=${DOCKER_DOC_SUBDOMAIN}@${DOMAIN}
+  ports:
+    - 127.0.0.1:${DOCKER_DOC_WEB_PORT}:4000
