@@ -40,9 +40,6 @@
 [submodule "minions/verdaccio"]
 	path = minions/verdaccio
 	url = git@gitlab.com:summoner/verdaccio.git
-[submodule "summoner.gitlab.io"]
-	path = summoner.gitlab.io
-	url = git@gitlab.com:summoner/summoner.gitlab.io.git
 [submodule "minions/mailserver"]
 	path = minions/mailserver
 	url = git@gitlab.com:summoner/mailserver.git
