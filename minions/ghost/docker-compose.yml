@@ -1,0 +1,11 @@
+ghost:
+  image: ghost:${GHOST_VERSION}
+  container_name: ${GHOST_SUBDOMAIN}-${DOMAIN}
+  ports:
+    - 127.0.0.1:${GHOST_WEB_PORT}:2368
+  environment:
+    - VIRTUAL_HOST=${GHOST_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_HOST=${GHOST_SUBDOMAIN}.${DOMAIN}
+    - LETSENCRYPT_EMAIL=${GHOST_SUBDOMAIN}@${DOMAIN}
+  volumes:
+    - ${VOLUME_STORAGE_ROOT}/${GHOST_SUBDOMAIN}/blog:/var/lib/ghost/

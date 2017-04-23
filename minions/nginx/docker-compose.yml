@@ -1,0 +1,22 @@
+nginx-proxy:
+    restart: always
+    image: jwilder/nginx-proxy:${NGINX_VERSION}
+    ports:
+        - "80:80"
+        - "443:443"
+    container_name: nginx-${DOMAIN}
+    volumes:
+        - ${VOLUME_STORAGE_ROOT}/${CERT_DIR}:/etc/nginx/certs:ro
+        - ${VOLUME_STORAGE_ROOT}/${VHOST_DIR}:/etc/nginx/vhost.d
+        - /usr/share/nginx/html
+        - /var/run/docker.sock:/tmp/docker.sock:ro
+
+nginx-proxy-companion:
+    restart: always
+    image: alastaircoote/docker-letsencrypt-nginx-proxy-companion:${LETSENCRYPT_VERSION}
+    container_name: letsencrypt-nginx-${DOMAIN}
+    volumes:
+        - ${VOLUME_STORAGE_ROOT}/${CERT_DIR}:/etc/nginx/certs:rw
+        - /var/run/docker.sock:/var/run/docker.sock
+    volumes_from:
+        - nginx-proxy
