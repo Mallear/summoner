@@ -7,3 +7,6 @@
 [submodule "core/registry"]
 	path = core/registry
 	url = https://gitlab.com/summoner/registry
+[submodule "core/monitoring"]
+	path = core/monitoring
+	url = https://gitlab.com/summoner/monitoring
