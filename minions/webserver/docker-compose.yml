@@ -1,7 +1,0 @@
-statik:
-  container_name: ${STATIK_SUBDOMAIN}-${DOMAIN}
-  image: hanzel/nginx-html:${STATIK_VERSION}
-  volumes:
-    - ${VOLUME_STORAGE_ROOT}/${STATIK_DATA_DIR}:/etc/nginx/html
-  ports:
-    - ${STATIK_WEB_PORT}:80
