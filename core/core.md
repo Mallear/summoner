@@ -1,5 +1,5 @@
 # Core modules
 
-* [Nginx & Letsencrypt](nginx/README.md)
-* [OpenLDAP](OpenLDAP/README.md)
 * [Docker Registry](registry/README.md)
+* [Nginx & Letsencrypt](nginx/README.md) - Reverse proxy and authentification tool
+* [OpenLDAP](OpenLDAP/README.md) - Easy-to-use LDAP server
