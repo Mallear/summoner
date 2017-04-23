@@ -1,0 +1,3 @@
+[submodule "minions/ghost"]
+	path = minions/ghost
+	url = https://gitlab.com/summoner/ghost
