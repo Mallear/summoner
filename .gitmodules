@@ -1,42 +1,45 @@
 [submodule "minions/ghost"]
 	path = minions/ghost
-	url = https://gitlab.com/summoner/ghost
+	url = git@gitlab.com:summoner/ghost
 [submodule "core/nginx"]
 	path = core/nginx
-	url = https://gitlab.com/summoner/nginx
+	url = git@gitlab.com:summoner/nginx
 [submodule "core/registry"]
 	path = core/registry
-	url = https://gitlab.com/summoner/registry
+	url = git@gitlab.com:summoner/registry
 [submodule "core/monitoring"]
 	path = core/monitoring
-	url = https://gitlab.com/summoner/monitoring
+	url = git@gitlab.com:summoner/monitoring
 [submodule "minions/wekan"]
 	path = minions/wekan
-	url = https://gitlab.com/summoner/wekan
+	url = git@gitlab.com:summoner/wekan
 [submodule "minions/mattermost"]
 	path = minions/mattermost
-	url = https://gitlab.com/summoner/mattermost
+	url = git@gitlab.com:summoner/mattermost
 [submodule "minions/wordpress"]
 	path = minions/wordpress
-	url = https://gitlab.com/summoner/wordpress
+	url = git@gitlab.com:summoner/wordpress
 [submodule "minions/taiga"]
 	path = minions/taiga
-	url = https://gitlab.com/summoner/taiga
+	url = git@gitlab.com:summoner/taiga
 [submodule "minions/nextcloud"]
 	path = minions/nextcloud
-	url = https://gitlab.com/summoner/nextcloud
+	url = git@gitlab.com:summoner/nextcloud
 [submodule "minions/rocketchat"]
 	path = minions/rocketchat
-	url = https://gitlab.com/summoner/rocketchat
+	url = git@gitlab.com:summoner/rocketchat
 [submodule "minions/etherpad"]
 	path = minions/etherpad
-	url = https://gitlab.com/summoner/etherpad
+	url = git@gitlab.com:summoner/etherpad
 [submodule "minions/sinopia"]
 	path = minions/sinopia
-	url = https://gitlab.com/summoner/sinopia
+	url = git@gitlab.com:summoner/sinopia
 [submodule "minions/gitlab"]
 	path = minions/gitlab
-	url = https://gitlab.com/summoner/gitlab
+	url = git@gitlab.com:summoner/gitlab
 [submodule "minions/verdaccio"]
 	path = minions/verdaccio
-	url = https://gitlab.com/summoner/verdaccio
+	url = git@gitlab.com:summoner/verdaccio
+[submodule "summoner.gitlab.io"]
+	path = summoner.gitlab.io
+	url = git@gitlab.com:summoner/summoner.gitlab.io.git
