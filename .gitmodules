@@ -10,3 +10,33 @@
 [submodule "core/monitoring"]
 	path = core/monitoring
 	url = https://gitlab.com/summoner/monitoring
+[submodule "minions/wekan"]
+	path = minions/wekan
+	url = https://gitlab.com/summoner/wekan
+[submodule "minions/mattermost"]
+	path = minions/mattermost
+	url = https://gitlab.com/summoner/mattermost
+[submodule "minions/wordpress"]
+	path = minions/wordpress
+	url = https://gitlab.com/summoner/wordpress
+[submodule "minions/taiga"]
+	path = minions/taiga
+	url = https://gitlab.com/summoner/taiga
+[submodule "minions/nextcloud"]
+	path = minions/nextcloud
+	url = https://gitlab.com/summoner/nextcloud
+[submodule "minions/rocketchat"]
+	path = minions/rocketchat
+	url = https://gitlab.com/summoner/rocketchat
+[submodule "minions/etherpad"]
+	path = minions/etherpad
+	url = https://gitlab.com/summoner/etherpad
+[submodule "minions/sinopia"]
+	path = minions/sinopia
+	url = https://gitlab.com/summoner/sinopia
+[submodule "minions/gitlab"]
+	path = minions/gitlab
+	url = https://gitlab.com/summoner/gitlab
+[submodule "minions/verdaccio"]
+	path = minions/verdaccio
+	url = https://gitlab.com/summoner/verdaccio
