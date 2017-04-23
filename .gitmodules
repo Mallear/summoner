@@ -1,3 +1,9 @@
 [submodule "minions/ghost"]
 	path = minions/ghost
 	url = https://gitlab.com/summoner/ghost
+[submodule "core/nginx"]
+	path = core/nginx
+	url = https://gitlab.com/summoner/nginx
+[submodule "core/registry"]
+	path = core/registry
+	url = https://gitlab.com/summoner/registry
