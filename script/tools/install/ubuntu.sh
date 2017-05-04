@@ -8,12 +8,12 @@ install_docker_ubuntu() {
     apt-get update
 
     # Install extra packages
-    apt-get install \
+    apt-get install -y \
         linux-image-extra-$(uname -r) \
         linux-image-extra-virtual
 
     # Install packages to use repositories over HTTPS
-    apt-get install \
+    apt-get install -y \
         apt-transport-https \
         ca-certificates \
         curl \
@@ -27,7 +27,7 @@ install_docker_ubuntu() {
     #fi
 
     if [ `dpkg --print-architecture` == "amd64" ]; then 
-        add-apt-repository \
+        add-apt-repository -y \
             "deb [arch=amd64] https://download.docker.com/linux/debian \
             $(lsb_release -cs) \
             stable"
@@ -38,9 +38,9 @@ install_docker_ubuntu() {
     fi
 
     # Install last Docker CE version
-    apt-get update
-    apt-get install docker-ce
-    apt-cache madison docker-ce
+    apt-get update -y
+    apt-get install -y docker-ce
+    apt-cache madison -y docker-ce
 
     ## Check Docker installation
     CHECK_INSTALL=`docker run hello-world | grep -i "hello from docker" | wc -l`

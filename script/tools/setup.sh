@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # import common functions
-. common.sh
-. ubuntu.sh
-. debian-wheezy.sh
+. `$pwd`/script/tools/common.sh
+. `$pwd`/script/tools/install/ubuntu.sh
+. `$pwd`/script/tools/install/debian-wheezy.sh
 
 SUMMONER_CONTEXT_FILE=$HOME/.summoner
 
@@ -22,6 +22,8 @@ if [ $KERNEL_MAJOR -lt 3 ]; then
   fi
 fi
 
+apt-get install -y dpkg
+
 # Check if Docker is already installed
 if [ `dpkg -s docker-engine | grep -i status | wc -l ` -eq 1 ]; then
   echo -e "\033[32m[`date +%F_%H_%M_%S`] Docker already installed, jump to compose installation."
@@ -30,7 +32,8 @@ else
   echo -e "\033[33m[`date +%F_%H_%M_%S`] Installation begins ..."
 
   ## Install ldb_release command
-  apt-get update && apt-get install -y lsb-release
+  # apt-get update -y
+  apt-get install -y lsb-release
 
   ## Check distribution
   CHECK_UBUNTU=`lsb_release -a | grep -i ubuntu | wc -l`
