@@ -1,24 +1,9 @@
 #!/bin/bash
 
-### Function definitions
-
-parse_yaml() {
-   local prefix=$2
-   local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
-   sed -ne "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
-        -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p"  $1 |
-   awk -F$fs '{
-      indent = length($1)/2;
-      vname[indent] = $2;
-      for (i in vname) {if (i > indent) {delete vname[i]}}
-      if (length($3) > 0) {
-         vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
-         printf("%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, $3);
-      }
-   }'
-}
-
-
+# import common functions
+. common.sh
+. ubuntu.sh
+. debian-wheezy.sh
 
 SUMMONER_CONTEXT_FILE=$HOME/.summoner
 
@@ -64,56 +49,14 @@ else
       exit 1
     fi
 
-    apt-get update
-    apt-get install -y apt-transport-https ca-certificates
-    # Add new GPG key
-    apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-    # Add docker sources repo according to Ubuntu version
-    echo "deb https://apt.dockerproject.org/repo ubuntu-$CODENAME main" > /etc/apt/sources.list.d/docker.list
-    apt-get update
-    apt-get purge lxc-docker*
-    apt-cache policy docker-engine
-
-    # Install linux-image-extra for aufs managing
-    apt-get update
-    apt-get install -y linux-image-extra-$(uname-r)
+    install_docker_ubuntu    
   fi
-
 
   ## Debian setup
   if [ $CHECK_DEBIAN -ne 0 ]; then
-    if [ "$CODENAME" -eq "wheezy" ]; then
-      ## Opening backports for Wheezy
-      echo "deb http:/http.debian.net/debian $CODENAME-backports main" > /etc/apt/sources.list.d/backports.list
-      apt-get update
-    fi
-
-    apt-get purge lxc-docker*
-    apt-get purge docker.io*
-    apt-get update
-    apt-get install -y apt-transport-https ca-certificates
-    apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-
-    echo "deb https://apt.dockerproject.org/repo debian-$CODENAME main" > /etc/apt/sources.list.d/docker.list
-    apt-get update
-    apt-cache policy docker-engine
+    install_docker_wheezy
   fi
 
-  ## Docker installation
-
-  apt-get update
-  apt-get install -y docker-engine
-  service docker start
-  CHECK_INSTALL=`docker run hello-world | grep -i "hello from docker" | wc -l`
-
-  if [ $CHECK_INSTALL -eq 1 ]; then
-    echo -e "\033[32m[`date +%F_%H_%M_%S`]Docker engine install - OK !"
-  else
-    echo -e "\033[31m[`date +%F_%H_%M_%S`] Docker engine install - KO !"
-    echo -e "\033[31m[`date +%F_%H_%M_%S`] Summoner installation - KO !"
-    echo -e "\033[31m[`date +%F_%H_%M_%S`] Please see logs for further informations"
-    exit 1
-  fi
 fi
 
 # Checking docker-compose installation
