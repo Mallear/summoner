@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # import common functions
-. `$pwd`/script/tools/common.sh
-. `$pwd`/script/tools/install/ubuntu.sh
-. `$pwd`/script/tools/install/debian-wheezy.sh
+. `pwd`/script/tools/common.sh
+. `pwd`/script/tools/install/ubuntu.sh
+. `pwd`/script/tools/install/debian-wheezy.sh
 
 SUMMONER_CONTEXT_FILE=$HOME/.summoner
 
