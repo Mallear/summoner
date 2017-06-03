@@ -1,7 +1,5 @@
 config.yml
-ovh
 data/
 .vscode/
-Patch/
-doc/
-_book/
+**/.env
+**/*/.env
