@@ -43,8 +43,8 @@
 [submodule "minions/communication/mailserver"]
 	path = minions/communication/mailserver
 	url = git@gitlab.com:summoner/mailserver.git
-[submodule "core/core/OpenLDAP"]
-	path = core/core/OpenLDAP
+[submodule "minions/core/OpenLDAP"]
+	path = minions/core/OpenLDAP
 	url = git@gitlab.com:summoner/OpenLDAP.git
 [submodule "summoner.gitlab.io"]
 	path = summoner.gitlab.io
@@ -52,6 +52,3 @@
 [submodule "minions/tools/ethercalc"]
 	path = minions/tools/ethercalc
 	url = git@gitlab.com:summoner/ethercalc.git
-[submodule "monitoring"]
-	path = monitoring
-	url = git@gitlab.com:summoner/monitoring
