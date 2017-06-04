@@ -9,7 +9,7 @@
 	url = git@gitlab.com:summoner/registry.git
 [submodule "minions/core/monitoring"]
 	path = minions/core/monitoring
-	url = git@gitlab.com:summoner/monitoring
+	url = git@gitlab.com:summoner/monitoring.git
 [submodule "minions/organisation/wekan"]
 	path = minions/organisation/wekan
 	url = git@gitlab.com:summoner/wekan.git
