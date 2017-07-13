@@ -52,3 +52,6 @@
 [submodule "minions/tools/ethercalc"]
 	path = minions/tools/ethercalc
 	url = git@gitlab.com:summoner/ethercalc.git
+[submodule "minions/core/traefik"]
+	path = minions/core/traefik
+	url = git@gitlab.com:summoner/traefik.git
