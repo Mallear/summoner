@@ -1,3 +1,4 @@
+# coding: utf-8
 import subprocess
 import click
 import git
@@ -8,7 +9,7 @@ from pathlib import Path
 import docker
 
 docker_watcher = docker.from_env()
-repo_base_url='git@gitlab.com:summoner/'
+repo_base_url='https://gitlab.com/summoner/'
 config_file='config.yml'
 
 
@@ -46,7 +47,7 @@ def init():
     path = Path(summoner.installDirectory)
     if not path.exists():
         # Clone git repo
-        repo = git.Repo.clone_from(repo_base_url + main_module, osp.join(summoner.installDirectory), branch='master')
+        repo = git.Repo.clone_from(repo_base_url + main_module, osp.join(summoner.installDirectory), branch='dev')
         click.echo('Summoner cloned !')
     else:
         click.echo('Summoner already installed.')
@@ -75,11 +76,11 @@ def deploy(app):
     minion_path = Path(minion_dir)
     # Clone from repo
     if not minion_path.exists():
-        git.Repo.clone_from(repo_base_url + app, osp.join(summoner.minionsDirectory+'/'+app), branch='master')
+        git.Repo.clone_from(repo_base_url + app + '.git', osp.join(minion_dir), branch='master')
     else:
         click.echo('Minion already clone from repository')
     # Generate .env file from .env_default
-    script = summoner.minionsDirectory+'/'+app+'/'+'deploy.py'
+    script = minion_dir+'/'+'deploy.py'
     os.chdir(minion_dir)
     Path(script).chmod(0o755)
     subprocess.run(["python", script, summoner.domain], stdout=subprocess.PIPE)
