@@ -1,6 +1,12 @@
 summoner:
+  version: 0.2.0
+  install_dir: /path/to/install/directory
+  minions_dir: /path/to/minions/directory
   domain: example.com
   vsroot: ~/Summoner/data
   dbsroot: ~/Summoner/data/database
-  dropbox_token: NzqGcqMR5HAAAAAAAAAAYejJ-G8hpryFVIXqB0uF4mflHzyiEHpCfwbgN_d7GW75
-  applications: nginx ghost nextcloud wekan
+  reverse_proxy: nginx
+  applications:
+    - ghost
+    - nextcloud
+    - wekan
