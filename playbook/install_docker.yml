@@ -1,0 +1,27 @@
+- hosts: all
+  remote_user: root
+  
+  tasks:
+    - name: Update repositories
+      shell: apt-get update
+
+    - name: Install HTTPS packages
+      shell: apt install -y apt-transport-https ca-certificates curl software-properties-common
+    - name: Add Docker GPG key
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+    - name: Add repository
+      shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+    - name: Update repositories
+      shell: apt-get update
+
+    - name: Install Docker
+      shell: apt-get install -y docker-ce
+
+    - name: Install Docker Compose 
+      shell: curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+
+
+    - name: Give right to compose exe
+      shell: chmod +x /usr/local/bin/docker-compose
