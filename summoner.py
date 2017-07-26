@@ -69,6 +69,7 @@ def init():
         deploy(app)
 
 
+# Add volume recovering when deployed
 def deploy(app):
     assert app is not None
     click.echo('Starting '+app)
@@ -85,6 +86,7 @@ def deploy(app):
     Path(script).chmod(0o755)
     subprocess.run(["python", script, summoner.domain], stdout=subprocess.PIPE)
     os.chdir(summoner.installDirectory)
+    click.echo('Minion launched.')
 
 
 @cli.command()
@@ -93,16 +95,31 @@ def start(app):
     deploy(app)
 
 
+# Todo : add volume auto save when stopped
 @cli.command()
 @click.argument('app')
 def stop(app):
-    pass
+    assert app is not None
+    click.echo('Stopping '+app)
+    minion_dir = summoner.minionsDirectory+'/'+app
+    minion_path = Path(minion_dir)
+    if not minion_path.exists():
+        click.echo('Minion do not exist.')
+    else:
+        if len(docker_watcher.containers.list(filters={'name': app+'-'+summoner.domain})) != 0:
+            os.chdir(minion_dir)
+            subprocess.call("docker-compose down", shell=True)
+            os.chdir(summoner.installDirectory)
+            click.echo('Minion stopped.')
+        else:
+            click.echo('Minion is not deployed yet.')
 
 
 @cli.command()
 @click.argument('app')
 def update(app):
-    pass
+    stop(app)
+    start(app)
 
 
 # Print all running containers
@@ -115,6 +132,7 @@ def ls():
 cli.add_command(init)
 cli.add_command(start)
 cli.add_command(stop)
+cli.add_command(update)
 cli.add_command(ls)
 
 if __name__ == "__main__":
