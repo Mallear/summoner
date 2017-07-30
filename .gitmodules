@@ -1,6 +1,0 @@
-[submodule "minions/communication/rocketchat"]
-	path = minions/communication/rocketchat
-	url = git@gitlab.com:summoner/rocketchat.git
-[submodule "minions/core/traefik"]
-	path = minions/core/traefik
-	url = git@gitlab.com:summoner/traefik.git
