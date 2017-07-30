@@ -6,3 +6,5 @@ data/
 env/
 src/
 .idea/
+playbook/*.retry
+minions/

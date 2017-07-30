@@ -1,57 +1,6 @@
-[submodule "minions/communication/ghost"]
-	path = minions/communication/ghost
-	url = git@gitlab.com:summoner/ghost.git
-[submodule "minions/core/nginx"]
-	path = minions/core/nginx
-	url = git@gitlab.com:summoner/nginx.git
-[submodule "minions/core/registry"]
-	path = minions/core/registry
-	url = git@gitlab.com:summoner/registry.git
-[submodule "minions/core/monitoring"]
-	path = minions/core/monitoring
-	url = git@gitlab.com:summoner/monitoring.git
-[submodule "minions/organisation/wekan"]
-	path = minions/organisation/wekan
-	url = git@gitlab.com:summoner/wekan.git
-[submodule "minions/communication/mattermost"]
-	path = minions/communication/mattermost
-	url = git@gitlab.com:summoner/mattermost.git
-[submodule "minions/communication/wordpress"]
-	path = minions/communication/wordpress
-	url = git@gitlab.com:summoner/wordpress.git
-[submodule "minions/organisation/taiga"]
-	path = minions/organisation/taiga
-	url = git@gitlab.com:summoner/taiga.git
-[submodule "minions/organisation/nextcloud"]
-	path = minions/organisation/nextcloud
-	url = git@gitlab.com:summoner/nextcloud.git
 [submodule "minions/communication/rocketchat"]
 	path = minions/communication/rocketchat
 	url = git@gitlab.com:summoner/rocketchat.git
-[submodule "minions/tools/etherpad"]
-	path = minions/tools/etherpad
-	url = git@gitlab.com:summoner/etherpad.git
-[submodule "minions/organisation/sinopia"]
-	path = minions/organisation/sinopia
-	url = git@gitlab.com:summoner/sinopia.git
-[submodule "minions/organisation/gitlab"]
-	path = minions/organisation/gitlab
-	url = git@gitlab.com:summoner/gitlab.git
-[submodule "minions/organisation/verdaccio"]
-	path = minions/organisation/verdaccio
-	url = git@gitlab.com:summoner/verdaccio.git
-[submodule "minions/communication/mailserver"]
-	path = minions/communication/mailserver
-	url = git@gitlab.com:summoner/mailserver.git
-[submodule "minions/core/OpenLDAP"]
-	path = minions/core/OpenLDAP
-	url = git@gitlab.com:summoner/OpenLDAP.git
-[submodule "summoner.gitlab.io"]
-	path = summoner.gitlab.io
-	url = git@gitlab.com:summoner/summoner.gitlab.io.git
-[submodule "minions/tools/ethercalc"]
-	path = minions/tools/ethercalc
-	url = git@gitlab.com:summoner/ethercalc.git
 [submodule "minions/core/traefik"]
 	path = minions/core/traefik
 	url = git@gitlab.com:summoner/traefik.git
