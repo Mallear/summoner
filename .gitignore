@@ -1,7 +1,9 @@
 config.yml
-ovh
 data/
 .vscode/
-Patch/
-doc/
-_book/
+env/
+.idea/
+playbook/*.retry
+minions/
+summoner.gitlab.io
+summoner
