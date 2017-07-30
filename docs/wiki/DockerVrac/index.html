@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Mallear@VirtualDonkey">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Memo Docker - Summoner Docs</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../css/extra.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Memo Docker";
+    var mkdocs_page_input_path = "wiki/DockerVrac.md";
+    var mkdocs_page_url = "/wiki/DockerVrac/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Summoner Docs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Summoner</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../..">Accueil</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../summoner/">Solution</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../DatabaseManagement/">Database Management</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Minions</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <span class="caption-text">Core minions</span>
+    <ul class="subnav">
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/core/nginx/README/">Nginx</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/core/OpenLDAP/README/">OpenLDAP</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/core/registry/README/">Docker registry</a>
+                </li>
+    </ul>
+                </li>
+                <li class="">
+                    
+    <span class="caption-text">Other minions</span>
+    <ul class="subnav">
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/etherpad/README/">Etherpad</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/ghost/README/">Ghost</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/gitlab/README/">Gitlab</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/mailserver/README/">Serveur mail</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/mattermost/README/">Mattermost</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/nextcloud/README/">Nextcloud</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/rocketchat/README/">Rocketchat</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/sinopia/README/">Sinopia</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/taiga/README/">Taiga</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/wekan/README/">Wekan</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/wordpress/README/">Wordpress</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../FAQ/">FAQ</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Memo Docker</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#docker-command-list">Docker Command list</a></li>
+    
+
+    <li class="toctree-l2"><a href="#back-to-basics">Back to basics</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#docker-network">Docker network</a></li>
+        
+            <li><a class="toctree-l3" href="#la-modification-dun-container-docker-soumission">La modification d'un container Docker &amp; soumission</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#docker-compose">Docker Compose</a></li>
+    
+
+    <li class="toctree-l2"><a href="#automated-build-on-docker-hub">Automated build on Docker Hub</a></li>
+    
+
+    <li class="toctree-l2"><a href="#docker-docker-compose-update">Docker &amp; Docker Compose Update</a></li>
+    
+
+    <li class="toctree-l2"><a href="#device-mapper">Device mapper</a></li>
+    
+
+    <li class="toctree-l2"><a href="#docker-environment-variables">Docker environment variables</a></li>
+    
+
+    <li class="toctree-l2"><a href="#docker-variables-substitution">Docker variables substitution</a></li>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Summoner Docs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Memo Docker</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://gitlab.com/summoner/summoner/"> Edit on Gitlab</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="docker-command-list">Docker Command list<a class="headerlink" href="#docker-command-list" title="Permanent link"></a></h2>
+<h1 id="back-to-basics">Back to basics<a class="headerlink" href="#back-to-basics" title="Permanent link"></a></h1>
+<p><strong>Docker user story</strong></p>
+<pre><code class="shell">$ docker service start
+$ docker run &lt;image&gt;
+$ docker service stop
+</code></pre>
+
+<p><strong>Utilities</strong>
+- Définition du fichier Dockerfile :</p>
+<pre><code>FROM &lt;original image&gt;
+RUN &lt;cmd to set up the image&gt;
+CMD &lt;cmd runned by the image&gt;
+</code></pre>
+
+<ul>
+<li>Build de l'image</li>
+</ul>
+<pre><code class="shell">$ docker build -t &lt;user&gt;/&lt;repository name&gt;:&lt;tag&gt; .
+</code></pre>
+
+<ul>
+<li>Push de l'image sur Docker Hub</li>
+</ul>
+<pre><code class="shell">$ docker tag &lt;img id&gt; &lt;username&gt;/&lt;image name&gt;:latest
+$ docker login
+$ docker push &lt;username&gt;/&lt;image name&gt;
+</code></pre>
+
+<ul>
+<li>Liste des images</li>
+</ul>
+<pre><code class="shell">$ docker images
+</code></pre>
+
+<ul>
+<li>Suppression des images<br />
+<em>-f permet de forcer la suppression</em></li>
+</ul>
+<pre><code class="shell">$ docker rmi -f &lt;image&gt;
+</code></pre>
+
+<ul>
+<li>Suppression d'un container
+<code>-f</code> permet de forcer la suppression dans le cas où le container run toujours</li>
+</ul>
+<pre><code class="shell">docker rm &lt;container&gt;
+</code></pre>
+
+<ul>
+<li>Recherche d'image existante</li>
+</ul>
+<pre><code class="shell">$ docker search &lt;image&gt;
+</code></pre>
+
+<ul>
+<li>Affichage des sorties standards d'un container</li>
+</ul>
+<pre><code class="shell">docker &lt;container id&gt; logs
+</code></pre>
+
+<ul>
+<li>Liste des processus tournant dans un container</li>
+</ul>
+<pre><code class="shell">docker top &lt;container&gt;
+</code></pre>
+
+<ul>
+<li>Récupération des carac du container</li>
+</ul>
+<pre><code class="shell">docker inspect &lt;container&gt;
+</code></pre>
+
+<ul>
+<li>Télécharger sans run le container</li>
+</ul>
+<pre><code class="shell">docker pull &lt;image&gt;
+</code></pre>
+
+<ul>
+<li>Executer un terminal dans un container</li>
+</ul>
+<pre><code class="shell">docker exec -it &lt;container&gt; bash
+</code></pre>
+
+<ul>
+<li>Lister tout les container</li>
+</ul>
+<pre><code>docker ps -a
+</code></pre>
+
+<ul>
+<li>Supprimer tout les container</li>
+</ul>
+<pre><code class="shell">docker rm `docker ps -aq`
+</code></pre>
+
+<p><strong>Docker run</strong></p>
+<pre><code class="shell">docker run -t -i ubuntu /bin/bash
+</code></pre>
+
+<ul>
+<li><code>docker run</code> runs a container</li>
+<li><code>ubuntu</code> is the image run</li>
+<li><code>-t</code> flag : assign a terminal inside the new container</li>
+<li><code>-i</code> flag : interactive connection by grabbind the STDIN of the container</li>
+<li><code>/bin/bash</code> : launches a Bash shell</li>
+<li><code>--name</code> : allow to give a name to a container</li>
+</ul>
+<p><strong><code>Docker run</code> - Other flags</strong>
+<em> -d : deamonize the container (run in the background)
+</em> -c : add a command
+* -p : map any required network ports inside our container to our host.<br />
+Use :</p>
+<pre><code class="shell">docker run -p &lt;machine port&gt;:&lt;container port&gt;
+</code></pre>
+
+<p>*</p>
+<p><strong><code>Docker ps</code> - Flags</strong>
+* <code>-l</code> : informations about the last launched container</p>
+<p><strong><code>Docker logs</code> - Flags</strong>
+* <code>-f</code> : act like <code>tail -f</code></p>
+<h3 id="docker-network">Docker network<a class="headerlink" href="#docker-network" title="Permanent link"></a></h3>
+<ul>
+<li>List all of the network</li>
+</ul>
+<pre><code class="shell">docker network ls
+</code></pre>
+
+<ul>
+<li>Remove a container from the network</li>
+</ul>
+<pre><code class="shell">docker network disconnet &lt;network&gt; &lt;container&gt;
+</code></pre>
+
+<ul>
+<li>Create a network
+<code>-d</code> : tells docker to use driver for network type</li>
+</ul>
+<pre><code class="shell">docker network create -d &lt;network type&gt; &lt;network name&gt;
+</code></pre>
+
+<h2 id="la-modification-dun-container-docker-soumission">La modification d'un container Docker &amp; soumission<a class="headerlink" href="#la-modification-dun-container-docker-soumission" title="Permanent link"></a></h2>
+<h3 id="a-la-main">À la main<a class="headerlink" href="#a-la-main" title="Permanent link"></a></h3>
+<p>En lançant un container avec un terminal interactif (<code>docker run -t -i &lt;image</code>), il est possible d'installer tout les softs nécessaire au bon déroulement du container.</p>
+<p>Il suffit alors de commiter les modifications sur un répot Docker Hub.</p>
+<pre><code class="shell">docker commit -m &quot;comment&quot; -a &quot;Author&quot; &lt;id of the previous image&gt; &lt;target for the new image&gt;
+</code></pre>
+
+<h3 id="le-dockerfile">Le Dockerfile<a class="headerlink" href="#le-dockerfile" title="Permanent link"></a></h3>
+<p><em>TODO : list best practices</em></p>
+<h1 id="docker-compose">Docker Compose<a class="headerlink" href="#docker-compose" title="Permanent link"></a></h1>
+<p>Tool for defining and running multi-container applications.
+ - 3 Steps process :
+  - Define the app's environment with a Dockerfile
+  - Define the services that make up your app in a docker-compose.yml file. This allow them to run together in an isolated environment
+  - Run <code>docker-compose up</code></p>
+<p><strong>Project name</strong><br />
+  Defined by a project name to isolate each environment. IE : keep build to interfering with each other : a project name for a unique build number -&gt; many build at a time. This is set by using the option -p or the COMPOSE_PROJECT_NAME environment variable.</p>
+<h1 id="automated-build-on-docker-hub">Automated build on Docker Hub<a class="headerlink" href="#automated-build-on-docker-hub" title="Permanent link"></a></h1>
+<p><em>Only GitHub &amp; BitBukket complient</em></p>
+<h1 id="docker-docker-compose-update">Docker &amp; Docker Compose Update<a class="headerlink" href="#docker-docker-compose-update" title="Permanent link"></a></h1>
+<p><strong>TODO</strong></p>
+<h1 id="device-mapper">Device mapper<a class="headerlink" href="#device-mapper" title="Permanent link"></a></h1>
+<p><strong>Définition d'une nouvelle pool</strong></p>
+<p><a href="https://docs.docker.com/engine/userguide/storagedriver/device-mapper-driver/">Docker doc</a></p>
+<h1 id="docker-environment-variables">Docker environment variables<a class="headerlink" href="#docker-environment-variables" title="Permanent link"></a></h1>
+<p>Il est possible d'ajouter des variables d'environnement au sein de votre docker compose. Pour cela, trois solutions :
+<em> l'option <code>-f FILE</code> de la commande <code>docker-compose</code>. Il faut alors utiliser un chemin relatif.
+</em> le tableau <code>env_file:</code> à l'intérieur du docker compose. Encore une fois, veillez à utiliser des chemins relatifs.</p>
+<h1 id="docker-variables-substitution">Docker variables substitution<a class="headerlink" href="#docker-variables-substitution" title="Permanent link"></a></h1>
+<p>Il est possible d'écrire des compose en définissant des variables. Par exemple : <code>ports: ${WEB_PORT}:80</code>. Pour cela, il faut définir un fichier <code>.env</code> dans le même dossier que le docker-compose.yml. Docker s'occupe de remplacer les variables par leur valeur. Vous pouvez vérifier votre configuration via <code>docker-compose config</code>.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../FAQ/" class="btn btn-neutral" title="FAQ"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2017 <a href="https://virtualdonkey.fr">Maxime Sibellas</a>, Maintained by the VirtualDonkey Team.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../FAQ/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script src="../../js/theme.js"></script>
+
+</body>
+</html>
