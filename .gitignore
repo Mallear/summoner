@@ -1,10 +1,9 @@
 config.yml
 data/
 .vscode/
-**/.env
-**/*/.env
 env/
-src/
 .idea/
 playbook/*.retry
 minions/
+summoner.gitlab.io
+summoner

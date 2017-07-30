@@ -32,6 +32,10 @@ class Summoner:
 summoner = Summoner()
 
 
+CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
+
+
+@click.command(context_settings=CONTEXT_SETTINGS)
 @click.group()
 def cli():
     pass
@@ -89,6 +93,7 @@ def deploy(app):
     click.echo('Minion launched.')
 
 
+# Todo : check Summoner GitLab group to check if the application is available
 @cli.command()
 @click.argument('app')
 def start(app):
@@ -122,12 +127,18 @@ def update(app):
     start(app)
 
 
+# Get container volumes & create a tar container
+def save(container):
+    pass
+
+
+
+
 # Print all running containers
 @cli.command()
 def ls():
     for container in docker_watcher.containers.list():
         click.echo(container.name.split("-")[0])
-
 
 cli.add_command(init)
 cli.add_command(start)
