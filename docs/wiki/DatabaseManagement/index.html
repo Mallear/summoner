@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Mallear@VirtualDonkey">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Database Management - Summoner Docs</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../css/extra.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Database Management";
+    var mkdocs_page_input_path = "wiki/DatabaseManagement.md";
+    var mkdocs_page_url = "/wiki/DatabaseManagement/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Summoner Docs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Summoner</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../..">Accueil</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../summoner/">Solution</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Database Management</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#documentation-sur-la-gestion-des-bases-de-donnees-dans-un-container-docker">Documentation sur la gestion des bases de données dans un container docker</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#mysql">MySQL</a></li>
+        
+            <li><a class="toctree-l4" href="#mariadb">MariaDB</a></li>
+        
+            <li><a class="toctree-l4" href="#postgres">Postgres</a></li>
+        
+            <li><a class="toctree-l4" href="#mongodb">MongoDB</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Minions</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <span class="caption-text">Core minions</span>
+    <ul class="subnav">
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/core/nginx/README/">Nginx</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/core/OpenLDAP/README/">OpenLDAP</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/core/registry/README/">Docker registry</a>
+                </li>
+    </ul>
+                </li>
+                <li class="">
+                    
+    <span class="caption-text">Other minions</span>
+    <ul class="subnav">
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/etherpad/README/">Etherpad</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/ghost/README/">Ghost</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/gitlab/README/">Gitlab</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/mailserver/README/">Serveur mail</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/mattermost/README/">Mattermost</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/nextcloud/README/">Nextcloud</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/rocketchat/README/">Rocketchat</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/sinopia/README/">Sinopia</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/taiga/README/">Taiga</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/wekan/README/">Wekan</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../minions/wordpress/README/">Wordpress</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../FAQ/">FAQ</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../DockerVrac/">Memo Docker</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Summoner Docs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Summoner &raquo;</li>
+        
+      
+    
+    <li>Database Management</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://gitlab.com/summoner/summoner/"> Edit on Gitlab</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="documentation-sur-la-gestion-des-bases-de-donnees-dans-un-container-docker">Documentation sur la gestion des bases de données dans un container docker<a class="headerlink" href="#documentation-sur-la-gestion-des-bases-de-donnees-dans-un-container-docker" title="Permanent link"></a></h1>
+<p>Présentation des méthodes de dump et backup des bases de données utilisées.</p>
+<p><strong>Notes :</strong></p>
+<ul>
+<li>Dump = sauvegarde logique de la base</li>
+<li>Backup = sauvegarde physique de la base</li>
+</ul>
+<hr />
+<h2 id="mysql">MySQL<a class="headerlink" href="#mysql" title="Permanent link"></a></h2>
+<p><em>Liens :</em></p>
+<ul>
+<li><a href="http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html">MySQLdump utilitaire</a></li>
+<li><a href="http://dev.mysql.com/doc/refman/5.7/en/backup-methods.html">MySQL backup methods</a></li>
+<li><a href="http://dev.mysql.com/doc/refman/5.7/en/backup-strategy-example.html">MySQL backup strategy</a></li>
+</ul>
+<h3 id="lutilitaire-mysqldump">L'utilitaire <code>mysqldump</code><a class="headerlink" href="#lutilitaire-mysqldump" title="Permanent link"></a></h3>
+<p>L'utilitaire <code>mysqldump</code> permet d'effectuer des backup logiques d'une base de données. Il permet la création d'un fichier contenant les requêtes permettant de recreer une base de donnée et la repeupler.</p>
+<p><strong>Utilisation</strong></p>
+<ul>
+<li><code>mysqldump db_name &gt; dump.sql</code> permet l'export de la base de donnée.</li>
+<li><code>mysql db_name &lt; dump.sql</code> permet de restaurer la base de donnée.</li>
+</ul>
+<p>Dans notre cas, nous utilisons la commande suivante :</p>
+<blockquote>
+<p><code>mysqldump --user root --password=$MYSQL_ROOT_PASSWORD --all-databases --single-transaction &gt; dump.sql</code> permettant la sauvegarde de toutes les bases (<code>--all-databases</code>) et permettant une sauvegarde consistante de bases contenant des tables InnoDB (<code>--single-transaction</code>).
+<!--- <code>--master-data</code> permet la sauvegarde des logs incrémentaux dans la sortie standard de <code>mysqldump</code> et ainsi de sauvegarder les logs. ---></p>
+</blockquote>
+<p>Lors de la restauration du dump, la commande à exécuter est la suivante :
+<code>mysql --user root --password=$MYSQL_ROOT_PASSWORD &lt; dump.sql</code></p>
+<p><strong>Docker</strong></p>
+<p>Si la base MySQL est utilisée dans un docker :</p>
+<blockquote>
+<p><code>docker exec some_mysql bash -c 'mysqldump --user root --password=000 --all-databases --single-transaction' &gt;/path/to/dump/dir/dump.sql</code></p>
+</blockquote>
+<hr />
+<h2 id="mariadb">MariaDB<a class="headerlink" href="#mariadb" title="Permanent link"></a></h2>
+<p><em>Liens :</em></p>
+<ul>
+<li><a href="https://mariadb.com/kb/en/mariadb/mysqldump/">Doc <code>mysqldump</code></a></li>
+<li><a href="https://mariadb.com/kb/en/mariadb/backup-and-restore-overview/">Doc backup et restauration</a></li>
+</ul>
+<h3 id="effectuer-un-dump-sur-une-base-mariadb">Effectuer un dump sur une base MariaDB<a class="headerlink" href="#effectuer-un-dump-sur-une-base-mariadb" title="Permanent link"></a></h3>
+<p>L'utilitaire <code>mysqldump</code> utilisé pour faire des sauvegardes d'une base de donnée MariaDB. Il permet de d'exporter les paramètres d'une base dans un fichier de sauvegarde d'extension SQL, XML ou même CSV.</p>
+<p><strong>Performance</strong></p>
+<p><code>mysqldump</code> est un processus mono thread, ce qui permet d'éviter la surcharge serveur et le ralentissement des applications qui tournent pendant la sauvegarde. Cependant, il a provoque des entrées/sorties non nécessaires.</p>
+<p>Il est recommandé d'effectuer le dump de la base au sein du même réseau pour limiter la création d'entrée/sortie. Cependant, pour garder la bande passante pour les applications, il faut l'effectuer sur une seconde carte réseau.</p>
+<p><strong>Utilisation</strong></p>
+<ul>
+<li><code>mysqldump [options] db_name [table1_name ...]</code> sauvegarde le/les table/s de la base sélectionnée.</li>
+<li><code>mysqldump [options] --database db_name ...</code> sauvegarde la/les bases de données</li>
+<li><code>mysqldump [options] --all-databases</code> sauvegarde toutes les bases de données</li>
+</ul>
+<p>Options utiles :</p>
+<ul>
+<li><code>--user=[user_name]</code></li>
+<li><code>--password=[user_password]</code></li>
+</ul>
+<p>La sortie de <code>mysqldump</code> se fait dans la sortie standard. Il faut donc rediriger le flux dans un fichier choisi (<code>backup_file.sql</code> par exemple).</p>
+<p><em>Exemple d'utilisation :</em>
+Pour la sauvegarde de la base MariaDB utilisée avec l'application Nextcloud :
+<code>mysqldump --user=root --password=${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} &gt; /some/path/to/you/file/backup_nextcloud.sql</code></p>
+<p><em>Notes :</em> Si les tables de la base sont des tables MylSAM (MySQL 3.23 à MySQL 5.5), il est préférable d'utiliser l'utilitaire <code>mysqlhotcopy</code>.</p>
+<p><strong>Docker</strong></p>
+<p>Dans le cas d'utilisation de la base dans un conteneur Docker (<strong>/!\ chose à ne jamais faire dans un environnement de prod</strong>), la commande peut être exécutée de l'extérieur du conteneur de cette manière :</p>
+<blockquote>
+<p><code>docker exec some-mariadb sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_PASSWORD"' &gt; /some/path/on/your/host/all-databases.sql</code></p>
+</blockquote>
+<hr />
+<h2 id="postgres">Postgres<a class="headerlink" href="#postgres" title="Permanent link"></a></h2>
+<p><em>Liens :</em></p>
+<ul>
+<li><a href="http://docs.postgresql.fr/8.1/backup.html">Doc postgres backup SQL</a></li>
+<li><a href="http://docs.postgresql.fr/8.1/app-pgrestore.html">Doc postgres restore SQL</a></li>
+<li><a href="http://docs.postgresql.fr/8.1/app-pgdump.html">Doc sur l'outils <code>pg_dump</code></a></li>
+<li><a href="http://docs.postgresql.fr/8.1/backup-file.html">Doc postgres backup système</a></li>
+<li><a href="http://docs.postgresql.fr/8.1/backup-online.html">Doc postgres backup à chaud</a></li>
+<li><a href="http://docs.postgresql.fr/8.1/migration.html">Bonus : doc sur la migration</a></li>
+<li><a href="https://www.postgresql.org/docs/9.4/static/app-pgbasebackup.html"><strong>Pour aller plus loin</strong> : pg_basebackup pour les backup de cluster</a></li>
+</ul>
+<h3 id="dump">Dump<a class="headerlink" href="#dump" title="Permanent link"></a></h3>
+<p>Tout comme pour MariaDB, un utilitaire peut être utilisé : <code>pg_dump</code>. Il permet la sauvegarde rapide et simple de bases de données.</p>
+<p><strong>Utilisation</strong></p>
+<ul>
+<li><code>pg_dump dbname &gt; backupfile.out</code> [1]</li>
+<li><code>pg_dump -Ft dbname &gt; backupfile.tar</code> [2]</li>
+</ul>
+<p>Options :</p>
+<ul>
+<li><code>-Ft</code> permet la compression en fichier .tar</li>
+</ul>
+<p>La sortie standard de <code>pg_dump</code> se fait dans la sortie standard, une redirection de flux est nécessaire.</p>
+<p><em>Exemple d'utilisation :</em>
+Pour la sauvegarde de la base postgresql utilisée avec la plate forme Gitlab :
+<code>pg_dump --username=gitlab -Ft gitlabhq_production &gt; backup.tar</code></p>
+<p><strong>Docker</strong></p>
+<p>Dans le cas d'utilisation de la base dans un conteneur Docker (<strong>/!\ chose à ne jamais faire dans un environnement de prod</strong>), la commande peut être exécutée de l'extérieur du conteneur de cette manière :</p>
+<blockquote>
+<p><code>docker exec some_postgres bash -c 'pg_dump --username=gitlab -Ft gitlabhq_production' &gt; backup.tar</code></p>
+</blockquote>
+<h3 id="restauration-sql">Restauration SQL<a class="headerlink" href="#restauration-sql" title="Permanent link"></a></h3>
+<p>Plusieurs solutions sont possibles selon le backup effectué :</p>
+<ul>
+<li>[1] : <code>psql -d dbname -f backupfile.out</code></li>
+<li>[2] : <code>pg_restore -C newDbName backupfile.tar</code>  </li>
+</ul>
+<p><code>pg_restore -C</code> créer une nouvelle base, se connecte à cette base et la peuple des données du fichier de backup.</p>
+<h3 id="backup-fichier-backup-a-froid">Backup fichier / Backup à froid<a class="headerlink" href="#backup-fichier-backup-a-froid" title="Permanent link"></a></h3>
+<p>Cette stratégie consiste en la sauvegarde des fichiers utilisés par PostgreSQL pour enregistrer les données. Pour cela, il suffit d'utiliser GNU tar pour compresser les fichiers du dossier contenant les données de la base (dans notre cas <code>/var/lib/postgresql</code>).</p>
+<p>Cependant, il y a deux restrictions à cette méthode :</p>
+<ul>
+<li>Le serveur doit être arrêté pour obtenir une sauvegarde utilisable. Il en va de même pour la restauration.</li>
+<li>La sauvegarde et la restauration doivent être totales.</li>
+</ul>
+<p><strong>Docker</strong></p>
+<p>Si la base de donnée tourne dans un container Docker ayant un volume lié sur l'host, il suffit de stopper le container, d'archiver les fichiers du volume et de rallumer le container.</p>
+<h3 id="restauration-dun-backup-a-froid">Restauration d'un backup à froid<a class="headerlink" href="#restauration-dun-backup-a-froid" title="Permanent link"></a></h3>
+<p><strong>Docker</strong></p>
+<p>Arrêtez le container, remplacer les fichiers du volume par ceux de la sauvegarde, rallumez le container.</p>
+<h3 id="backup-a-chaud">Backup à chaud<a class="headerlink" href="#backup-a-chaud" title="Permanent link"></a></h3>
+<p>Tout d'abord assurez-vous que l'archivage WAL est activé et fonctionnel.</p>
+<p>Le backup à chaud nécessite de locker les données pour éviter leur modifitcation le temps de la sauvegarde. Pour cela, il faut prévenir le serveur de l'exécution de la sauvegarde grâce à commande SQL : <code>SELECT pg_start_backup('label');</code> où label est toute chaîne de caractère utilisée pour identifier de façon unique l'opération de sauvegarde. Cette commande crée un fichier <code>backup_label</code> contenant des informations sur la sauvegarde.</p>
+<p>À partir de là, il est possible d'utiliser <code>tar</code> ou <code>cpio</code> afin de sauvegarder les fichiers.</p>
+<p>Une fois la sauvegarde fini, prévenez le serveur avec la commande <code>SELECT pg_stop_backup();</code>.</p>
+<p>Une fois que les fichiers des segments WAL utilisés lors de la sauvegarde sont archivés de la même façon qu'une partie de l'activité normale de sauvegarde de la base de données, vous avez terminé.</p>
+<h3 id="restauration-dune-sauvegarde-a-chaud">Restauration d'une sauvegarde à chaud<a class="headerlink" href="#restauration-dune-sauvegarde-a-chaud" title="Permanent link"></a></h3>
+<p>Arrêtez le postmaster s'il est en cours d'exécution.</p>
+<p>Si vous avez de la place pour le faire, copiez le répertoire entier des données du groupe et tout tablespace dans un emplacement temporaire au cas où vous en auriez besoin plus tard. Notez que cette précaution demandera que vous ayez assez de place libre sur votre système pour contenir deux copies de votre base de données existante. Si vous n'avez pas assez de place, vous devez au moins copier le contenu du sous-répertoire pg_xlog du répertoire des données car il pourrait contenir des journaux qui n'ont pas été archivés avant l'arrêt du serveur.</p>
+<p>Effacez tous les fichier et sous-répertoires existants sous le répertoire des données du groupe et sous les répertoires racines des tablespaces que vous utilisez.</p>
+<p>Restaurez les fichiers de la base de données à partir de votre sauvegarde. Faites attention à ce qu'ils soient restaurés avec le bon propriétaire (l'utilisateur système de la base de données, et non pas root !) et avec les bons droits. Si vous utilisez les espaces logiques, vous vérifirez que les liens symboliques dans pg_tblspc/ ont été correctement restaurés.</p>
+<p>Supprimez tout fichier présent dans pg_xlog/ ; ils proviennent de la sauvegarde et sont du coup probablement obsolètes. Si vous n'avez pas archivé pg_xlog/ du tout, alors re-créez ce répertoire ainsi que le sous-répertoire pg_xlog/archive_status/.</p>
+<p>Si vous aviez des fichiers segments WAL non archivés que vous avez sauvegardé dans l'étape 2, copiez-les dans pg_xlog/ (il est mieux de les copier, pas de les déplacer, car vous aurez toujours les fichiers non modifiés si un problème survient et que vous devez recommencer).</p>
+<p>Créez un fichier de commandes de récupération recovery.conf dans le répertoire des données du groupe (voir Configuration de la récupération). De plus, vous pourriez vouloir modifier temporairement pg_hba.conf pour empêcher les utilisateurs ordinaires de se connecter tant que vous n'êtes pas certain que la récupération a réussi.</p>
+<p>Lancez le postmaster. Le postmaster se trouvera en mode récupération et commencera la lecture des fichiers WAL archivés dont il a besoin. À la fin du processus de récupération, le postmaster renommera recovery.conf en recovery.done (pour empêcher de retourner accidentellement en mode de récupération dans le cas d'un arrêt brutal un peu plus tard), puis commencera les opérations normales de la base de données.</p>
+<p>Inspectez le contenu de la base de données pour vous assurer que vous avez récupéré ce que vous vouliez. Sinon, retournez à l'étape 1. Si tout va bien, laissez vos utilisateurs venir en restaurant le fichier pg_hba.conf à son état normal.</p>
+<hr />
+<h2 id="mongodb">MongoDB<a class="headerlink" href="#mongodb" title="Permanent link"></a></h2>
+<p><em>Liens :</em></p>
+<ul>
+<li><a href="https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/">Backup &amp; restore tools for mongoDB</a></li>
+<li><a href="https://docs.mongodb.com/v3.2/core/backups/">MongoDC backups</a></li>
+</ul>
+<h3 id="lutilitaire-mongodump">L'utilitaire <code>mongodump</code><a class="headerlink" href="#lutilitaire-mongodump" title="Permanent link"></a></h3>
+<p>L'utilitaire <code>mongodump</code> permet la sauvegarde binaire d'une base de donnée dans un fichier BSON. Il est très utile pour effectuer des backups de petits déploiements. Cependant, il nécessite le parcours des index des tables et peut donc ralentir l'utilisation de la base par les applications.</p>
+<p><strong>Utilisation</strong></p>
+<ul>
+<li><code>mongodump --out dump_dir/</code> permet de faire un dump binaire de la base dans le dossier <code>dump_dir</code></li>
+<li><code>mongorestore dump_dir/</code> permet la restauration de la base à partir du dossier <code>dump_dir</code></li>
+</ul>
+<p><strong>Docker</strong></p>
+<p>Pour lancer un dump dans le container, il suffit de lancer :<br />
+<code>docker exec some_mogodb bash -c 'mongodump --out /path/to/dump/dir'</code></p>
+<p>Néanmoins, pour récupérer le résultat, il est bon de compresser le dossier et de le mettre dans le volume partagé :<br />
+<code>docker exec some_mogodb bash -c 'mongodump | tar -cvf /path/to/shared/volume/file.tar'</code></p>
+<h3 id="le-snapshot-du-filesystem">Le snapshot du filesystem<a class="headerlink" href="#le-snapshot-du-filesystem" title="Permanent link"></a></h3>
+<p><em>Liens :</em></p>
+<ul>
+<li><a href="https://docs.mongodb.com/v3.2/tutorial/backup-with-filesystem-snapshots/">Snapshot de filesytems</a></li>
+</ul>
+<p>La sauvegarde par snapshot consiste à prendre un snapshot à un instant t des fichiers de la base de données. Ceci n'est pas une opération spécifique à MongoDB mais à l'OS. Les mécaniques du process dépendent alors du systeme de stockage. Par exemple, sur Linux, il est possible d'utiliser LVM (Logical Volume Manager).</p>
+<p>Pour avoir un snapshot convenable de la base MongoDB, il faut que la journalisation soit activée et que le journal des logs se trouvent dans le même volume logique que les autres fichiers de données. Sans cela, il n'est pas assuré que le snapshot soit consistent et valide.</p>
+<p><strong>Utilisation</strong></p>
+<ul>
+<li>Création d'un snapshot : <code>$ lvcreate --size 100M --snapshot --name mdb-snap01 /dev/vg0/mongodb</code></li>
+<li>Archivage du snapshot : <code>$ umount /dev/vg0/mdb-snap01; dd if=/dev/vg0/mdb-snap01 | gzip &gt; mdb-snap01.gz</code></li>
+<li>Restoration du snapshot :</li>
+</ul>
+<pre><code class="bash">lvcreate --size 1G --name mdb-new vg0
+gzip -d -c mdb-snap01.gz | dd of=/dev/vg0/mdb-new
+mount /dev/vg0/mdb-new /srv/mongodb
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../minions/core/nginx/README/" class="btn btn-neutral float-right" title="Nginx">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../summoner/" class="btn btn-neutral" title="Solution"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2017 <a href="https://virtualdonkey.fr">Maxime Sibellas</a>, Maintained by the VirtualDonkey Team.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../../summoner/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../minions/core/nginx/README/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../../js/theme.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
+        
+    <url>
+     <loc>https://summoner.gitlab.io//</loc>
+     <lastmod>2017-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://summoner.gitlab.io//summoner/</loc>
+     <lastmod>2017-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://summoner.gitlab.io//wiki/DatabaseManagement/</loc>
+     <lastmod>2017-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>https://summoner.gitlab.io/</loc>
+     <lastmod></lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://summoner.gitlab.io/</loc>
+     <lastmod></lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+    <url>
+     <loc>https://summoner.gitlab.io//wiki/FAQ/</loc>
+     <lastmod>2017-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://summoner.gitlab.io//wiki/DockerVrac/</loc>
+     <lastmod>2017-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+</urlset>
