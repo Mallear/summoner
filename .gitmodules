@@ -46,6 +46,9 @@
 [submodule "core/OpenLDAP"]
 	path = core/OpenLDAP
 	url = git@gitlab.com:summoner/OpenLDAP.git
+[submodule "summoner.gitlab.io"]
+	path = summoner.gitlab.io
+	url = git@gitlab.com:summoner/summoner.gitlab.io.git
 [submodule "minions/ethercalc"]
 	path = minions/ethercalc
 	url = git@gitlab.com:summoner/ethercalc.git
